@@ -1,0 +1,95 @@
+.files__modal *{
+  box-sizing: border-box;
+}
+
+
+#load__modal{
+  display: none;
+}
+.files__list {
+  padding: 0;
+}
+.files__list li{
+  color: #18c9a0;
+  padding: 10px 0px;
+  list-style-type: none;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.files__list li:hover{
+  color: #31f7c9;
+}
+
+#save__modal{
+  position: absolute;
+  flex-direction: column;
+  display: none;
+  align-content: center;
+  display: none;
+}
+#save__modal form{
+  margin-top: 20px;
+}
+#mcap__filename{
+  width: 65%;
+  height: 50px;
+  padding: 10px 20px;
+  font-size: 18px;
+}
+#mcap__save-btn{
+  width: 30%;
+  height: 50px;
+  font-size: 20px;
+}
+
+#mc_plus{
+  font-size: 32px;
+}
+
+#mc_minus{
+  font-size: 32px;
+}
+
+.modal__close{
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10px;  
+}
+
+.files__modal{
+  position: absolute;
+  top: 50px;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.7);
+  width: 500px;
+  height: 100vh;
+  padding: 30px 10px;
+
+}
+
+.tool__keyboard{
+    font-size: 14px;
+}
+
+#LayerManagerList .layerManagerListItemDetails{
+  height: auto !important;
+}
+.btn__layer{
+    padding: 5px 10px;
+    background: rgba(200,200,200,0.5);
+    border-radius: 5px;  
+}
+#LayerManagerList .layerManagerListItemDetails .Design-sidebar-listitem{
+ display: none !important;
+}
+
+.mcap__del-ctx{
+    height: 50px;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;  
+}

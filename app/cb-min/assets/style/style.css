@@ -1,0 +1,269 @@
+body{
+  width: 100vw;
+
+  background: #445;
+  padding: 20px;
+  position: relative;
+}
+
+.buttons__wrapper{
+  display: flex;
+  margin-bottom: 10px !important;
+}
+
+.fen__btn{
+  margin-right: 10px;
+  width: 40px;
+  height: 40px;
+  background: #556;
+  color: #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border:0;
+  position: relative;
+}
+.style-circle{
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  opacity: 0.3;
+}
+.fen__btn:hover{
+  background: #335;
+  color: white;
+}
+.fen__btn:focus{
+  outline: 0;
+}
+#positionSetUp{
+  width: 50%;
+
+}
+
+
+.fenInputOutput{
+  color: #667;
+  font-weight: 700;
+}
+.fen-input-output{
+  margin-bottom: 0.5rem !important;
+  background: #556 !important;
+  color: #999 !important;
+  border: unset;
+  border-radius: unset;
+  height: 40px;
+}
+.fen-input-output:focus{
+    outline: 0 !important;
+}
+
+.fen__wrapper{
+  display: flex;
+  margin-bottom: 10px !important;
+  height: 40px;
+}
+.fen__btn{
+  cursor: pointer;
+  min-width: 40px;
+}
+.fen__input{
+  width: 100%;
+  position: relative;
+}
+
+.fen__save{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+
+}
+.fen__save-wrapper{
+  width: 550px;
+  height: 150px;
+  background: wheat;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+
+}
+.fen__save-wrapper-input{
+  display: flex;
+  justify-content: space-between;
+}
+.fen__save-fen{
+  padding-top: 10px;
+  color: #999;
+}
+.fen__save-input{
+  width: 100%;
+  height: 50px;
+  padding: 0 20px;
+  background: cornsilk;
+  border: 0;
+  caret-color: red;
+}
+.fen__save-input:focus{
+  outline: 0;
+}
+.fen__save-btn{
+  width: 150px;
+  height: 50px;
+  background: #445;
+  color: #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+}
+.fen__save-btn:hover{
+  color: white;
+  background: #225;
+}
+.fen__save-remove{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: red;
+  font-size: 32px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+
+.container{
+  margin: 0;
+  padding: 0;
+  max-width: unset;
+}
+main{
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+
+}
+.buttons-figures{
+  display: flex;
+  justify-content: space-between;
+}
+.cm-fen-editor .buttons-figures button{
+  margin-right: 0;
+}
+
+.fen__figuries{
+  margin-bottom: 20px;
+}
+
+.scale15 svg{
+  transform: scale(1.1);
+}
+
+/**/
+
+.fen__list-wrapper{
+  position: absolute;
+  top: 0px;
+  right: 0;
+  background: #556;
+  color: wheat;
+  padding: 10px;
+}
+
+
+/**/
+.fen__list{
+  background: rgba(200, 200, 200, 0.1);
+  max-height: 450px;
+  overflow: auto;
+}
+.fen__list--item{
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: #999;
+  position: relative;
+}
+.fen__list--item:hover{
+  background: rgba(200, 200, 200, 0.2);
+  color: white;
+}
+.fen__list--item-data{
+  cursor: pointer;
+  padding: 5px 10px;
+  width: 90%;
+  display: inline-block;
+}
+.fen__list--item-remove{
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  padding: 5px 10px;
+  color: #776;
+}
+.fen__list--item-remove:hover{
+  color: red;
+}
+
+.tools{
+  margin-left: 15px;
+  align-self: flex-start;
+}
+
+.wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chessboard-wrapper{
+  display: flex;
+  flex-direction: column;
+}
+
+.utils{
+  padding-top: 15px;
+}
+
+.btn .fas {
+  font-size: 24px;
+}
+.buttons-figures{
+  flex-direction: column;
+}
+.buttons-figures .btn{
+  height: 40px;
+  width: 40px;
+  padding: 0 !important;
+
+  border-radius: unset;
+}
+.fa-fw{
+  width: unset !important;
+}
+.fen__figuries{
+  display: flex;
+  flex-wrap: wrap;
+  width: 40px;
+  margin: 0;
+  height: 100%;
+}
+
+#empty__board,
+#start__board{
+  width: auto;
+  text-align: center;
+  line-height: 16px;
+  padding: 3px 15px;
+  white-space: nowrap;
+}

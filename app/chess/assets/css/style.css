@@ -1,0 +1,275 @@
+body{
+  background: #445;
+  position: relative;
+}
+
+.history{
+  color: #999;
+  max-width: unset !important;
+  height: 100%;
+  width: 100% !important;
+}
+.history table tbody tr{
+  background: rgba(200,200,200,0.2);
+}
+.history table tbody tr:nth-child(2n){
+  background: rgba(200,200,200,0.1);
+}
+.history table tbody tr td.ply i{
+  text-shadow: unset;
+}
+
+.history table tbody tr td.num{
+  padding: 0 10px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+
+}
+.history table tbody tr td:nth-child(2){
+  padding-left: 10px;
+}
+.history table tbody tr td:nth-child(3) i{
+
+}
+.chess-console .chess-console-left .captured-pieces{
+  height: 150px !important;
+}
+
+.chess-console .fa-figure-black{
+  text-shadow: unset;
+}
+.chess-console .fa-figure-white{
+  text-shadow: unset;
+}
+.captured-pieces small{
+  display: none !important;
+}
+.chess-console-left{
+  border: 1px solid #334 !important;
+  padding-top: 10px !important;
+  margin-left: 10px;
+}
+
+/*Timer*/
+
+.chess-timer{
+  /*height: 150px;*/
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between
+}
+.chess-timer__btn-wrapper{
+  height: 110px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.chess-timer__player{
+  width: 47%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #556;
+  cursor: pointer;
+  font-size: 26px;
+  color: #999;
+}
+
+.chess-timer__control{
+  width: 47%;
+
+  height: 30px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+/***/
+
+.modal{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 9999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+}
+.modal__close{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: red;
+  font-size: 32px;
+  cursor: pointer;
+}
+.modal__info{
+  width: 350px;
+  height: 200px;
+  background: wheat;
+  padding: 15px
+}
+
+.chess-console-center{
+  max-width: unset;
+  width: 800px;
+  padding: 0;
+}
+.chess-console{
+  justify-content: center;
+  margin: 0;
+}
+
+#timer__value{
+  background: #556;
+  border: 0;
+  height: 100%;
+  color: #999;
+
+}
+#timer__value:focus{
+  outline: none;
+}
+#timer__reset{
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 47%;
+    background: #556;
+    color: #999;
+    height: 30px;
+}
+.modal__msg{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 24px;
+}
+
+.player{
+  color: #999;
+}
+.chess-console .chess-console-board .player.to-move:after{
+   color: lightgreen;
+}
+.player{
+  padding: 3px 0;
+}
+
+.game__control{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+#new_game{
+  background: #556;
+  color: #999;
+  width: 100%;
+  margin-bottom: 10px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+}
+#flip_board{
+  background: #556;
+  color: #999;
+  width: 47%;
+  height: 30px;
+  cursor: pointer;
+  margin-right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.active-timer{
+  /*background: red !important;*/
+  color: red;
+}
+
+/*NUMBER*/
+input[type="number"] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.number-input {
+  height: 30px;
+  display: inline-flex;
+  width: 47%;
+}
+
+.number-input,
+.number-input * {
+  box-sizing: border-box;
+}
+
+.number-input button {
+  outline:none;
+  -webkit-appearance: none;
+  background-color: #556;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+}
+
+.number-input button:before,
+.number-input button:after {
+  display: inline-block;
+  position: absolute;
+  content: '';
+  width: 10px;
+  height: 2px;
+  background-color: #999;
+  transform: translate(-50%, -50%);
+
+}
+.number-input button.plus:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.number-input input[type=number] {
+  font-family: sans-serif;
+  width: 100px;
+  border: solid #ddd;
+  font-size: 18px;
+  height: 30px;
+  text-align: center;
+}  
+
+/**/
+
+.chess-console-board {
+  display: flex;
+  flex-direction: column;
+}
+
+.chess-console-board.reverse{
+    flex-direction: column-reverse;
+}
+
+.chess-timer__player--1{
+  background-color: white;
+}
+.chess-timer__player--2{
+  background-color: black;
+}
