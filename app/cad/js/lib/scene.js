@@ -43,6 +43,7 @@ function reset() {
 	//sceneQmlObject.selectionSetChange();
 }
 
+
 //function setPrompt(index){
 //    //var position = previous ? points.length : points.length+2;
 //    console.log("scene.js - setPrompt. Index: ", index)

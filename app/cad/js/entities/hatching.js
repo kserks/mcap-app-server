@@ -1,7 +1,7 @@
 // Register this command with the scene
 commands.push({
     command: "HATCHING",
-    shortcut: "REC"
+    shortcut: "HAT"
 });
 
 function HATCHING(data) //startX, startY, endX, endY)
@@ -122,7 +122,7 @@ HATCHING.prototype.svg = function () {
     //<HATCHING x1="20" y1="100" x2="100" y2="100" stroke-width="2" stroke="black"/>
     var quote = "\""
     var svgstr = ""
-    var data = svgstr.concat("<HATCHING x1=", "\"", this.startX, "\"",
+    var data = svgstr.concat("<rect x1=", "\"", this.startX, "\"",
         " y1=", "\"", this.startY, "\"",
         " x2=", "\"", this.endX, "\"",
         " y2=", "\"", this.endY, "\"",

@@ -556,3 +556,28 @@ document.querySelector('#LayerManagerList').addEventListener('mousedown', functi
 
 })
 
+
+
+
+
+
+/**
+ * DEV
+ */
+
+
+function rrr(){
+
+  var { type, points, lineWidth, layer, colour } = selectedItems[0]
+  addToScene(type, {
+    points,
+    colour,
+    layer,
+    lineWidth
+  })
+
+
+  reset()
+  canvas.zoom(1)
+  //canvas.requestPaint()
+}
