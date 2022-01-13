@@ -1451,14 +1451,14 @@ function layerColourChange(colour, layerIndex){
 <div class="Design-header">
 <div class="Design-header-icon" , onclick="closeSettings()"><img src="icons/close.svg"></div>
 <div class="Design-header-title">
-<h3>Settings</h3>
+<h3>Параметры</h3>
 </div>
 </div>
 <div class="Settings-body">
 
 <div class="tab">
-<button class="tablinks" onclick="changeTab(event, 'Colour')" id="defaultOpen">Colour</button>
-<button class="tablinks" onclick="changeTab(event, 'Snaps')">Snaps</button>
+<button class="tablinks" onclick="changeTab(event, 'Colour')" id="defaultOpen">Цвета</button>
+<button class="tablinks" onclick="changeTab(event, 'Snaps')">Объектная привязка</button>
 <!--
 <button class="tablinks" onclick="changeTab(event, 'Text'); loadStyleList();">Text</button>
 <button class="tablinks" onclick="changeTab(event, 'Accounts')">Accounts</button>
@@ -1482,32 +1482,32 @@ function layerColourChange(colour, layerIndex){
 <ul> 
 <div class="Design-sidebar-listitem">
 <div id="canvasBackgroundColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-<p>Canvas Background Colour</p>
+<p>Цвет фона</p>
 <div></div>
 </div>
 <div class="Design-sidebar-listitem">
 <div id="selectedItemsColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-<p>Selected Items Colour</p>
+<p>Цвет выделенных элементов</p>
 <div></div>
 </div>
 <div class="Design-sidebar-listitem">
 <div id="snapColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-<p>Snap Colour</p>
+<p>Цвет маркеров привязок</p>
 <div></div>
 </div>
 <div class="Design-sidebar-listitem">
 <div id="helperGeometryColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-<p>Helper Geometry Colour</p>
+<p>Цвет контура при построении</p>
 <div></div>
 </div>
 <div class="Design-sidebar-listitem">
 <div id="polarSnapColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-<p>Polar Snap Colour</p>
+<p>Цвет напраляющей угловой привязки</p>
 <div></div>
 </div>
 <div class="Design-sidebar-listitem">
 <div id="gridColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-<p>Grid Colour</p>
+<p>Цвет сетки</p>
 <div></div>
 </div>
 </ul>
@@ -1525,7 +1525,7 @@ function layerColourChange(colour, layerIndex){
 
 <div id="Endsnap" class="Design-sidebar-listitem">
 <img src="icons/snap-end.svg" style="width:32px;height:32px;">
-<p>End</p>
+<p>К концам отрезка</p>
 <label class="toggle">
 <input type="checkbox" onclick="toggleSnap('endSnap')" checked='function(){settings["endSnap"]};'>
 <span class="slider"></span>
@@ -1534,7 +1534,7 @@ function layerColourChange(colour, layerIndex){
 
 <div id="Midsnap" class="Design-sidebar-listitem">
 <img src="icons/snap-mid.svg" style="width:32px;height:32px;">
-<p>Mid</p>
+<p>К середине отрезка</p>
 <label class="toggle">
 <input type="checkbox" onclick="toggleSnap('midSnap')" checked='function(){settings["midSnap"]};'>
 <span class="slider"></span>
@@ -1543,7 +1543,7 @@ function layerColourChange(colour, layerIndex){
 
 <div id="Centresnap" class="Design-sidebar-listitem">
 <img src="icons/snap-centre.svg" style="width:32px;height:32px;">
-<p>Centre</p>
+<p>К центру окружности</p>
 <label class="toggle">
 <input type="checkbox" onclick="toggleSnap('centreSnap')" checked=function(){settings["centreSnap"]};>
 <span class="slider"></span>
@@ -1552,7 +1552,7 @@ function layerColourChange(colour, layerIndex){
 
 <div id="Nearestsnap" class="Design-sidebar-listitem">
 <img src="icons/snap-nearest.svg" style="width:32px;height:32px;">
-<p>Nearest</p>
+<p>К ближайшей точке</p>
 <label class="toggle">
 <input type="checkbox" onclick="toggleSnap('nearestSnap')" checked=function(){settings["nearestSnap"]};>
 <span class="slider"></span>
@@ -1565,7 +1565,7 @@ function layerColourChange(colour, layerIndex){
 <ul> 
 <div id="Polar" class="Design-sidebar-listitem">
 <img src="icons/polar.svg" style="width:32px;height:32px;">
-<p>Polar</p>
+<p>Угловая привязка</p>
 <label class="toggle">
 <input type="checkbox" onclick="toggleSnap('polar')" checked=function(){settings["polar"]};>
 <span class="slider"></span>
@@ -1573,12 +1573,12 @@ function layerColourChange(colour, layerIndex){
 </div>
 
 <div id="PolarAngle" class="Design-sidebar-listitem">
-<p>Polar Angle</p>
+<img src="icons/polar-angle.png" style="width:32px;height:32px;">
+<p>Шаг угловой привязки</p>
 <select id="polarAngle" onchange="changePolarAngle(this.value)";>
-<option value="5">5</option>
-<option value="45">45</option>
-<option value="90">90</option>
-<option value="180">180</option>
+    <option value="5">5</option>
+    <option value="45">45</option>
+    <option value="90">90</option>
 </select>
 </div>
 
@@ -1594,7 +1594,7 @@ function layerColourChange(colour, layerIndex){
 -->
 <div id="Grid" class="Design-sidebar-listitem">
 <img src="icons/grid.svg" style="width:32px;height:32px;">
-<p>Show Grid</p>
+<p>Показывать сетку</p>
 <label class="toggle">
 <input type="checkbox" onclick="toggleSnap('drawGrid')" checked=function(){settings["drawGrid"]};>
 <span class="slider"></span>
@@ -1837,7 +1837,7 @@ var settings = {
 	centreSnap: true,
 	nearestSnap: false,
 	quadrantSnap: false,
-	polarAngle: 45,
+	polarAngle: 5,
 	polar: true,
 	ortho: false,
 	drawGrid: true
