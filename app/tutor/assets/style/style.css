@@ -225,3 +225,8 @@ main{
   justify-content: center;
   align-items: center;
 }
+
+.fen__btn--active {
+    background: #335;
+    color: white;
+}

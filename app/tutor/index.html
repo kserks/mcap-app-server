@@ -129,7 +129,8 @@
                                 <input type="text" class="form-control fen-input-output" id="fenInputOutput">
   
                             </div>
-
+                             <div class="fen__btn" id="pause" style="margin-left: 10px; margin-right: 0px;"><i class="fas fa-chess-board"></i></div>
+                            
                      </div>
                     <!--fen list-->
                     <div class="fen__list"></div>
@@ -179,7 +180,7 @@ try {
 }
 
 
-    var FEN_STORE = [
+const FEN_STORE = [
         {
             title: 'Пустая доска',
             value: '8/8/8/8/8/8/8/8 w - - 0 1'
@@ -188,20 +189,20 @@ try {
             title: 'Стартовая позиция',
             value: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
         }
-    ]
+]
 
-
-function init(){
-
-    renderFenList()
-//.chessboard-theme__green
-    const editor = new FenEditor(document.getElementById("editorContainer"), {
+const editor = new FenEditor(document.getElementById("editorContainer"), {
         onChange: function(fen, valid) {
             //console.log("onChange callback", fen, valid)
         },
         fen: '8/8/8/8/8/8/8/8 w - - 0 1',
         
     })
+function init(){
+
+    renderFenList()
+//.chessboard-theme__green
+
     const { chessboard } = editor
 
 
@@ -227,7 +228,6 @@ function init(){
     $('.fen__save-btn').on('click', function (){
         let title = $('.fen__save-input').val()
         if(title!==''){
-
             let index = FEN_STORE.map(f=>{
                             if(f.title===title) return title
                         }).indexOf(title)
@@ -304,6 +304,33 @@ $('.css-theme').on('click', function (){
     window.theme = id
     location.reload()
 })
+
+
+/**
+ * PAUSE
+ */
+
+let activePause = false
+let fenPausedData = null
+$('#pause').on('click', function (){
+
+  if(fenPausedData){
+
+      //activePause = false
+      $(this).removeClass('fen__btn--active')
+      editor.state.fen = fenPausedData
+      fenPausedData = null
+  }
+  else{
+      //activePause = true
+      $(this).addClass('fen__btn--active')
+      fenPausedData = editor.state.fen
+  }
+
+
+})
+
+
 </script>
 </body>
 </html>
