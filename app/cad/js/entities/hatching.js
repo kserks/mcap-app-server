@@ -44,20 +44,13 @@ function HATCHING(data) //startX, startY, endX, endY)
     }
 }
 /***/
-
-HATCHING.prototype.drawLines = function (points){
-    console.warn(points)
-    const a = points[0]
-    const b = points[1]
-    let step = height = a.y-b.y
+function addLines (x, y, x2, y2, width, height){
+    let step = height
+    const qty = (width/height).toFixed()
     let sp = 0
-    const width = b.x-a.x
-    const qty = (width/height).toFixed()//-1
-    console.log(qty)
-
     for(let i=0; i<qty; i++){
         let data = {
-            points: [ new Point(a.x+sp, a.y), new Point(a.x+sp+height, b.y) ],
+            points: [ new Point(x+sp, y), new Point(x+sp+height, y2) ],
             colour: "BYLAYER",
             layer: LM.getCLayer()
         }
@@ -65,8 +58,40 @@ HATCHING.prototype.drawLines = function (points){
         var line = new Line(data)
         items.push(line)
     }
+   // удаляем прямоугольник
+   setTimeout(()=>{
+        items = items.filter(item=>item.type!=="HATCHING")
+   }, 0)
 
-    console.log(items.indexOf(this))
+
+
+    //items = newItems
+}
+
+HATCHING.prototype.drawLines = function (points){
+
+    const a = points[0]
+    const b = points[1]
+
+    let width = 0
+    let height = 0
+    if(b.y>a.y){
+        height = b.y-a.y
+    }
+    else{
+        height = a.y-b.y
+    }
+    // [ left, top ] => [ right, bottom ]
+    if(b.x>a.x){
+        width = b.x-a.x
+        addLines(a.x, a.y, a.x, b.y, width, height)
+    }
+    // [ right, top ] => [ left, bottom ]
+    else{
+        width = a.x-b.x
+        addLines(b.x, b.y, b.x, a.y, width, height)
+    }
+
 }
 
 

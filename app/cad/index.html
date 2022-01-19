@@ -41,6 +41,7 @@
         <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['C'] )"><img src="icons/circle.svg"></button></div>
         <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['A'] )"><img src="icons/arc.svg"></button></div>
         <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['REC'] )"><img src="icons/rectangle.svg"></button></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['HATCHING'] )"><img src="icons/grid-btn.svg"></button></div>
         <!--<div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['EL'] )"><img src="icons/ellipse.svg"></button>  <span class="tooltiptext">Ellipse (EL)</span></div>-->
         <!--<div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['DT'] )"><img src="icons/text.svg"></button>  <span class="tooltiptext">Text (DT)</span></div>
         -->
@@ -54,7 +55,7 @@
 
         <div class="tooltip"><span class="separator"></span></div>
         <div class="tooltip"><button class="tool" , onclick="showHideLayerManager()"><img src="icons/layers.svg"></button><span class="tooltiptext">Layers</span></div>
-           <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['HATCHING'] )"><img src="icons/grid-btn.svg"></button></div>
+           
     
         <!--<div class="tooltip"><button class="tool" , onclick="showHidePropertiesManager()"><img src="icons/properties.svg"></button><span class="tooltiptext">Properties</span></div>-->
         <div class="tooltip"><button class="tool tool__keyboard" id="mc__Esc">Esc</button></div>
@@ -608,7 +609,7 @@
     <div class="Design-header">
         <div class="Design-header-icon" , onclick="closeLayerManager()"><img src="icons/close.svg"></div>
         <div class="Design-header-title">
-            <h3>Layers</h3>
+            <h3>Управление слоями</h3>
         </div>
         <div class="Design-header-icon" , onclick="addNewLayer()"><img src="icons/add.svg"></div>
     </div>
@@ -1838,7 +1839,7 @@ var settings = {
 	nearestSnap: false,
 	quadrantSnap: false,
 	polarAngle: 5,
-	polar: false,
+	polar: true,
 	ortho: false,
 	drawGrid: true
 }
