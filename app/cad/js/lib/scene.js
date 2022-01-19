@@ -339,7 +339,7 @@ function addHelperGeometry(type, points, colour) {
 	//var helperPoints = new Array();
 	//helperPoints.push(points);
 	//helperPoints.push(point);
-
+	
 	var data = {
 		points: points,
 		colour: colour //"#00BFFF"

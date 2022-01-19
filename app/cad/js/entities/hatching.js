@@ -19,14 +19,7 @@ function HATCHING(data) //startX, startY, endX, endY)
     this.colour = "BYLAYER";
     this.layer = "0";
     this.alpha = 1.0 //Transparancy
-    //this.HATCHINGType
-    //this.HATCHINGtypeScale
-    //this.PlotStyle
-    //this.HATCHINGWeight
-
-
     if (data) {
-
         if (data.points) {
             var point1 = new Point(data.points[0].x, data.points[0].y);
             var point2 = new Point(data.points[1].x, data.points[0].y);
@@ -52,16 +45,28 @@ function HATCHING(data) //startX, startY, endX, endY)
 }
 /***/
 
-HATCHING.prototype.drawLines = function (data){
+HATCHING.prototype.drawLines = function (points){
+    console.warn(points)
+    const a = points[0]
+    const b = points[1]
+    let step = height = a.y-b.y
+    let sp = 0
+    const width = b.x-a.x
+    const qty = (width/height).toFixed()//-1
+    console.log(qty)
 
-   // console.warn(data)
-   /* 
-   new Line({
-        points: data,
-        colour: 'red',
-        layer: undefined
-    })
-    */
+    for(let i=0; i<qty; i++){
+        let data = {
+            points: [ new Point(a.x+sp, a.y), new Point(a.x+sp+height, b.y) ],
+            colour: "BYLAYER",
+            layer: LM.getCLayer()
+        }
+        sp = sp+step
+        var line = new Line(data)
+        items.push(line)
+    }
+
+    console.log(items.indexOf(this))
 }
 
 
@@ -348,12 +353,12 @@ HATCHING.prototype.touched = function (selection_extremes) {
         end: rP2
     };
 
-    var output = Intersection.intersectHATCHINGHATCHING(this.intersectPoints(), rectPoints);
+ /*   var output = Intersection.intersectHATCHING(this.intersectPoints(), rectPoints);
     //console.log(output.status)
 
     if (output.status === "Intersection") {
         return true
-    }
+    }*/
     //no intersection found. return false
     return false
 }
