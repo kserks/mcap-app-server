@@ -3,7 +3,9 @@
 <head>
   <title>manga</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="./app/style.css">
+  <link rel="stylesheet" type="text/css" href="/manga/app/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/manga/app/css/style.css">
+  <script src="/manga/app/Manga.js"></script>
 </head>
 <body>
 
@@ -11,18 +13,17 @@
     <div class="viewer"></div>
     <div class="controls">
         <div class="arrow prev">
-          <svg viewBox="0 0 24 24">
-              <path fill="currentColor" d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z" />
-          </svg>
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </div>
+        <div class="progress">
+            <div class="progress__data"></div>
         </div>
         <div class="arrow next">
-          <svg  viewBox="0 0 24 24">
-              <path fill="currentColor" d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z" />
-          </svg>
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
         </div>
     </div>
   </div>
 
-<script src="./app/main.js"></script>
+<script src="/manga/app/main.js"></script>
 </body>
 </html>

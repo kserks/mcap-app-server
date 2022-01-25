@@ -2,15 +2,16 @@ const
   express                     = require('express'),
   bodyParser                  = require('body-parser'),
   fs                          = require('fs-extra'),
-  { join }                    = require('path'),
+  { join, resolve }           = require('path'),
   cors                        = require('cors');
 
 const
   _cad                        = require('./routes/cad'),
   _pb                         = require('./routes/pb'),
-  _tutor                      = require('./routes/tutor')
+  _tutor                      = require('./routes/tutor'),
+  _manga                      = require('./routes/manga')
 
-
+global.appRoot = resolve(__dirname);
 const PORT = require('./mcap-config.json').PORT
 const app = express()
 
@@ -29,6 +30,7 @@ app.use(express.static(join(__dirname, '/app')))
 app.use('/cad', _cad)
 app.use('/pb', _pb)
 app.use('/tutor', _tutor)
+app.use('/manga', _manga)
 /*
  * router
  */
