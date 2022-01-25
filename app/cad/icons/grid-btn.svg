@@ -1,5 +1,34 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"  width="24" height="24" viewBox="0 0 24 24">
-   <path fill="#999999" d="M9 9V11H7V9H5V11H3V9H1V21H3V19H5V21H7V19H9V21H11V19H13V21H15V19H17V21H19V19H21V21H23V9H21V11H19V9H17V11H15V9H13V11H11V9H9M3 13H5V17H3V13M7 13H9V17H7V13M11 13H13V17H11V13M15 13H17V17H15V13M19 13H21V17H19V13Z" />
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0 0 400 400">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #999;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #999;
+        stroke-width: 1px;
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: red;
+      }
+    </style>
+  </defs>
+  <image id="Слой_1" data-name="Слой 1" x="24" y="25" width="351" height="351" xlink:href="data:img/png;base64,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"/>
+  <path id="Фигура_10" data-name="Фигура 10" class="cls-1" d="M48,356V344.189H351V356H48ZM43.189,48H55V356H43.189V48Z"/>
+  <path id="Фигура_11" data-name="Фигура 11" class="cls-1" d="M349,42.189V54H43V42.189H349Z"/>
+  <path id="Фигура_12" data-name="Фигура 12" class="cls-1" d="M356,350H344.189V42H356V350Z"/>
+  <path id="Фигура_1" data-name="Фигура 1" class="cls-1" d="M79.176,129.176l-8.352-8.352,50-50,8.352,8.352Z"/>
+  <path id="Фигура_2" data-name="Фигура 2" class="cls-1" d="M79.176,179.176l-8.352-8.352,100-100,8.352,8.352Z"/>
+  <path id="Фигура_3" data-name="Фигура 3" class="cls-1" d="M79.176,229.176l-8.352-8.352,150-150,8.352,8.352Z"/>
+  <path id="Фигура_4" data-name="Фигура 4" class="cls-1" d="M79.176,279.176l-8.352-8.352,200-200,8.352,8.352Z"/>
+  <path id="Фигура_5" data-name="Фигура 5" class="cls-1" d="M79.176,329.176l-8.352-8.352,250-250,8.352,8.352Z"/>
+  <path id="Фигура_6" data-name="Фигура 6" class="cls-1" d="M129.176,329.176l-8.352-8.352,200-200,8.352,8.352Z"/>
+  <path id="Фигура_7" data-name="Фигура 7" class="cls-1" d="M179.176,329.176l-8.352-8.352,150-150,8.352,8.352Z"/>
+  <path id="Фигура_8" data-name="Фигура 8" class="cls-1" d="M229.176,329.176l-8.352-8.352,100-100,8.352,8.352Z"/>
+  <path id="Фигура_9" data-name="Фигура 9" class="cls-1" d="M279.176,329.176l-8.352-8.352,50-50,8.352,8.352Z"/>
+  <path id="Эллипс_1" data-name="Эллипс 1" class="cls-2" d="M50,25A25,25,0,1,1,25,50,25,25,0,0,1,50,25Zm300,0a25,25,0,1,1-25,25A25,25,0,0,1,350,25Z"/>
+  <path id="Эллипс_2" data-name="Эллипс 2" class="cls-2" d="M50,325a25,25,0,1,1-25,25A25,25,0,0,1,50,325Zm300,0a25,25,0,1,1-25,25A25,25,0,0,1,350,325Z"/>
 </svg>
