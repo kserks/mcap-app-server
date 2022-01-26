@@ -4,18 +4,17 @@ const
   fs                          = require('fs-extra'),
   { join, resolve }           = require('path'),
   cors                        = require('cors');
-
+global.appRoot = resolve(__dirname);
 const
   _cad                        = require('./routes/cad'),
   _pb                         = require('./routes/pb'),
   _tutor                      = require('./routes/tutor'),
   _manga                      = require('./routes/manga')
 
-global.appRoot = resolve(__dirname);
+
 const PORT = require('./mcap-config.json').PORT
 const app = express()
 
-//body-parser
 
 
 app.use(express.json({limit: '20mb'}))

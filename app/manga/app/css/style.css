@@ -20,6 +20,8 @@ body{
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .viewer{
   width: 100%;
@@ -55,7 +57,7 @@ body{
   align-items: center;
   color: #778;
   font-weight: bold;
-  font-family: Consolas;
+  font-family: Minecraft;
 }
 .progress__data{
   display: flex;
@@ -64,4 +66,65 @@ body{
 }
 .progress__data div{
   padding: 0 15px;
+}
+
+/**
+ * /MANGA
+ */
+.manga-items{
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 600px;
+  overflow: auto;
+  background: #445;
+  padding: 15px;
+}
+.manga-item{
+  display: flex;
+  width: 100%;
+  min-height: 70px;
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
+  background-color: #334;
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+.manga-cover{
+  width: 50px;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.manga-title-wrapper{
+  flex: 1;
+}
+.manga-title{
+  padding-left: 15px;
+  font-size: 22px;
+  color: wheat;
+  font-family: Minecraft;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+
+.chapter-item{
+  text-decoration: none;
+  width: 100%;
+  padding: 10px 30px;
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
+  background-color: #334;
+  margin-bottom: 5px;
+  color: wheat;
+
+  font-family: Minecraft;
+}
+.chapter-title{
+
+}
+
+@font-face {
+  font-family: Minecraft;
+  src: url(../fonts/Minecraft.ttf); 
 }
