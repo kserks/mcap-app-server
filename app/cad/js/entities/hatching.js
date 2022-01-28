@@ -72,7 +72,15 @@ HATCHING.prototype.drawLines = function (points){
 
     const a = points[0]
     const b = points[1]
+   
 
+
+if( (a.x-b.y)<3&&(a.y-b.y)<3 ){
+   setTimeout(()=>{
+        items = items.filter(item=>item.type!=="HATCHING")
+   }, 0)
+}
+else{
     let width = 0
     let height = 0
     if(b.y>a.y){
@@ -91,7 +99,7 @@ HATCHING.prototype.drawLines = function (points){
         width = a.x-b.x
         addLines(b.x, b.y, b.x, a.y, width, height)
     }
-
+}
 }
 
 
