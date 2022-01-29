@@ -1,4 +1,4 @@
-import { _topics, getColById } from './_data.js'
+
 
 import evt from '../lib/emitter.js'
 import { board } from '../lib/mode.js'
