@@ -1,52 +1,28 @@
 <script>
+import api from '../helpers/api.js'
+import { places, placeId, events } from '../stores.js'
 
-  $:list = [
-    { id: '001', title: 'Галерея, нижний этаж' },
-    { id: '002', title: 'Галерея, первый этаж' },
-    { id: '003', title: 'Галерея, второй этаж' },
-    { id: '004', title: 'Галерея, третий этаж' },
-    { id: '005', title: 'Галерея, Верхний этаж' },
-    { id: '001', title: 'Галерея, нижний этаж' },
-    { id: '002', title: 'Галерея, первый этаж' },
-    { id: '003', title: 'Галерея, второй этаж' },
-    { id: '004', title: 'Галерея, третий этаж' },
-    { id: '005', title: 'Галерея, Верхний этаж' },
-    { id: '001', title: 'Галерея, нижний этаж' },
-    { id: '002', title: 'Галерея, первый этаж' },
-    { id: '003', title: 'Галерея, второй этаж' },
-    { id: '004', title: 'Галерея, третий этаж' },
-    { id: '005', title: 'Галерея, Верхний этаж' },
-    { id: '001', title: 'Галерея, нижний этаж' },
-    { id: '002', title: 'Галерея, первый этаж' },
-    { id: '003', title: 'Галерея, второй этаж' },
-    { id: '004', title: 'Галерея, третий этаж' },
-    { id: '005', title: 'Галерея, Верхний этаж' },
-    { id: '001', title: 'Галерея, нижний этаж' },
-    { id: '002', title: 'Галерея, первый этаж' },
-    { id: '003', title: 'Галерея, второй этаж' },
-    { id: '004', title: 'Галерея, третий этаж' },
-    { id: '005', title: 'Галерея, Верхний этаж' },
-    { id: '001', title: 'Галерея, нижний этаж' },
-    { id: '002', title: 'Галерея, первый этаж' },
-    { id: '003', title: 'Галерея, второй этаж' },
-    { id: '004', title: 'Галерея, третий этаж' },
-    { id: '005', title: 'Галерея, Верхний этаж' },
-    { id: '001', title: 'Галерея, нижний этаж' },
-    { id: '002', title: 'Галерея, первый этаж' },
-    { id: '003', title: 'Галерея, второй этаж' },
-    { id: '004', title: 'Галерея, третий этаж' },
-    { id: '005', title: 'Галерея, Верхний этаж' },
-    { id: '001', title: 'Галерея, нижний этаж' },
-    { id: '002', title: 'Галерея, первый этаж' },
-    { id: '003', title: 'Галерея, второй этаж' },
-    { id: '004', title: 'Галерея, третий этаж' },
-    { id: '005', title: 'Галерея, Верхний этаж' },
-  ]
+$:list = []
+let action = false
+fetch(api.locations)
+    .then(r=>r.json())
+    .then(res=>{
+         list = res.items
 
-  function handler (obj){
+    })
 
-    alert(obj.title)
-  }
+function handler (obj){
+  places.set( obj.map.split(',') )
+  placeId.set(obj.id)
+  fetch(api.events(obj.id))
+      .then(r=>r.json())
+      .then(res=>{
+          events.set(res.items) 
+      })
+
+}
+
+
 </script>
 
 <div class="component">
@@ -54,13 +30,17 @@
   <h3>Список залов</h3>
 
   <ul>
-    {#each list as obj}
-      <li on:mousedown={()=>{handler(obj)}}>{obj.id} - {obj.title}</li>
+    {#each list as obj, index }
+      <li  on:mousedown={()=>{  handler(obj)}} >{obj.name} </li>
     {/each}
   </ul>  
 </div>
 
 <style scoped>
+
+.component{
+    height: 30%;
+}
 
 
 </style>

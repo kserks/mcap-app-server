@@ -1,11 +1,11 @@
 <script>
 
 import Halls from './components/Halls.svelte'
-import Places from './components/Places.svelte'
 import Map from './components/Map.svelte'
+import Events from './components/Events.svelte'
+import Places from './components/Places.svelte'
 import Image from './components/Image.svelte'
-import Exhibitions from './components/Exhibitions.svelte'
-
+import Info from './components/Info.svelte'
 
 </script>
 
@@ -13,14 +13,18 @@ import Exhibitions from './components/Exhibitions.svelte'
 
   <aside class="left">
     <Halls/>
-    <Places/>
+    <Events/>
+    <Map/>
   </aside>
   <aside class="center">
-    <Map/>
-    <Image/>
+    
+    
+    <Places/>
+    
   </aside>
   <aside class="right">
-      <Exhibitions/>
+    <Image/>
+    <Info/>
   </aside>
 </main>
 
@@ -33,17 +37,17 @@ import Exhibitions from './components/Exhibitions.svelte'
 
 main{
   display: flex;
-  width: 100vw;
-  height: 100vh;
+  width: 1024px;
+  height: 768px;
   background-color: #445;
-  padding: 10px;
+
   font-size: 14px;
 }
 aside{
   display: flex;
   flex-direction: column;
 
-  width: 30%;
+
   margin-right: 5px;
 }
 aside:last-child{
@@ -51,13 +55,13 @@ aside:last-child{
 }
 
 .left{
-
-}
-.center{
   width: 40%;
 }
+.center{
+  width: 15%;
+}
 .right{
-
+    width: 45%;
 }
 
 

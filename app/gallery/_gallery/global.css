@@ -8,14 +8,20 @@ html, body {
   margin: 0;
   padding: 0; 
 }
-
+*{
+  box-sizing: border-box;
+}
 body {
 	color: #616678;
-
+  width: 100vw;
+  height: 100vh;
+  background-color: #445;
   margin: 0;
   padding: 0;
-	box-sizing: border-box;
 	font-family: Minecraft;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 a {
@@ -78,6 +84,9 @@ h3{
   height: 50%;
   margin-bottom: 5px;
   padding: 10px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
 }
 .component:last-child{
 	margin-bottom: 0;
@@ -98,23 +107,64 @@ ul li:hover{
 	color: white;
 }
 ul{
-	height: 320px;
+	height: 150px;
   overflow: auto;
-	padding: 10px 0;
+	padding: 0px 0;
 	padding-right: 10px;
 }
-
+textarea::-webkit-scrollbar,
 ul::-webkit-scrollbar {
     width: 5px;
 }
- 
+
+
+textarea::-webkit-scrollbar-track,
 ul::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(250,250,250,0.9);
 }
  
+textarea::-webkit-scrollbar-thumb,
 ul::-webkit-scrollbar-thumb {
   background-color: #5c68cf;
   outline: 1px solid #5c68cf;
+}
+
+.btn{
+  width: 100%;
+  height: 40px;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.btn:hover{
+  background-color: #5e6acc;
+  color: white;
+}
+.active{
+  background-color: #5e6acc;
+}
+textarea,
+input[type='text']{
+  padding: 7px 10px;
+  background-color: rgba(0,0,0,0.2);
+  outline: 0;
+  border: 0;
+  caret-color: #5c68cf;
+  margin: 0;
+  width: 100%;
+  height: 30px;
+  color: #889;
+  font-size: 16px;
+}
+textarea{
+  resize: none;
+}
+label{
+  display: block;
+  padding-right: 10px;
 }
 
 @font-face {

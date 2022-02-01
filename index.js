@@ -10,7 +10,7 @@ const
   _pb                         = require('./routes/pb'),
   _tutor                      = require('./routes/tutor'),
   _manga                      = require('./routes/manga')
-
+  _gallery                    = require('./routes/gallery')
 
 const PORT = require('./mcap-config.json').PORT
 const app = express()
@@ -21,6 +21,7 @@ app.use(express.json({limit: '20mb'}))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors());
+
 app.use(express.static(join(__dirname, '/app')))
 
 /**
@@ -30,6 +31,7 @@ app.use('/cad', _cad)
 app.use('/pb', _pb)
 app.use('/tutor', _tutor)
 app.use('/manga', _manga)
+app.use('/gallery', _gallery)
 /*
  * router
  */
