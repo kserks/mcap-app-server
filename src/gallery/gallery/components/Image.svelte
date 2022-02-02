@@ -2,31 +2,21 @@
 import { currentImage } from '../stores.js'
 
 $:playerName = null 
-/*
-let getPlayer = ()=>{
+
     try {
       window.mcefQuery({
           request: "info",
           persistent: true,
           onSuccess: response=>{
-              playerName=  JSON.parse(response).name;
+              playerName =  JSON.parse(response).name;
           }
       })
     }
     catch (errorCode) {
-     
-      playerName = true
-      
+        playerName = true//false
     }
-}
-*/
-
-//getPlayer()
-
-//let currentImage = '/gallery/_gallery/images/001/cur/zhemchuzhina.jpg'
 
 $:backgroundImage = `background-image: url(${$currentImage.url});`
-
 
 </script>
 
@@ -34,7 +24,7 @@ $:backgroundImage = `background-image: url(${$currentImage.url});`
   <div class="image-viewer">
       <div class="image" style="{$currentImage.url?backgroundImage:''}"></div>
   </div>
-  {#if !playerName}
+  {#if playerName}
     <div class="btn-wrapper">
       <div class="btn">Загрузить</div>
     </div>

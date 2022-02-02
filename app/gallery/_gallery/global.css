@@ -169,6 +169,11 @@ label{
   padding-right: 10px;
 }
 
+.disabled{
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 @font-face {
   font-family: Minecraft;
   src: url(./fonts/Minecraft.ttf); 

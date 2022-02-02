@@ -1,6 +1,29 @@
 <script>
+import api from '../helpers/api.js'
 import { currentImage } from '../stores.js'
 
+
+
+async function save (){
+
+try{
+  let id = $currentImage.data.id
+  let body = {
+    info1: $currentImage.data.info1,
+    info2: $currentImage.data.info2,
+    info3: $currentImage.data.info3,
+    info4: $currentImage.data.info4,
+    descr: $currentImage.data.descr
+
+  }
+  let res2 = await fetch(api.updateInfo(id, body))
+
+}
+catch (e){
+  console.error(e)
+}
+
+}
 
 </script>
 
@@ -33,7 +56,7 @@ import { currentImage } from '../stores.js'
   <div class="btn-wrapper">
     <div class="info-item">
       <label for="#save"></label>
-      <div class="btn" id="save">Записать</div>
+      <div class="btn" id="save" on:mousedown={save}>Записать</div>
     </div>
   </div>
 

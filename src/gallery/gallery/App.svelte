@@ -1,6 +1,6 @@
 <script>
 
-import Halls from './components/Halls.svelte'
+import Locations from './components/Locations.svelte'
 import Map from './components/Map.svelte'
 import Events from './components/Events.svelte'
 import Places from './components/Places.svelte'
@@ -12,14 +12,11 @@ import Info from './components/Info.svelte'
 <main>
 
   <aside class="left">
-    <Halls/>
+    <Locations/>
     <Events/>
   </aside>
   <aside class="center">
-    
-    
-    <Places/>
-    
+      <Places/>
   </aside>
   <aside class="right">
     <Image/>

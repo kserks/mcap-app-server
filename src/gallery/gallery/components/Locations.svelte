@@ -1,6 +1,7 @@
 <script>
 import api from '../helpers/api.js'
 import { places, placeId, events, placeObj } from '../stores.js'
+import currentReset from '../methods/currentReset.js'
 
 $:list = []
 let action = false
@@ -8,7 +9,7 @@ fetch(api.locations)
     .then(r=>r.json())
     .then(res=>{
          list = res.items.map(item=>{
-                    (item.event==='cls'||item.event==='')?item.active = false:item.active = true
+                    //(item.event==='cls'||item.event==='')?item.active = false:item.active = true
                     
                     return item
                 })
@@ -20,9 +21,25 @@ function handler (obj, index){
                       return {active: false, text: item}
              })
   $placeId = obj.id
+
   list.forEach(item=>item.active=false)
   list[index].active = true
   $placeObj = list[index]
+  /**
+   * 
+   */
+  /*
+    Копируем изображения из [ cls ] в папку [ cur ]
+  */
+
+  if($placeObj.event==='cls'){
+
+      currentReset($placeId)
+  }
+
+  /**
+   * Получаем список событий
+   */
   fetch(api.events(obj.id))
       .then(r=>r.json())
       .then(res=>{

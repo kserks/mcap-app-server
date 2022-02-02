@@ -8,7 +8,7 @@ export let events = writable([])
 export let eventId = writable(null)
 export let items = writable([])
 export let showMap = writable(false)
-
+export let imageItem = writable(null)
 export let currentImage = writable({
               url: null,
               data: {

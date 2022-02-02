@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express.Router();
-const { join } = require('path')
+const { join, resolve } = require('path')
 const fs = require('fs-extra')
 const config = require('../mcap-config.json')
 const request = require('request');
@@ -26,18 +26,26 @@ catch (err) {
  
 })
 
+app.get('/art/cls', async (req, res)=>{
 
-const _locations = `http://atlant.mcacademy.ru/reindexer/api/v1/db/mcap_art/namespaces/locations/items`
-app.put('/locations',  (req, res)=>{
-  req.body.id = 'aaa'
-console.log(req.body)
-  request.post(_locations, JSON.stringify(req.body), function (error, response, body) {
-    console.error('error:', error); // Print the error if one occurred
-    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    console.log('body:', body); // Print the HTML for the Google homepage.
-    res.sendStatus(response.statusCode)
-  })
+let { placeId } = req.query
 
+
+
+let __from = join(config.art, placeId, 'cls')
+let __to = join(config.art, placeId, 'cur')
+// path.resolve()
+
+try {
+    await fs.emptyDir(__to)
+    await fs.copy(__from, __to)
+    res.send('success')
+} 
+catch (err) {
+    console.error(err)
+    res.sendStatus(500)
+}
+ 
 })
 
 
