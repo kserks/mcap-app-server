@@ -1,23 +1,36 @@
 <script>
 import api from '../helpers/api.js'
-import { places, placeId, events } from '../stores.js'
+import { places, placeId, events, placeObj } from '../stores.js'
 
 $:list = []
 let action = false
 fetch(api.locations)
     .then(r=>r.json())
     .then(res=>{
-         list = res.items
+         list = res.items.map(item=>{
+                    (item.event==='cls'||item.event==='')?item.active = false:item.active = true
+                    
+                    return item
+                })
 
     })
 
-function handler (obj){
-  places.set( obj.map.split(',') )
-  placeId.set(obj.id)
+function handler (obj, index){
+  $places =  obj.map.split(',').map(item=>{
+                      return {active: false, text: item}
+             })
+  $placeId = obj.id
+  list.forEach(item=>item.active=false)
+  list[index].active = true
+  $placeObj = list[index]
   fetch(api.events(obj.id))
       .then(r=>r.json())
       .then(res=>{
-          events.set(res.items) 
+          $events = res.items.map(item=>{
+                        //($placeObj.event===item.id)?item.active = true:item.active = false
+                        item.active = false
+                        return item
+                    })
       })
 
 }
@@ -31,7 +44,7 @@ function handler (obj){
 
   <ul>
     {#each list as obj, index }
-      <li  on:mousedown={()=>{  handler(obj)}} >{obj.name} </li>
+      <li class="{obj.active?'active': ''}" on:mousedown={()=>{  handler(obj, index)}} >{obj.name} </li>
     {/each}
   </ul>  
 </div>
@@ -39,7 +52,7 @@ function handler (obj){
 <style scoped>
 
 .component{
-    height: 30%;
+    height: 50%;
 }
 
 

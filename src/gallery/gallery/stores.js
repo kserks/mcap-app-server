@@ -3,10 +3,11 @@ import { writable } from 'svelte/store'
 
 export let places = writable([])
 export let placeId = writable(null)
+export let placeObj = writable(null)
 export let events = writable([])
 export let eventId = writable(null)
 export let items = writable([])
-
+export let showMap = writable(false)
 
 export let currentImage = writable({
               url: null,

@@ -14,7 +14,6 @@ import Info from './components/Info.svelte'
   <aside class="left">
     <Halls/>
     <Events/>
-    <Map/>
   </aside>
   <aside class="center">
     
@@ -26,6 +25,7 @@ import Info from './components/Info.svelte'
     <Image/>
     <Info/>
   </aside>
+  <Map/>
 </main>
 
 <style>
@@ -40,7 +40,7 @@ main{
   width: 1024px;
   height: 768px;
   background-color: #445;
-
+  position: relative;
   font-size: 14px;
 }
 aside{
@@ -50,9 +50,7 @@ aside{
 
   margin-right: 5px;
 }
-aside:last-child{
-  margin-right: 0;
-}
+
 
 .left{
   width: 40%;
@@ -62,6 +60,7 @@ aside:last-child{
 }
 .right{
     width: 45%;
+    margin-right: 0;
 }
 
 

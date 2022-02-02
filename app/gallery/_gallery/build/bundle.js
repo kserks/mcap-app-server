@@ -424,7 +424,10 @@ var app = (function () {
       items: event=>{
         return `${base}/query?q=select%20%2a%20from%20items%20where%20event%3D%22${event}%22`
       }
+
     };
+
+    // PUT /db/{database}/namespaces/{name}/items
 
     const subscriber_queue = [];
     /**
@@ -476,10 +479,11 @@ var app = (function () {
 
     let places = writable([]);
     let placeId = writable(null);
+    let placeObj = writable(null);
     let events = writable([]);
     let eventId = writable(null);
     let items = writable([]);
-
+    let showMap = writable(false);
 
     let currentImage = writable({
                   url: null,
@@ -503,22 +507,23 @@ var app = (function () {
 
     function get_each_context$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[4] = list[i];
-    	child_ctx[6] = i;
+    	child_ctx[8] = list[i];
+    	child_ctx[10] = i;
     	return child_ctx;
     }
 
-    // (33:4) {#each list as obj, index }
+    // (46:4) {#each list as obj, index }
     function create_each_block$2(ctx) {
     	let li;
-    	let t0_value = /*obj*/ ctx[4].name + "";
+    	let t0_value = /*obj*/ ctx[8].name + "";
     	let t0;
     	let t1;
+    	let li_class_value;
     	let mounted;
     	let dispose;
 
     	function mousedown_handler() {
-    		return /*mousedown_handler*/ ctx[2](/*obj*/ ctx[4]);
+    		return /*mousedown_handler*/ ctx[2](/*obj*/ ctx[8], /*index*/ ctx[10]);
     	}
 
     	const block = {
@@ -526,7 +531,8 @@ var app = (function () {
     			li = element("li");
     			t0 = text(t0_value);
     			t1 = space();
-    			add_location(li, file$6, 33, 6, 567);
+    			attr_dev(li, "class", li_class_value = /*obj*/ ctx[8].active ? 'active' : '');
+    			add_location(li, file$6, 46, 6, 1157);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -540,7 +546,11 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty & /*list*/ 1 && t0_value !== (t0_value = /*obj*/ ctx[4].name + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*list*/ 1 && t0_value !== (t0_value = /*obj*/ ctx[8].name + "")) set_data_dev(t0, t0_value);
+
+    			if (dirty & /*list*/ 1 && li_class_value !== (li_class_value = /*obj*/ ctx[8].active ? 'active' : '')) {
+    				attr_dev(li, "class", li_class_value);
+    			}
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(li);
@@ -553,7 +563,7 @@ var app = (function () {
     		block,
     		id: create_each_block$2.name,
     		type: "each",
-    		source: "(33:4) {#each list as obj, index }",
+    		source: "(46:4) {#each list as obj, index }",
     		ctx
     	});
 
@@ -585,10 +595,10 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(h3, file$6, 29, 2, 495);
-    			add_location(ul, file$6, 31, 2, 522);
-    			attr_dev(div, "class", "component svelte-ckqbza");
-    			add_location(div, file$6, 27, 0, 466);
+    			add_location(h3, file$6, 42, 2, 1085);
+    			add_location(ul, file$6, 44, 2, 1112);
+    			attr_dev(div, "class", "component svelte-jxsqag");
+    			add_location(div, file$6, 40, 0, 1056);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -604,7 +614,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*handler, list*/ 3) {
+    			if (dirty & /*list, handler*/ 3) {
     				each_value = /*list*/ ctx[0];
     				validate_each_argument(each_value);
     				let i;
@@ -649,20 +659,57 @@ var app = (function () {
 
     function instance$6($$self, $$props, $$invalidate) {
     	let list;
+    	let $events;
+    	let $placeObj;
+    	let $placeId;
+    	let $places;
+    	validate_store(events, 'events');
+    	component_subscribe($$self, events, $$value => $$invalidate(3, $events = $$value));
+    	validate_store(placeObj, 'placeObj');
+    	component_subscribe($$self, placeObj, $$value => $$invalidate(4, $placeObj = $$value));
+    	validate_store(placeId, 'placeId');
+    	component_subscribe($$self, placeId, $$value => $$invalidate(5, $placeId = $$value));
+    	validate_store(places, 'places');
+    	component_subscribe($$self, places, $$value => $$invalidate(6, $places = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Halls', slots, []);
     	let action = false;
 
     	fetch(api.locations).then(r => r.json()).then(res => {
-    		$$invalidate(0, list = res.items);
+    		$$invalidate(0, list = res.items.map(item => {
+    			item.event === 'cls' || item.event === ''
+    			? item.active = false
+    			: item.active = true;
+
+    			return item;
+    		}));
     	});
 
-    	function handler(obj) {
-    		places.set(obj.map.split(','));
-    		placeId.set(obj.id);
+    	function handler(obj, index) {
+    		set_store_value(
+    			places,
+    			$places = obj.map.split(',').map(item => {
+    				return { active: false, text: item };
+    			}),
+    			$places
+    		);
+
+    		set_store_value(placeId, $placeId = obj.id, $placeId);
+    		list.forEach(item => item.active = false);
+    		$$invalidate(0, list[index].active = true, list);
+    		set_store_value(placeObj, $placeObj = list[index], $placeObj);
 
     		fetch(api.events(obj.id)).then(r => r.json()).then(res => {
-    			events.set(res.items);
+    			set_store_value(
+    				events,
+    				$events = res.items.map(item => {
+    					//($placeObj.event===item.id)?item.active = true:item.active = false
+    					item.active = false;
+
+    					return item;
+    				}),
+    				$events
+    			);
     		});
     	}
 
@@ -672,8 +719,8 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Halls> was created with unknown prop '${key}'`);
     	});
 
-    	const mousedown_handler = obj => {
-    		handler(obj);
+    	const mousedown_handler = (obj, index) => {
+    		handler(obj, index);
     	};
 
     	$$self.$capture_state = () => ({
@@ -681,9 +728,14 @@ var app = (function () {
     		places,
     		placeId,
     		events,
+    		placeObj,
     		action,
     		handler,
-    		list
+    		list,
+    		$events,
+    		$placeObj,
+    		$placeId,
+    		$places
     	});
 
     	$$self.$inject_state = $$props => {
@@ -716,7 +768,7 @@ var app = (function () {
     /* src\gallery\gallery\components\Map.svelte generated by Svelte v3.46.3 */
     const file$5 = "src\\gallery\\gallery\\components\\Map.svelte";
 
-    // (12:2) {#if $placeId}
+    // (13:2) {#if $placeId}
     function create_if_block$1(ctx) {
     	let div;
     	let div_style_value;
@@ -724,9 +776,9 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			div = element("div");
-    			attr_dev(div, "class", "image-container svelte-32eg5c");
+    			attr_dev(div, "class", "image-container svelte-3sd3ys");
     			attr_dev(div, "style", div_style_value = /*mapImg*/ ctx[1]());
-    			add_location(div, file$5, 12, 4, 199);
+    			add_location(div, file$5, 13, 4, 295);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -745,7 +797,7 @@ var app = (function () {
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(12:2) {#if $placeId}",
+    		source: "(13:2) {#if $placeId}",
     		ctx
     	});
 
@@ -753,22 +805,39 @@ var app = (function () {
     }
 
     function create_fragment$5(ctx) {
-    	let div;
+    	let div1;
+    	let div0;
+    	let t1;
+    	let div1_class_value;
+    	let mounted;
+    	let dispose;
     	let if_block = /*$placeId*/ ctx[0] && create_if_block$1(ctx);
 
     	const block = {
     		c: function create() {
-    			div = element("div");
+    			div1 = element("div");
+    			div0 = element("div");
+    			div0.textContent = "x";
+    			t1 = space();
     			if (if_block) if_block.c();
-    			attr_dev(div, "class", "component");
-    			add_location(div, file$5, 10, 0, 152);
+    			attr_dev(div0, "class", "close svelte-3sd3ys");
+    			add_location(div0, file$5, 11, 2, 209);
+    			attr_dev(div1, "class", div1_class_value = "component " + (/*$showMap*/ ctx[2] ? 'show' : '') + " svelte-3sd3ys");
+    			add_location(div1, file$5, 10, 0, 161);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			if (if_block) if_block.m(div, null);
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, div0);
+    			append_dev(div1, t1);
+    			if (if_block) if_block.m(div1, null);
+
+    			if (!mounted) {
+    				dispose = listen_dev(div0, "mousedown", /*mousedown_handler*/ ctx[3], false, false, false);
+    				mounted = true;
+    			}
     		},
     		p: function update(ctx, [dirty]) {
     			if (/*$placeId*/ ctx[0]) {
@@ -777,18 +846,24 @@ var app = (function () {
     				} else {
     					if_block = create_if_block$1(ctx);
     					if_block.c();
-    					if_block.m(div, null);
+    					if_block.m(div1, null);
     				}
     			} else if (if_block) {
     				if_block.d(1);
     				if_block = null;
     			}
+
+    			if (dirty & /*$showMap*/ 4 && div1_class_value !== (div1_class_value = "component " + (/*$showMap*/ ctx[2] ? 'show' : '') + " svelte-3sd3ys")) {
+    				attr_dev(div1, "class", div1_class_value);
+    			}
     		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    			if (detaching) detach_dev(div1);
     			if (if_block) if_block.d();
+    			mounted = false;
+    			dispose();
     		}
     	};
 
@@ -806,8 +881,11 @@ var app = (function () {
     function instance$5($$self, $$props, $$invalidate) {
     	let mapImg;
     	let $placeId;
+    	let $showMap;
     	validate_store(placeId, 'placeId');
     	component_subscribe($$self, placeId, $$value => $$invalidate(0, $placeId = $$value));
+    	validate_store(showMap, 'showMap');
+    	component_subscribe($$self, showMap, $$value => $$invalidate(2, $showMap = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Map', slots, []);
     	const writable_props = [];
@@ -816,7 +894,17 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Map> was created with unknown prop '${key}'`);
     	});
 
-    	$$self.$capture_state = () => ({ placeId, mapImg, $placeId });
+    	const mousedown_handler = () => {
+    		set_store_value(showMap, $showMap = false, $showMap);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		placeId,
+    		showMap,
+    		mapImg,
+    		$placeId,
+    		$showMap
+    	});
 
     	$$self.$inject_state = $$props => {
     		if ('mapImg' in $$props) $$invalidate(1, mapImg = $$props.mapImg);
@@ -834,7 +922,7 @@ var app = (function () {
     		}
     	};
 
-    	return [$placeId, mapImg];
+    	return [$placeId, mapImg, $showMap, mousedown_handler];
     }
 
     class Map$1 extends SvelteComponentDev {
@@ -856,27 +944,30 @@ var app = (function () {
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[3] = list[i];
+    	child_ctx[6] = list[i];
+    	child_ctx[8] = i;
     	return child_ctx;
     }
 
-    // (20:4) {#each $events as obj}
+    // (28:4) {#each list as obj, index}
     function create_each_block$1(ctx) {
     	let li;
-    	let t_value = /*obj*/ ctx[3].name + "";
+    	let t_value = /*obj*/ ctx[6].name + "";
     	let t;
+    	let li_class_value;
     	let mounted;
     	let dispose;
 
     	function mousedown_handler() {
-    		return /*mousedown_handler*/ ctx[2](/*obj*/ ctx[3]);
+    		return /*mousedown_handler*/ ctx[3](/*obj*/ ctx[6], /*index*/ ctx[8]);
     	}
 
     	const block = {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			add_location(li, file$4, 20, 6, 383);
+    			attr_dev(li, "class", li_class_value = /*obj*/ ctx[6].active ? 'active' : '');
+    			add_location(li, file$4, 28, 6, 600);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -889,7 +980,11 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty & /*$events*/ 1 && t_value !== (t_value = /*obj*/ ctx[3].name + "")) set_data_dev(t, t_value);
+    			if (dirty & /*list*/ 1 && t_value !== (t_value = /*obj*/ ctx[6].name + "")) set_data_dev(t, t_value);
+
+    			if (dirty & /*list*/ 1 && li_class_value !== (li_class_value = /*obj*/ ctx[6].active ? 'active' : '')) {
+    				attr_dev(li, "class", li_class_value);
+    			}
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(li);
@@ -902,7 +997,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(20:4) {#each $events as obj}",
+    		source: "(28:4) {#each list as obj, index}",
     		ctx
     	});
 
@@ -914,7 +1009,7 @@ var app = (function () {
     	let h3;
     	let t1;
     	let ul;
-    	let each_value = /*$events*/ ctx[0];
+    	let each_value = /*list*/ ctx[0];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -934,10 +1029,10 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(h3, file$4, 16, 2, 320);
-    			add_location(ul, file$4, 18, 2, 343);
-    			attr_dev(div, "class", "component svelte-y75has");
-    			add_location(div, file$4, 15, 0, 293);
+    			add_location(h3, file$4, 24, 2, 533);
+    			add_location(ul, file$4, 26, 2, 556);
+    			attr_dev(div, "class", "component svelte-4nd5bi");
+    			add_location(div, file$4, 23, 0, 506);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -953,8 +1048,8 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*handler, $events*/ 3) {
-    				each_value = /*$events*/ ctx[0];
+    			if (dirty & /*list, handler*/ 3) {
+    				each_value = /*list*/ ctx[0];
     				validate_each_argument(each_value);
     				let i;
 
@@ -997,16 +1092,26 @@ var app = (function () {
     }
 
     function instance$4($$self, $$props, $$invalidate) {
+    	let list;
+    	let $eventId;
+    	let $items;
     	let $events;
+    	validate_store(eventId, 'eventId');
+    	component_subscribe($$self, eventId, $$value => $$invalidate(4, $eventId = $$value));
+    	validate_store(items, 'items');
+    	component_subscribe($$self, items, $$value => $$invalidate(5, $items = $$value));
     	validate_store(events, 'events');
-    	component_subscribe($$self, events, $$value => $$invalidate(0, $events = $$value));
+    	component_subscribe($$self, events, $$value => $$invalidate(2, $events = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Events', slots, []);
 
-    	function handler(obj) {
+    	function handler(obj, index) {
+    		list.forEach(item => item.active = false);
+    		$$invalidate(0, list[index].active = true, list);
+
     		fetch(api.items(obj.id)).then(r => r.json()).then(res => {
-    			items.set(res.items);
-    			eventId.set(obj.id);
+    			set_store_value(items, $items = res.items, $items);
+    			set_store_value(eventId, $eventId = obj.id, $eventId);
     		});
     	}
 
@@ -1016,8 +1121,8 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Events> was created with unknown prop '${key}'`);
     	});
 
-    	const mousedown_handler = obj => {
-    		handler(obj);
+    	const mousedown_handler = (obj, index) => {
+    		handler(obj, index);
     	};
 
     	$$self.$capture_state = () => ({
@@ -1026,10 +1131,30 @@ var app = (function () {
     		eventId,
     		items,
     		handler,
+    		list,
+    		$eventId,
+    		$items,
     		$events
     	});
 
-    	return [$events, handler, mousedown_handler];
+    	$$self.$inject_state = $$props => {
+    		if ('list' in $$props) $$invalidate(0, list = $$props.list);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*$events*/ 4) {
+    			$$invalidate(0, list = $events.map(item => {
+    				item.active = false;
+    				return item;
+    			}));
+    		}
+    	};
+
+    	return [list, handler, $events, mousedown_handler];
     }
 
     class Events extends SvelteComponentDev {
@@ -1054,27 +1179,30 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[10] = list[i];
+    	child_ctx[14] = list[i];
+    	child_ctx[16] = i;
     	return child_ctx;
     }
 
-    // (71:4) {#each $places as item}
+    // (112:4) {#each $places as item, index}
     function create_each_block(ctx) {
     	let li;
-    	let t_value = /*item*/ ctx[10] + "";
+    	let t_value = /*item*/ ctx[14].text + "";
     	let t;
+    	let li_class_value;
     	let mounted;
     	let dispose;
 
     	function mousedown_handler() {
-    		return /*mousedown_handler*/ ctx[3](/*item*/ ctx[10]);
+    		return /*mousedown_handler*/ ctx[4](/*item*/ ctx[14], /*index*/ ctx[16]);
     	}
 
     	const block = {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			add_location(li, file$3, 71, 6, 1332);
+    			attr_dev(li, "class", li_class_value = /*item*/ ctx[14].active ? 'active' : '');
+    			add_location(li, file$3, 112, 6, 2452);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -1087,7 +1215,11 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty & /*$places*/ 1 && t_value !== (t_value = /*item*/ ctx[10] + "")) set_data_dev(t, t_value);
+    			if (dirty & /*$places*/ 1 && t_value !== (t_value = /*item*/ ctx[14].text + "")) set_data_dev(t, t_value);
+
+    			if (dirty & /*$places*/ 1 && li_class_value !== (li_class_value = /*item*/ ctx[14].active ? 'active' : '')) {
+    				attr_dev(li, "class", li_class_value);
+    			}
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(li);
@@ -1100,7 +1232,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(71:4) {#each $places as item}",
+    		source: "(112:4) {#each $places as item, index}",
     		ctx
     	});
 
@@ -1108,12 +1240,16 @@ var app = (function () {
     }
 
     function create_fragment$3(ctx) {
-    	let div1;
+    	let div3;
     	let h3;
     	let t1;
     	let ul;
     	let t2;
     	let div0;
+    	let t4;
+    	let div1;
+    	let t6;
+    	let div2;
     	let mounted;
     	let dispose;
     	let each_value = /*$places*/ ctx[0];
@@ -1126,7 +1262,7 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			div1 = element("div");
+    			div3 = element("div");
     			h3 = element("h3");
     			h3.textContent = "Места";
     			t1 = space();
@@ -1138,38 +1274,57 @@ var app = (function () {
 
     			t2 = space();
     			div0 = element("div");
-    			div0.textContent = "Применить";
-    			add_location(h3, file$3, 67, 2, 1271);
-    			attr_dev(ul, "class", "svelte-5afvbs");
-    			add_location(ul, file$3, 69, 2, 1291);
-    			attr_dev(div0, "class", "btn svelte-5afvbs");
-    			add_location(div0, file$3, 74, 2, 1412);
-    			attr_dev(div1, "class", "component svelte-5afvbs");
-    			add_location(div1, file$3, 66, 0, 1244);
+    			div0.textContent = "Карта";
+    			t4 = space();
+    			div1 = element("div");
+    			div1.textContent = "Сбросить";
+    			t6 = space();
+    			div2 = element("div");
+    			div2.textContent = "Применить";
+    			add_location(h3, file$3, 108, 2, 2384);
+    			attr_dev(ul, "class", "svelte-6jb0z8");
+    			add_location(ul, file$3, 110, 2, 2404);
+    			attr_dev(div0, "class", "btn mb10 svelte-6jb0z8");
+    			add_location(div0, file$3, 115, 2, 2577);
+    			attr_dev(div1, "class", "btn mb10 svelte-6jb0z8");
+    			add_location(div1, file$3, 116, 2, 2644);
+    			attr_dev(div2, "class", "btn svelte-6jb0z8");
+    			add_location(div2, file$3, 117, 2, 2726);
+    			attr_dev(div3, "class", "component svelte-6jb0z8");
+    			add_location(div3, file$3, 107, 0, 2357);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div1, anchor);
-    			append_dev(div1, h3);
-    			append_dev(div1, t1);
-    			append_dev(div1, ul);
+    			insert_dev(target, div3, anchor);
+    			append_dev(div3, h3);
+    			append_dev(div3, t1);
+    			append_dev(div3, ul);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(ul, null);
     			}
 
-    			append_dev(div1, t2);
-    			append_dev(div1, div0);
+    			append_dev(div3, t2);
+    			append_dev(div3, div0);
+    			append_dev(div3, t4);
+    			append_dev(div3, div1);
+    			append_dev(div3, t6);
+    			append_dev(div3, div2);
 
     			if (!mounted) {
-    				dispose = listen_dev(div0, "mousedown", /*setCurrent*/ ctx[1], false, false, false);
+    				dispose = [
+    					listen_dev(div0, "mousedown", /*showMapHandler*/ ctx[3], false, false, false),
+    					listen_dev(div1, "mousedown", /*mousedown_handler_1*/ ctx[5], false, false, false),
+    					listen_dev(div2, "mousedown", /*setCurrent*/ ctx[1], false, false, false)
+    				];
+
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*handler, $places*/ 5) {
+    			if (dirty & /*$places, handler*/ 5) {
     				each_value = /*$places*/ ctx[0];
     				validate_each_argument(each_value);
     				let i;
@@ -1196,10 +1351,10 @@ var app = (function () {
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div1);
+    			if (detaching) detach_dev(div3);
     			destroy_each(each_blocks, detaching);
     			mounted = false;
-    			dispose();
+    			run_all(dispose);
     		}
     	};
 
@@ -1216,31 +1371,57 @@ var app = (function () {
 
     function instance$3($$self, $$props, $$invalidate) {
     	let list;
+    	let $showMap;
     	let $currentImage;
     	let $placeId;
     	let $eventId;
-    	let $items;
     	let $places;
+    	let $items;
+    	let $placeObj;
+    	validate_store(showMap, 'showMap');
+    	component_subscribe($$self, showMap, $$value => $$invalidate(7, $showMap = $$value));
     	validate_store(currentImage, 'currentImage');
-    	component_subscribe($$self, currentImage, $$value => $$invalidate(5, $currentImage = $$value));
+    	component_subscribe($$self, currentImage, $$value => $$invalidate(8, $currentImage = $$value));
     	validate_store(placeId, 'placeId');
-    	component_subscribe($$self, placeId, $$value => $$invalidate(6, $placeId = $$value));
+    	component_subscribe($$self, placeId, $$value => $$invalidate(9, $placeId = $$value));
     	validate_store(eventId, 'eventId');
-    	component_subscribe($$self, eventId, $$value => $$invalidate(7, $eventId = $$value));
-    	validate_store(items, 'items');
-    	component_subscribe($$self, items, $$value => $$invalidate(8, $items = $$value));
+    	component_subscribe($$self, eventId, $$value => $$invalidate(10, $eventId = $$value));
     	validate_store(places, 'places');
     	component_subscribe($$self, places, $$value => $$invalidate(0, $places = $$value));
+    	validate_store(items, 'items');
+    	component_subscribe($$self, items, $$value => $$invalidate(11, $items = $$value));
+    	validate_store(placeObj, 'placeObj');
+    	component_subscribe($$self, placeObj, $$value => $$invalidate(12, $placeObj = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Places', slots, []);
 
-    	async function setCurrent() {
+    	async function setCurrent(reset) {
     		let url = `/gallery/art?placeId=${$placeId}&eventId=${$eventId}`;
+    		let obj = { ...$placeObj, event: $eventId };
+    		delete obj.active;
 
+    		//(reset==='reset')?obj.event='cls':''
     		if ($eventId) {
     			try {
     				let res = await fetch(url);
     				console.log(res.status);
+    				const _locations = `http://atlant.mcacademy.ru/reindexer/api/v1/db/mcap_art/namespaces/locations/items`;
+    				obj.id = 'aaa';
+    				obj.event = '00000000';
+
+    				fetch(_locations, {
+    					method: 'PUT',
+    					headers: {
+    						'Content-Type': 'application/x-www-form-urlencoded',
+    						'Accept': '*/*',
+    						'Access-Control-Allow-Origin': '*'
+    					},
+    					body: JSON.stringify(obj)
+    				}).then(r => {
+    					console.log(r);
+    				}).catch(e => {
+    					console.error(e);
+    				});
     			} catch(e) {
     				console.error(e);
     			}
@@ -1255,16 +1436,19 @@ var app = (function () {
     		if (data.length > 0) {
     			set_store_value(currentImage, $currentImage.data = data[0], $currentImage);
     			let url = `/${config.artDir}/${$placeId}/arh/${$eventId}/${name}.${$currentImage.data.ext}`;
-    			console.log(url);
     			set_store_value(currentImage, $currentImage.url = url, $currentImage);
     		} else {
     			set_store_value(currentImage, $currentImage.data = null, $currentImage);
     		}
     	}
 
-    	function handler(name) {
+    	function handler(item, index) {
+    		$places.forEach(item => item.active = false);
+    		console.log($places);
+    		set_store_value(places, $places[index].active = true, $places);
+
     		if ($eventId) {
-    			getCurrentItem(name);
+    			getCurrentItem(item.text);
     		} else {
     			let url = `/${config.artDir}/${$placeId}/cls/${name}.jpg`;
     			set_store_value(currentImage, $currentImage.url = url, $currentImage);
@@ -1282,32 +1466,46 @@ var app = (function () {
 
      console.log(arr)*/
 
+    	function showMapHandler() {
+    		set_store_value(showMap, $showMap = true, $showMap);
+    	}
+
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<Places> was created with unknown prop '${key}'`);
     	});
 
-    	const mousedown_handler = item => {
-    		handler(item);
+    	const mousedown_handler = (item, index) => {
+    		handler(item, index);
+    	};
+
+    	const mousedown_handler_1 = () => {
+    		setCurrent();
     	};
 
     	$$self.$capture_state = () => ({
+    		api,
     		places,
     		placeId,
     		eventId,
     		items,
+    		placeObj,
     		config,
     		currentImage,
+    		showMap,
     		setCurrent,
     		getCurrentItem,
     		handler,
+    		showMapHandler,
     		list,
+    		$showMap,
     		$currentImage,
     		$placeId,
     		$eventId,
+    		$places,
     		$items,
-    		$places
+    		$placeObj
     	});
 
     	$$self.$inject_state = $$props => {
@@ -1319,7 +1517,15 @@ var app = (function () {
     	}
 
     	list = [];
-    	return [$places, setCurrent, handler, mousedown_handler];
+
+    	return [
+    		$places,
+    		setCurrent,
+    		handler,
+    		showMapHandler,
+    		mousedown_handler,
+    		mousedown_handler_1
+    	];
     }
 
     class Places extends SvelteComponentDev {
@@ -1823,22 +2029,22 @@ var app = (function () {
     	let t0;
     	let events;
     	let t1;
-    	let map;
-    	let t2;
     	let aside1;
     	let places;
-    	let t3;
+    	let t2;
     	let aside2;
     	let image;
-    	let t4;
+    	let t3;
     	let info;
+    	let t4;
+    	let map;
     	let current;
     	halls = new Halls({ $$inline: true });
     	events = new Events({ $$inline: true });
-    	map = new Map$1({ $$inline: true });
     	places = new Places({ $$inline: true });
     	image = new Image({ $$inline: true });
     	info = new Info({ $$inline: true });
+    	map = new Map$1({ $$inline: true });
 
     	const block = {
     		c: function create() {
@@ -1848,22 +2054,22 @@ var app = (function () {
     			t0 = space();
     			create_component(events.$$.fragment);
     			t1 = space();
-    			create_component(map.$$.fragment);
-    			t2 = space();
     			aside1 = element("aside");
     			create_component(places.$$.fragment);
-    			t3 = space();
+    			t2 = space();
     			aside2 = element("aside");
     			create_component(image.$$.fragment);
-    			t4 = space();
+    			t3 = space();
     			create_component(info.$$.fragment);
-    			attr_dev(aside0, "class", "left svelte-1kcutqv");
+    			t4 = space();
+    			create_component(map.$$.fragment);
+    			attr_dev(aside0, "class", "left svelte-un1qyu");
     			add_location(aside0, file, 13, 2, 306);
-    			attr_dev(aside1, "class", "center svelte-1kcutqv");
-    			add_location(aside1, file, 18, 2, 378);
-    			attr_dev(aside2, "class", "right svelte-1kcutqv");
-    			add_location(aside2, file, 24, 2, 443);
-    			attr_dev(main, "class", "svelte-1kcutqv");
+    			attr_dev(aside1, "class", "center svelte-un1qyu");
+    			add_location(aside1, file, 17, 2, 367);
+    			attr_dev(aside2, "class", "right svelte-un1qyu");
+    			add_location(aside2, file, 23, 2, 432);
+    			attr_dev(main, "class", "svelte-un1qyu");
     			add_location(main, file, 11, 0, 296);
     		},
     		l: function claim(nodes) {
@@ -1875,16 +2081,16 @@ var app = (function () {
     			mount_component(halls, aside0, null);
     			append_dev(aside0, t0);
     			mount_component(events, aside0, null);
-    			append_dev(aside0, t1);
-    			mount_component(map, aside0, null);
-    			append_dev(main, t2);
+    			append_dev(main, t1);
     			append_dev(main, aside1);
     			mount_component(places, aside1, null);
-    			append_dev(main, t3);
+    			append_dev(main, t2);
     			append_dev(main, aside2);
     			mount_component(image, aside2, null);
-    			append_dev(aside2, t4);
+    			append_dev(aside2, t3);
     			mount_component(info, aside2, null);
+    			append_dev(main, t4);
+    			mount_component(map, main, null);
     			current = true;
     		},
     		p: noop,
@@ -1892,29 +2098,29 @@ var app = (function () {
     			if (current) return;
     			transition_in(halls.$$.fragment, local);
     			transition_in(events.$$.fragment, local);
-    			transition_in(map.$$.fragment, local);
     			transition_in(places.$$.fragment, local);
     			transition_in(image.$$.fragment, local);
     			transition_in(info.$$.fragment, local);
+    			transition_in(map.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
     			transition_out(halls.$$.fragment, local);
     			transition_out(events.$$.fragment, local);
-    			transition_out(map.$$.fragment, local);
     			transition_out(places.$$.fragment, local);
     			transition_out(image.$$.fragment, local);
     			transition_out(info.$$.fragment, local);
+    			transition_out(map.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(main);
     			destroy_component(halls);
     			destroy_component(events);
-    			destroy_component(map);
     			destroy_component(places);
     			destroy_component(image);
     			destroy_component(info);
+    			destroy_component(map);
     		}
     	};
 

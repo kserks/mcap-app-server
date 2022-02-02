@@ -9,4 +9,7 @@ export default {
   items: event=>{
     return `${base}/query?q=select%20%2a%20from%20items%20where%20event%3D%22${event}%22`
   }
+
 }
+
+// PUT /db/{database}/namespaces/{name}/items
