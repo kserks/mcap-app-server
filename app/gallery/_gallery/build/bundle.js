@@ -561,7 +561,7 @@ var app = (function () {
     			t0 = text(t0_value);
     			t1 = space();
     			attr_dev(li, "class", li_class_value = /*obj*/ ctx[8].active ? 'active' : '');
-    			add_location(li, file$6, 63, 6, 1419);
+    			add_location(li, file$6, 63, 6, 1404);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -624,10 +624,10 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(h3, file$6, 59, 2, 1347);
-    			add_location(ul, file$6, 61, 2, 1374);
+    			add_location(h3, file$6, 59, 2, 1332);
+    			add_location(ul, file$6, 61, 2, 1359);
     			attr_dev(div, "class", "component svelte-jxsqag");
-    			add_location(div, file$6, 57, 0, 1318);
+    			add_location(div, file$6, 57, 0, 1303);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -722,12 +722,9 @@ var app = (function () {
 
     		set_store_value(placeId, $placeId = obj.id, $placeId);
     		list.forEach(item => item.active = false);
-    		$$invalidate(0, list[index].active = true, list);
     		set_store_value(placeObj, $placeObj = list[index], $placeObj);
+    		set_store_value(placeObj, $placeObj.active = true, $placeObj);
 
-    		/**
-     * 
-     */
     		/*
       Копируем изображения из [ cls ] в папку [ cur ]
     */
@@ -984,30 +981,30 @@ var app = (function () {
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[6] = list[i];
-    	child_ctx[8] = i;
+    	child_ctx[8] = list[i];
+    	child_ctx[10] = i;
     	return child_ctx;
     }
 
-    // (28:4) {#each list as obj, index}
+    // (56:4) {#each list as obj, index}
     function create_each_block$1(ctx) {
     	let li;
-    	let t_value = /*obj*/ ctx[6].name + "";
+    	let t_value = /*obj*/ ctx[8].name + "";
     	let t;
     	let li_class_value;
     	let mounted;
     	let dispose;
 
     	function mousedown_handler() {
-    		return /*mousedown_handler*/ ctx[3](/*obj*/ ctx[6], /*index*/ ctx[8]);
+    		return /*mousedown_handler*/ ctx[3](/*obj*/ ctx[8], /*index*/ ctx[10]);
     	}
 
     	const block = {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			attr_dev(li, "class", li_class_value = /*obj*/ ctx[6].active ? 'active' : '');
-    			add_location(li, file$4, 28, 6, 600);
+    			attr_dev(li, "class", li_class_value = /*obj*/ ctx[8].active ? 'active' : '');
+    			add_location(li, file$4, 56, 6, 1377);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -1020,9 +1017,9 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty & /*list*/ 1 && t_value !== (t_value = /*obj*/ ctx[6].name + "")) set_data_dev(t, t_value);
+    			if (dirty & /*list*/ 1 && t_value !== (t_value = /*obj*/ ctx[8].name + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*list*/ 1 && li_class_value !== (li_class_value = /*obj*/ ctx[6].active ? 'active' : '')) {
+    			if (dirty & /*list*/ 1 && li_class_value !== (li_class_value = /*obj*/ ctx[8].active ? 'active' : '')) {
     				attr_dev(li, "class", li_class_value);
     			}
     		},
@@ -1037,7 +1034,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(28:4) {#each list as obj, index}",
+    		source: "(56:4) {#each list as obj, index}",
     		ctx
     	});
 
@@ -1069,10 +1066,10 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(h3, file$4, 24, 2, 533);
-    			add_location(ul, file$4, 26, 2, 556);
+    			add_location(h3, file$4, 52, 2, 1310);
+    			add_location(ul, file$4, 54, 2, 1333);
     			attr_dev(div, "class", "component svelte-4nd5bi");
-    			add_location(div, file$4, 23, 0, 506);
+    			add_location(div, file$4, 51, 0, 1283);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1088,7 +1085,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*list, handler*/ 3) {
+    			if (dirty & /*list, eventsHandler*/ 3) {
     				each_value = /*list*/ ctx[0];
     				validate_each_argument(each_value);
     				let i;
@@ -1133,26 +1130,59 @@ var app = (function () {
 
     function instance$4($$self, $$props, $$invalidate) {
     	let list;
-    	let $eventId;
+    	let $places;
     	let $items;
+    	let $eventId;
     	let $events;
-    	validate_store(eventId, 'eventId');
-    	component_subscribe($$self, eventId, $$value => $$invalidate(4, $eventId = $$value));
+    	validate_store(places, 'places');
+    	component_subscribe($$self, places, $$value => $$invalidate(4, $places = $$value));
     	validate_store(items, 'items');
     	component_subscribe($$self, items, $$value => $$invalidate(5, $items = $$value));
+    	validate_store(eventId, 'eventId');
+    	component_subscribe($$self, eventId, $$value => $$invalidate(6, $eventId = $$value));
     	validate_store(events, 'events');
     	component_subscribe($$self, events, $$value => $$invalidate(2, $events = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Events', slots, []);
 
-    	function handler(obj, index) {
+    	function eventsHandler(obj, index) {
+    		//убираю класс active со всех кнопок
     		list.forEach(item => item.active = false);
+
+    		//добавляю класс active на кнопку по которой кликнули
     		$$invalidate(0, list[index].active = true, list);
 
+    		/**
+     * Получаю список изображений из базы
+     */
     		fetch(api.items(obj.id)).then(r => r.json()).then(res => {
     			set_store_value(items, $items = res.items, $items);
     			set_store_value(eventId, $eventId = obj.id, $eventId);
+
+    			//переопределяю $places
+    			isExistItem($items);
     		});
+    	}
+
+    	/**
+     * Определяю существует ли изображения в базе
+     * для всеконкретных мест
+     */
+    	function isExistItem(__items) {
+    		let _places = $places.map(item => item.text);
+    		let _items = __items.map(item => item.name);
+
+    		set_store_value(
+    			places,
+    			$places = _places.map(i => {
+    				if (_items.includes(i)) {
+    					return { text: i, active: false, exist: true };
+    				}
+
+    				return { text: i, active: false, exist: false };
+    			}),
+    			$places
+    		);
     	}
 
     	const writable_props = [];
@@ -1162,18 +1192,21 @@ var app = (function () {
     	});
 
     	const mousedown_handler = (obj, index) => {
-    		handler(obj, index);
+    		eventsHandler(obj, index);
     	};
 
     	$$self.$capture_state = () => ({
     		api,
     		events,
     		eventId,
+    		places,
     		items,
-    		handler,
+    		eventsHandler,
+    		isExistItem,
     		list,
-    		$eventId,
+    		$places,
     		$items,
+    		$eventId,
     		$events
     	});
 
@@ -1187,6 +1220,8 @@ var app = (function () {
 
     	$$self.$$.update = () => {
     		if ($$self.$$.dirty & /*$events*/ 4) {
+    			//меняю струкутру events на подходящую мне
+    			//конкретно добавляю свойство active
     			$$invalidate(0, list = $events.map(item => {
     				item.active = false;
     				return item;
@@ -1194,7 +1229,7 @@ var app = (function () {
     		}
     	};
 
-    	return [list, handler, $events, mousedown_handler];
+    	return [list, eventsHandler, $events, mousedown_handler];
     }
 
     class Events extends SvelteComponentDev {
@@ -1223,7 +1258,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (109:4) {#each $places as item, index}
+    // (87:4) {#each $places as item, index}
     function create_each_block(ctx) {
     	let li;
     	let t_value = /*item*/ ctx[16].text + "";
@@ -1240,8 +1275,12 @@ var app = (function () {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			attr_dev(li, "class", li_class_value = /*item*/ ctx[16].active ? 'active' : '');
-    			add_location(li, file$3, 109, 6, 2262);
+
+    			attr_dev(li, "class", li_class_value = "" + ((/*item*/ ctx[16].active ? 'active' : '') + " " + (!/*item*/ ctx[16].exist && /*$eventId*/ ctx[3]
+    			? 'not-exist'
+    			: '') + " svelte-1i6w62h"));
+
+    			add_location(li, file$3, 87, 6, 1789);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -1256,7 +1295,9 @@ var app = (function () {
     			ctx = new_ctx;
     			if (dirty & /*$places*/ 4 && t_value !== (t_value = /*item*/ ctx[16].text + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*$places*/ 4 && li_class_value !== (li_class_value = /*item*/ ctx[16].active ? 'active' : '')) {
+    			if (dirty & /*$places, $eventId*/ 12 && li_class_value !== (li_class_value = "" + ((/*item*/ ctx[16].active ? 'active' : '') + " " + (!/*item*/ ctx[16].exist && /*$eventId*/ ctx[3]
+    			? 'not-exist'
+    			: '') + " svelte-1i6w62h"))) {
     				attr_dev(li, "class", li_class_value);
     			}
     		},
@@ -1271,14 +1312,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(109:4) {#each $places as item, index}",
+    		source: "(87:4) {#each $places as item, index}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (113:2) {#if $placeId}
+    // (91:2) {#if $placeId}
     function create_if_block$1(ctx) {
     	let div0;
     	let t1;
@@ -1302,12 +1343,12 @@ var app = (function () {
     			t3 = space();
     			div2 = element("div");
     			t4 = text("Применить");
-    			attr_dev(div0, "class", "btn mb10 svelte-og3tpu");
-    			add_location(div0, file$3, 113, 6, 2414);
-    			attr_dev(div1, "class", div1_class_value = "btn mb10 " + (!/*$eventId*/ ctx[3] ? 'disabled' : '') + " svelte-og3tpu");
-    			add_location(div1, file$3, 114, 6, 2491);
-    			attr_dev(div2, "class", div2_class_value = "btn " + (/*updated*/ ctx[0] ? 'updated' : '') + " " + (!/*$eventId*/ ctx[3] ? 'disabled' : '') + " svelte-og3tpu");
-    			add_location(div2, file$3, 115, 6, 2584);
+    			attr_dev(div0, "class", "btn mb10 svelte-1i6w62h");
+    			add_location(div0, file$3, 91, 6, 1983);
+    			attr_dev(div1, "class", div1_class_value = "btn mb10 " + (!/*$eventId*/ ctx[3] ? 'disabled' : '') + " svelte-1i6w62h");
+    			add_location(div1, file$3, 92, 6, 2060);
+    			attr_dev(div2, "class", div2_class_value = "btn " + (/*updated*/ ctx[0] ? 'updated' : '') + " " + (!/*$eventId*/ ctx[3] ? 'disabled' : '') + " svelte-1i6w62h");
+    			add_location(div2, file$3, 93, 6, 2153);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -1329,11 +1370,11 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*$eventId*/ 8 && div1_class_value !== (div1_class_value = "btn mb10 " + (!/*$eventId*/ ctx[3] ? 'disabled' : '') + " svelte-og3tpu")) {
+    			if (dirty & /*$eventId*/ 8 && div1_class_value !== (div1_class_value = "btn mb10 " + (!/*$eventId*/ ctx[3] ? 'disabled' : '') + " svelte-1i6w62h")) {
     				attr_dev(div1, "class", div1_class_value);
     			}
 
-    			if (dirty & /*updated, $eventId*/ 9 && div2_class_value !== (div2_class_value = "btn " + (/*updated*/ ctx[0] ? 'updated' : '') + " " + (!/*$eventId*/ ctx[3] ? 'disabled' : '') + " svelte-og3tpu")) {
+    			if (dirty & /*updated, $eventId*/ 9 && div2_class_value !== (div2_class_value = "btn " + (/*updated*/ ctx[0] ? 'updated' : '') + " " + (!/*$eventId*/ ctx[3] ? 'disabled' : '') + " svelte-1i6w62h")) {
     				attr_dev(div2, "class", div2_class_value);
     			}
     		},
@@ -1352,7 +1393,7 @@ var app = (function () {
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(113:2) {#if $placeId}",
+    		source: "(91:2) {#if $placeId}",
     		ctx
     	});
 
@@ -1389,11 +1430,11 @@ var app = (function () {
 
     			t2 = space();
     			if (if_block) if_block.c();
-    			add_location(h3, file$3, 105, 2, 2194);
-    			attr_dev(ul, "class", "svelte-og3tpu");
-    			add_location(ul, file$3, 107, 2, 2214);
-    			attr_dev(div, "class", "component svelte-og3tpu");
-    			add_location(div, file$3, 104, 0, 2167);
+    			add_location(h3, file$3, 83, 2, 1721);
+    			attr_dev(ul, "class", "svelte-1i6w62h");
+    			add_location(ul, file$3, 85, 2, 1741);
+    			attr_dev(div, "class", "component svelte-1i6w62h");
+    			add_location(div, file$3, 82, 0, 1694);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1412,7 +1453,7 @@ var app = (function () {
     			if (if_block) if_block.m(div, null);
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*$places, imageHandler*/ 68) {
+    			if (dirty & /*$places, $eventId, imageHandler*/ 76) {
     				each_value = /*$places*/ ctx[2];
     				validate_each_argument(each_value);
     				let i;
@@ -1504,7 +1545,6 @@ var app = (function () {
     		let obj = { ...$placeObj, event: $eventId };
     		delete obj.active;
 
-    		//(reset==='reset')?obj.event='cls':''
     		if ($eventId) {
     			try {
     				let res = await fetch(url);
@@ -1527,7 +1567,6 @@ var app = (function () {
 
     	/**
      * Выбираем место и получаем пусть к текущему изображению
-     * Формируюем
      */
     	function getCurrentItem(name) {
     		let data = $items.filter(item => item.name === name);
@@ -1551,18 +1590,7 @@ var app = (function () {
     			let url = `/${config.artDir}/${$placeId}/cls/${item.text}.jpg`;
     			set_store_value(currentImage, $currentImage.url = url, $currentImage);
     		}
-    	} /*
-      let arr = [] 
-       for(var i=0; i<$places.length;i++){
-
-          for(let j =0; $items.length;j++){
-            if($places[i].name===$items[j].name){
-              arr.push({ data: $places[i], index: i })
-            }
-          }
-       }
-
-     console.log(arr)*/
+    	}
 
     	function reset() {
     		set_store_value(
@@ -1574,11 +1602,6 @@ var app = (function () {
     			$events
     		);
 
-    		/**
-      $places = $placeObj.map.split(',').map(item=>{
-                                  return {active: false, text: item}
-                                })
-     */
     		set_store_value(
     			places,
     			$places = $places.map(item => {
@@ -1891,6 +1914,8 @@ var app = (function () {
     	let label5;
     	let t15;
     	let div6;
+    	let t16;
+    	let div6_class_value;
     	let mounted;
     	let dispose;
 
@@ -1933,7 +1958,7 @@ var app = (function () {
     			label5 = element("label");
     			t15 = space();
     			div6 = element("div");
-    			div6.textContent = "Записать";
+    			t16 = text("Записать");
     			attr_dev(label0, "for", "");
     			attr_dev(label0, "class", "svelte-jrx5od");
     			add_location(label0, file$1, 34, 6, 578);
@@ -1978,7 +2003,7 @@ var app = (function () {
     			attr_dev(label5, "for", "#save");
     			attr_dev(label5, "class", "svelte-jrx5od");
     			add_location(label5, file$1, 57, 6, 1412);
-    			attr_dev(div6, "class", "btn");
+    			attr_dev(div6, "class", div6_class_value = "btn " + (/*$currentImage*/ ctx[0].url ? '' : 'disabled'));
     			attr_dev(div6, "id", "save");
     			add_location(div6, file$1, 58, 6, 1447);
     			attr_dev(div7, "class", "info-item svelte-jrx5od");
@@ -2029,6 +2054,7 @@ var app = (function () {
     			append_dev(div7, label5);
     			append_dev(div7, t15);
     			append_dev(div7, div6);
+    			append_dev(div6, t16);
 
     			if (!mounted) {
     				dispose = [
@@ -2062,6 +2088,10 @@ var app = (function () {
 
     			if (dirty & /*$currentImage*/ 1) {
     				set_input_value(textarea, /*$currentImage*/ ctx[0].data.descr);
+    			}
+
+    			if (dirty & /*$currentImage*/ 1 && div6_class_value !== (div6_class_value = "btn " + (/*$currentImage*/ ctx[0].url ? '' : 'disabled'))) {
+    				attr_dev(div6, "class", div6_class_value);
     			}
     		},
     		i: noop,

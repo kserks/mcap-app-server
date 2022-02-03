@@ -56,7 +56,7 @@ catch (e){
   <div class="btn-wrapper">
     <div class="info-item">
       <label for="#save"></label>
-      <div class="btn" id="save" on:mousedown={save}>Записать</div>
+      <div class="btn {$currentImage.url?'':'disabled'}" id="save" on:mousedown={save}>Записать</div>
     </div>
   </div>
 

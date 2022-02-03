@@ -5,6 +5,8 @@ import currentReset from '../methods/currentReset.js'
 
 $:list = []
 let action = false
+
+
 fetch(api.locations)
     .then(r=>r.json())
     .then(res=>{
@@ -18,16 +20,14 @@ fetch(api.locations)
 
 function handler (obj, index){
   $places =  obj.map.split(',').map(item=>{
-                      return {active: false, text: item}
+                      return { active: false, text: item }
              })
   $placeId = obj.id
 
   list.forEach(item=>item.active=false)
-  list[index].active = true
+
   $placeObj = list[index]
-  /**
-   * 
-   */
+  $placeObj.active = true
   /*
     Копируем изображения из [ cls ] в папку [ cur ]
   */

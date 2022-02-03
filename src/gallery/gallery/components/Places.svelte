@@ -9,7 +9,7 @@ async function setCurrent (){
   let url = `/gallery/art?placeId=${$placeId}&eventId=${$eventId}`
   let obj = {...$placeObj, event: $eventId}
   delete obj.active
-  //(reset==='reset')?obj.event='cls':''
+
   if($eventId){
     try{
       let res =  await fetch(url)
@@ -29,9 +29,9 @@ async function setCurrent (){
 
 }
 
+
 /**
  * Выбираем место и получаем пусть к текущему изображению
- * Формируюем
  */
 
 function getCurrentItem(name){
@@ -60,20 +60,6 @@ function imageHandler (item, index){
       let url = `/${config.artDir}/${$placeId}/cls/${item.text}.jpg`
       $currentImage.url = url
   }
-
-/*
-  let arr = [] 
-   for(var i=0; i<$places.length;i++){
-
-      for(let j =0; $items.length;j++){
-        if($places[i].name===$items[j].name){
-          arr.push({ data: $places[i], index: i })
-        }
-      }
-   }
-
- console.log(arr)*/
-
 }
 
 
@@ -82,21 +68,13 @@ function reset (){
     item.active=false
     return item
   })
-/**
-  $places = $placeObj.map.split(',').map(item=>{
-                              return {active: false, text: item}
-                            })
- */
-
 
   $places = $places.map(item=>{
     item.active=false
     return item
   })
 
-
   currentReset($placeId)
-
   $currentImage.url = ''
 }
 
@@ -107,7 +85,7 @@ function reset (){
 
   <ul>
     {#each $places as item, index}
-      <li class="{item.active?'active': ''}" on:mousedown={()=>{imageHandler(item, index)}}>{ item.text }</li>
+      <li class="{item.active?'active': ''} {(!item.exist&&$eventId)?'not-exist': ''}" on:mousedown={()=>{imageHandler(item, index)}}>{ item.text }</li>
     {/each}
   </ul>
   {#if $placeId}
@@ -135,5 +113,10 @@ function reset (){
 .updated{
   background-color: #11f294;
   color: ghostwhite;
+}
+
+.not-exist{
+  background-color: brown;
+  color: white;
 }
 </style>

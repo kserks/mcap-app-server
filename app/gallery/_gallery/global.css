@@ -103,11 +103,11 @@ ul li{
 
 }
 ul li:hover{
-	background-color: #5e6acc;
-	color: white;
+	background-color: #5e6acc !important;
+	color: white !important;
 }
 ul{
-	height: 330px;
+	height: 310px;
   overflow: auto;
 	padding: 0px 0;
 	padding-right: 10px;
@@ -144,8 +144,8 @@ ul::-webkit-scrollbar-thumb {
   color: white;
 }
 .active{
-  background-color: #5e6acc;
-  color: white;
+  background-color: #5e6acc !important;
+  color: white !important;
   
 }
 textarea,
