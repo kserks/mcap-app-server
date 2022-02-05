@@ -16,7 +16,10 @@ export default {
   },
   updateInfo: (id, obj)=>{
     return `${base}/query?q=update%20items%20set${objToUrl(obj)}%20where%20id%3D%22${id}%22`
-  }
+  },
+  addItem: `${base}/namespaces/items/items`,
 }
 
 // PUT /db/{database}/namespaces/{name}/items
+// DELETE FROM items where name="g14"
+// select * from items where name="g14"

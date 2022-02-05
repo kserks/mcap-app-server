@@ -48,7 +48,10 @@ aside{
   margin-right: 5px;
 }
 
-
+.updated{
+  background-color: #11f294 !important;
+  color: ghostwhite !important;
+}
 .left{
   width: 40%;
 }

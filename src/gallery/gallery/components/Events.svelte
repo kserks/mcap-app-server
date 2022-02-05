@@ -1,21 +1,17 @@
 <script>
 import api from '../helpers/api.js'
-import { events, eventId, places, items } from '../stores.js'
+import { events, eventId, places, items, itemId, currentImage, placeObj , locations } from '../stores.js'
 
-//меняю струкутру events на подходящую мне
-//конкретно добавляю свойство active
-$:list =  $events.map(item=>{
-                        item.active = false
-                        return item
-                    })
 
 
 function eventsHandler (obj, index){
 
+  $itemId = null
+  $currentImage.url = ''
   //убираю класс active со всех кнопок
-  list.forEach(item=>item.active=false)
+  $events.forEach(item=>item.active=false)
   //добавляю класс active на кнопку по которой кликнули
-  list[index].active = true
+  $events[index].active = true
   /**
    * Получаю список изображений из базы
    */
@@ -40,8 +36,9 @@ let _places = $places.map(item=>item.text)
 let _items = __items.map(item=>item.name)
 
   $places = _places.map(i=>{
+
                   if(_items.includes(i)){
-                    return { text: i, active: false, exist: true }
+                    return { text: i, active: false, exist: true}
                   }
                   return { text: i, active: false, exist: false }
               })
@@ -50,11 +47,11 @@ let _items = __items.map(item=>item.name)
 </script>
 
 <div class="component">
-  <h3>Выставки</h3>
+  <h3>События</h3>
 
   <ul>
-    {#each list as obj, index}
-      <li  class="{obj.active?'active': ''}" on:mousedown={ ()=>{ eventsHandler(obj, index) } }>{obj.name}</li>
+    {#each $events as obj, index}
+      <li  class="{obj.active?'active': ''} {obj.current?'currentEvent':''}" on:mousedown={ ()=>{ eventsHandler(obj, index) } }>{obj.name}</li>
     {/each}
   </ul>  
 </div>
@@ -63,4 +60,25 @@ let _items = __items.map(item=>item.name)
 .component{
     height: 50%;
 }
+ul li{
+  position: relative;
+}
+.currentEvent{
+  z-index: 1000;
+}
+.currentEvent:after{
+  background-color: darkcyan;
+  content: '';
+  position: absolute;
+  right: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+
+
 </style>

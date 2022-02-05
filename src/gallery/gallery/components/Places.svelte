@@ -1,9 +1,9 @@
 <script>
 import api from '../helpers/api.js'
-import { places, placeId, events, eventId, items, placeObj, config, currentImage, showMap } from '../stores.js'
+import { places, placeId, events, placeObj, eventId, items, itemId, itemData , config, currentImage, showMap, isImgExist, imageFileType } from '../stores.js'
 import currentReset from '../methods/currentReset.js'
 
-$:list = []
+
 $:updated = false
 async function setCurrent (){
   let url = `/gallery/art?placeId=${$placeId}&eventId=${$eventId}`
@@ -12,12 +12,22 @@ async function setCurrent (){
 
   if($eventId){
     try{
+
+      $events.map(item=>{
+          if($eventId===item.id){
+            item.current = true
+          }
+          else{
+            item.current = false
+          }
+      })
       let res =  await fetch(url)
       let res2 = await fetch(api.updateLocation(obj.id, obj))
       updated = true
       setTimeout(()=>{
         updated = false
       },1000)
+
     }
     catch(e){
         console.error(e)
@@ -30,29 +40,13 @@ async function setCurrent (){
 }
 
 
-/**
- * Выбираем место и получаем пусть к текущему изображению
- */
-
-function getCurrentItem(name){
-
-  let data = $items.filter(item=>item.name===name)
-
-  if(data.length>0){
-
-    $currentImage.data = data[0]
-    let url = `/${config.artDir}/${$placeId}/arh/${$eventId}/${name}.${$currentImage.data.ext}`
-    $currentImage.url = url
-  }
-  else{
-    $currentImage.data = null
-  }
-}
 
 function imageHandler (item, index){
 
   $places.forEach(item=>item.active=false)
   $places[index].active = true
+  $itemId = $places[index].text
+
   if($eventId){
       getCurrentItem(item.text)
   }
@@ -62,8 +56,42 @@ function imageHandler (item, index){
   }
 }
 
+/**
+ * Выбираем место и получаем пусть к текущему изображению
+ */
 
-function reset (){
+function getCurrentItem(name){
+
+  let data = $items.filter(item=>item.name===name)
+  $itemData = null
+  if(data.length>0){
+    $itemData = data[0]
+    $imageFileType = $itemData.ext
+    $currentImage.data = data[0]
+    let url = `/${config.artDir}/${$placeId}/arh/${$eventId}/${name}.${$currentImage.data.ext}`
+    $currentImage.url = url
+    $isImgExist = true
+  }
+  else{
+
+    $currentImage = {
+              url: '/gallery/_gallery/images/placeholder.jpg',
+              data: {
+                info1: null,
+                info2: null,
+                info3: null,
+                info4: null,
+                descr: null
+              }
+    }
+    $isImgExist = false
+  }
+}
+/**
+ * reset currentDIR and ui-state
+ */
+
+function resetHandler (){
   $events = $events.map(item=>{
     item.active=false
     return item
@@ -71,11 +99,17 @@ function reset (){
 
   $places = $places.map(item=>{
     item.active=false
+    item.exist = true
     return item
   })
 
   currentReset($placeId)
   $currentImage.url = ''
+  fetch(api.updateLocation($placeObj.id, {event: 'cls'}))
+  $events.map(item=>{
+    item.current = false
+  })
+
 }
 
 </script>
@@ -90,7 +124,7 @@ function reset (){
   </ul>
   {#if $placeId}
       <div class="btn mb10" on:mousedown={()=>{$showMap=true}} >Карта</div>
-      <div class="btn mb10 {!$eventId?'disabled':''}" on:mousedown={reset } >Сбросить</div>
+      <div class="btn mb10 {!$eventId?'disabled':''}" on:mousedown={resetHandler } >Сбросить</div>
       <div class="btn {updated?'updated':''} {!$eventId?'disabled':''}" on:mousedown={setCurrent}>Применить</div>
   {/if}
 </div>
@@ -114,9 +148,9 @@ function reset (){
   background-color: #11f294;
   color: ghostwhite;
 }
-
 .not-exist{
-  background-color: brown;
+  background-color: crimson;
   color: white;
+  opacity: 0.5;
 }
 </style>

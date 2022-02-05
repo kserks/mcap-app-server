@@ -17,9 +17,8 @@ const app = express()
 
 
 
-app.use(express.json({limit: '20mb'}))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json({limit:'50mb'})); 
+app.use(bodyParser.urlencoded({extended:true, limit:'50mb', parameterLimit: 100000})); 
 app.use(cors());
 
 app.use(express.static(join(__dirname, '/app')))

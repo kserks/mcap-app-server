@@ -1,22 +1,55 @@
 <script>
 import api from '../helpers/api.js'
-import { currentImage } from '../stores.js'
-
+import { currentImage, isImgExist, eventId, items, itemId, imageFileType, itemData} from '../stores.js'
+import uid from '../helpers/uid.js'
 
 
 async function save (){
 
 try{
+
   let id = $currentImage.data.id
   let body = {
     info1: $currentImage.data.info1,
     info2: $currentImage.data.info2,
     info3: $currentImage.data.info3,
     info4: $currentImage.data.info4,
-    descr: $currentImage.data.descr
-
+    descr: $currentImage.data.descr,
+    ext: $imageFileType,
+    name: $itemId
   }
-  let res2 = await fetch(api.updateInfo(id, body))
+  console.log($imageFileType)
+  if($isImgExist){
+     let res2 = await fetch(api.updateInfo(id, body))
+  }
+  else{
+ 
+    let data = {
+        id: uid(),
+        ext: $imageFileType,
+        name: $itemId,
+        info1: $currentImage.data.info1||'',
+        info2: $currentImage.data.info2||'',
+        info3: $currentImage.data.info3||'',
+        info4: $currentImage.data.info4||'',
+        descr: $currentImage.data.descr||'',
+        event: $eventId
+    }
+ 
+     fetch(api.addItem, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: JSON.stringify(data)
+     })
+    .then(r=>{
+      console.log(r)
+    })
+    .catch(e=>console.error(e))
+  }
+
 
 }
 catch (e){

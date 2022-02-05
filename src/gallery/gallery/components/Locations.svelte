@@ -1,33 +1,40 @@
 <script>
 import api from '../helpers/api.js'
-import { places, placeId, events, placeObj } from '../stores.js'
+import { places, placeId, events, itemId, placeObj, currentImage, locations } from '../stores.js'
 import currentReset from '../methods/currentReset.js'
 
 $:list = []
 let action = false
 
 
+
+
 fetch(api.locations)
     .then(r=>r.json())
     .then(res=>{
-         list = res.items.map(item=>{
-                    //(item.event==='cls'||item.event==='')?item.active = false:item.active = true
-                    
+         $locations = res.items.map(item=>{
+ 
                     return item
                 })
 
     })
 
+
+
+
+
 function handler (obj, index){
+  $itemId = null
+  $currentImage.url = ''
   $places =  obj.map.split(',').map(item=>{
-                      return { active: false, text: item }
+                      return { active: false, text: item, exist: true }
              })
   $placeId = obj.id
 
-  list.forEach(item=>item.active=false)
+  $locations.forEach(item=>$locations.active=false)
+  $locations[index].active = true
+  $placeObj = $locations[index]
 
-  $placeObj = list[index]
-  $placeObj.active = true
   /*
     Копируем изображения из [ cls ] в папку [ cur ]
   */
@@ -44,8 +51,12 @@ function handler (obj, index){
       .then(r=>r.json())
       .then(res=>{
           $events = res.items.map(item=>{
-                        //($placeObj.event===item.id)?item.active = true:item.active = false
+
+                      ($placeObj.event===item.id)?item.current = true:item.current = false
+                      
+                
                         item.active = false
+
                         return item
                     })
       })
@@ -57,10 +68,10 @@ function handler (obj, index){
 
 <div class="component">
 
-  <h3>Список залов</h3>
+  <h3>Залы</h3>
 
   <ul>
-    {#each list as obj, index }
+    {#each $locations as obj, index }
       <li class="{obj.active?'active': ''}" on:mousedown={()=>{  handler(obj, index)}} >{obj.name} </li>
     {/each}
   </ul>  

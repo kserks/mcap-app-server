@@ -3,15 +3,43 @@ const app = express.Router();
 const { join, resolve } = require('path')
 const fs = require('fs-extra')
 const config = require('../mcap-config.json')
-const request = require('request');
+//const request = require('request');
+const multer  = require('multer')
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+         let name = file.originalname.split("_____")
+        //let newDirPath = resolve(__dirname,'../app/uploads/')
+        let newDirPath = join(config.art, name[0], 'arh/', name[1])
+        cb(null, newDirPath)
+    },
+    filename: function(req, file, cb) {
+        let name = file.originalname.split("_____")[2]
+        cb(null, name);
+    },
+    limits: {
+        fileSize: 1000000,
+    },
+});
+
+const upload = multer({ storage: storage });
+
+
+
+
+
+
+
+
+
 
 app.get('/art', async (req, res)=>{
 
 let { placeId, eventId } = req.query
 
 
-let __from = join(appRoot, config.art, placeId, 'arh/', eventId)
-let __to = join(appRoot, config.art, placeId, 'cur')
+let __from = join(config.art, placeId, 'arh/', eventId)
+let __to = join(config.art, placeId, 'cur')
 
 
 try {
@@ -46,6 +74,15 @@ catch (err) {
     res.sendStatus(500)
 }
  
+})
+
+
+app.post('/art/saveImage', upload.single('file'), (req, res)=>{
+    console.log('req')
+    res
+        .status(200)
+        .contentType("text/plain")
+        .end("File uploaded!")
 })
 
 

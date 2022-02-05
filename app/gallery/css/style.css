@@ -12,7 +12,8 @@ body{
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: white;
+  background-color: #445;
+
 }
 
 .app{
@@ -38,8 +39,8 @@ body{
   align-items: center;
   text-decoration: none;
   color: white;
-  font-family: Consolas;
-  font-size: 28px;
+  font-family: Minecraft;
+  font-size: 20px;
   font-weight: 600;
   position: absolute;
 }
@@ -58,4 +59,9 @@ body{
 .links-wrapper a:nth-child(4){
   top: 375px;
   left: 375px;
+}
+
+@font-face {
+  font-family: Minecraft;
+  src: url(../fonts/Minecraft.ttf); 
 }
