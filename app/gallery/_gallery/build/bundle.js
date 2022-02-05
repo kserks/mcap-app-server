@@ -1323,7 +1323,7 @@ var app = (function () {
 
     			attr_dev(li, "class", li_class_value = "" + ((/*item*/ ctx[19].active ? 'active' : '') + " " + (!/*item*/ ctx[19].exist && /*$eventId*/ ctx[3]
     			? 'not-exist'
-    			: '') + " svelte-6sg6bv"));
+    			: '') + " svelte-7k6sw3"));
 
     			add_location(li, file$3, 121, 6, 2615);
     		},
@@ -1342,7 +1342,7 @@ var app = (function () {
 
     			if (dirty & /*$places, $eventId*/ 12 && li_class_value !== (li_class_value = "" + ((/*item*/ ctx[19].active ? 'active' : '') + " " + (!/*item*/ ctx[19].exist && /*$eventId*/ ctx[3]
     			? 'not-exist'
-    			: '') + " svelte-6sg6bv"))) {
+    			: '') + " svelte-7k6sw3"))) {
     				attr_dev(li, "class", li_class_value);
     			}
     		},
@@ -1388,11 +1388,11 @@ var app = (function () {
     			t3 = space();
     			div2 = element("div");
     			t4 = text("Применить");
-    			attr_dev(div0, "class", "btn mb10 svelte-6sg6bv");
+    			attr_dev(div0, "class", "btn mb10 svelte-7k6sw3");
     			add_location(div0, file$3, 125, 6, 2809);
-    			attr_dev(div1, "class", div1_class_value = "btn mb10 " + (!/*$eventId*/ ctx[3] ? 'disabled' : '') + " svelte-6sg6bv");
+    			attr_dev(div1, "class", div1_class_value = "btn mb10 " + (!/*$eventId*/ ctx[3] ? 'disabled' : '') + " svelte-7k6sw3");
     			add_location(div1, file$3, 126, 6, 2886);
-    			attr_dev(div2, "class", div2_class_value = "btn " + (/*updated*/ ctx[0] ? 'updated' : '') + " " + (!/*$eventId*/ ctx[3] ? 'disabled' : '') + " svelte-6sg6bv");
+    			attr_dev(div2, "class", div2_class_value = "btn " + (/*updated*/ ctx[0] ? 'updated' : '') + " " + (!/*$eventId*/ ctx[3] ? 'disabled' : '') + " svelte-7k6sw3");
     			add_location(div2, file$3, 127, 6, 2986);
     		},
     		m: function mount(target, anchor) {
@@ -1415,11 +1415,11 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*$eventId*/ 8 && div1_class_value !== (div1_class_value = "btn mb10 " + (!/*$eventId*/ ctx[3] ? 'disabled' : '') + " svelte-6sg6bv")) {
+    			if (dirty & /*$eventId*/ 8 && div1_class_value !== (div1_class_value = "btn mb10 " + (!/*$eventId*/ ctx[3] ? 'disabled' : '') + " svelte-7k6sw3")) {
     				attr_dev(div1, "class", div1_class_value);
     			}
 
-    			if (dirty & /*updated, $eventId*/ 9 && div2_class_value !== (div2_class_value = "btn " + (/*updated*/ ctx[0] ? 'updated' : '') + " " + (!/*$eventId*/ ctx[3] ? 'disabled' : '') + " svelte-6sg6bv")) {
+    			if (dirty & /*updated, $eventId*/ 9 && div2_class_value !== (div2_class_value = "btn " + (/*updated*/ ctx[0] ? 'updated' : '') + " " + (!/*$eventId*/ ctx[3] ? 'disabled' : '') + " svelte-7k6sw3")) {
     				attr_dev(div2, "class", div2_class_value);
     			}
     		},
@@ -1476,9 +1476,9 @@ var app = (function () {
     			t2 = space();
     			if (if_block) if_block.c();
     			add_location(h3, file$3, 117, 2, 2547);
-    			attr_dev(ul, "class", "svelte-6sg6bv");
+    			attr_dev(ul, "class", "svelte-7k6sw3");
     			add_location(ul, file$3, 119, 2, 2567);
-    			attr_dev(div, "class", "component svelte-6sg6bv");
+    			attr_dev(div, "class", "component svelte-7k6sw3");
     			add_location(div, file$3, 116, 0, 2520);
     		},
     		l: function claim(nodes) {
@@ -1801,15 +1801,16 @@ var app = (function () {
 
     const file$2 = "src\\gallery\\gallery\\components\\Image.svelte";
 
-    // (82:2) {#if !$playerName}
+    // (93:2) {#if !$playerName}
     function create_if_block(ctx) {
     	let div2;
     	let div1;
     	let label;
     	let div0;
+    	let t0;
+    	let div0_class_value;
     	let t1;
     	let input;
-    	let div1_class_value;
     	let div2_class_value;
 
     	const block = {
@@ -1818,45 +1819,46 @@ var app = (function () {
     			div1 = element("div");
     			label = element("label");
     			div0 = element("div");
-    			div0.textContent = "Загрузить";
+    			t0 = text("Загрузить");
     			t1 = space();
     			input = element("input");
-    			attr_dev(div0, "class", "btn svelte-5yglgx");
-    			add_location(div0, file$2, 86, 12, 2183);
+    			attr_dev(div0, "class", div0_class_value = "btn " + (/*updated*/ ctx[1] ? 'updated' : '') + " svelte-5yglgx");
+    			add_location(div0, file$2, 97, 12, 2440);
     			attr_dev(label, "for", "file-input");
     			attr_dev(label, "class", "svelte-5yglgx");
-    			add_location(label, file$2, 85, 10, 2145);
+    			add_location(label, file$2, 96, 10, 2402);
     			attr_dev(input, "id", "file-input");
     			attr_dev(input, "type", "file");
     			attr_dev(input, "accept", "image/*");
     			attr_dev(input, "class", "svelte-5yglgx");
-    			add_location(input, file$2, 89, 10, 2249);
-    			attr_dev(div1, "class", div1_class_value = "image-upload " + (/*updated*/ ctx[1] ? 'updated' : '') + " svelte-5yglgx");
-    			add_location(div1, file$2, 84, 8, 2083);
-    			attr_dev(div2, "class", div2_class_value = "btn-wrapper " + (/*$itemId*/ ctx[3] ? '' : 'disabled') + " svelte-5yglgx");
-    			add_location(div2, file$2, 82, 4, 2016);
+    			add_location(input, file$2, 100, 10, 2529);
+    			attr_dev(div1, "class", "image-upload svelte-5yglgx");
+    			add_location(div1, file$2, 95, 8, 2363);
+    			attr_dev(div2, "class", div2_class_value = "btn-wrapper " + (/*$itemId*/ ctx[2] ? '' : 'disabled') + " svelte-5yglgx");
+    			add_location(div2, file$2, 93, 4, 2296);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
     			append_dev(div2, div1);
     			append_dev(div1, label);
     			append_dev(label, div0);
+    			append_dev(div0, t0);
     			append_dev(div1, t1);
     			append_dev(div1, input);
-    			/*input_binding*/ ctx[5](input);
+    			/*input_binding*/ ctx[4](input);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*updated*/ 2 && div1_class_value !== (div1_class_value = "image-upload " + (/*updated*/ ctx[1] ? 'updated' : '') + " svelte-5yglgx")) {
-    				attr_dev(div1, "class", div1_class_value);
+    			if (dirty & /*updated*/ 2 && div0_class_value !== (div0_class_value = "btn " + (/*updated*/ ctx[1] ? 'updated' : '') + " svelte-5yglgx")) {
+    				attr_dev(div0, "class", div0_class_value);
     			}
 
-    			if (dirty & /*$itemId*/ 8 && div2_class_value !== (div2_class_value = "btn-wrapper " + (/*$itemId*/ ctx[3] ? '' : 'disabled') + " svelte-5yglgx")) {
+    			if (dirty & /*$itemId*/ 4 && div2_class_value !== (div2_class_value = "btn-wrapper " + (/*$itemId*/ ctx[2] ? '' : 'disabled') + " svelte-5yglgx")) {
     				attr_dev(div2, "class", div2_class_value);
     			}
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div2);
-    			/*input_binding*/ ctx[5](null);
+    			/*input_binding*/ ctx[4](null);
     		}
     	};
 
@@ -1864,7 +1866,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(82:2) {#if !$playerName}",
+    		source: "(93:2) {#if !$playerName}",
     		ctx
     	});
 
@@ -1876,7 +1878,7 @@ var app = (function () {
     	let div1;
     	let div0;
     	let t;
-    	let if_block = !/*$playerName*/ ctx[4] && create_if_block(ctx);
+    	let if_block = !/*$playerName*/ ctx[3] && create_if_block(ctx);
 
     	const block = {
     		c: function create() {
@@ -1886,12 +1888,12 @@ var app = (function () {
     			t = space();
     			if (if_block) if_block.c();
     			attr_dev(div0, "class", "image svelte-5yglgx");
-    			set_style(div0, "background-image", "url(" + (/*$currentImage*/ ctx[2].url || '') + ")");
-    			add_location(div0, file$2, 79, 6, 1898);
+    			set_style(div0, "background-image", "url(" + (currentImage.url || '') + ")");
+    			add_location(div0, file$2, 90, 6, 2179);
     			attr_dev(div1, "class", "image-viewer svelte-5yglgx");
-    			add_location(div1, file$2, 78, 2, 1864);
+    			add_location(div1, file$2, 89, 2, 2145);
     			attr_dev(div2, "class", "component svelte-5yglgx");
-    			add_location(div2, file$2, 77, 0, 1837);
+    			add_location(div2, file$2, 88, 0, 2118);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1904,11 +1906,7 @@ var app = (function () {
     			if (if_block) if_block.m(div2, null);
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*$currentImage*/ 4) {
-    				set_style(div0, "background-image", "url(" + (/*$currentImage*/ ctx[2].url || '') + ")");
-    			}
-
-    			if (!/*$playerName*/ ctx[4]) {
+    			if (!/*$playerName*/ ctx[3]) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -1951,11 +1949,11 @@ var app = (function () {
     	let $itemData;
     	let $playerName;
     	validate_store(imageFileType, 'imageFileType');
-    	component_subscribe($$self, imageFileType, $$value => $$invalidate(6, $imageFileType = $$value));
+    	component_subscribe($$self, imageFileType, $$value => $$invalidate(5, $imageFileType = $$value));
     	validate_store(currentImage, 'currentImage');
-    	component_subscribe($$self, currentImage, $$value => $$invalidate(2, $currentImage = $$value));
+    	component_subscribe($$self, currentImage, $$value => $$invalidate(6, $currentImage = $$value));
     	validate_store(itemId, 'itemId');
-    	component_subscribe($$self, itemId, $$value => $$invalidate(3, $itemId = $$value));
+    	component_subscribe($$self, itemId, $$value => $$invalidate(2, $itemId = $$value));
     	validate_store(eventId, 'eventId');
     	component_subscribe($$self, eventId, $$value => $$invalidate(7, $eventId = $$value));
     	validate_store(placeId, 'placeId');
@@ -1965,7 +1963,7 @@ var app = (function () {
     	validate_store(itemData, 'itemData');
     	component_subscribe($$self, itemData, $$value => $$invalidate(10, $itemData = $$value));
     	validate_store(playerName, 'playerName');
-    	component_subscribe($$self, playerName, $$value => $$invalidate(4, $playerName = $$value));
+    	component_subscribe($$self, playerName, $$value => $$invalidate(3, $playerName = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Image', slots, []);
 
@@ -1981,6 +1979,7 @@ var app = (function () {
     		set_store_value(playerName, $playerName = false, $playerName);
     	}
 
+    	let imgURL = $currentImage.url;
     	let IMG = null;
 
     	onMount(() => {
@@ -1988,6 +1987,11 @@ var app = (function () {
     		IMG.addEventListener('change', event => {
     			var file = IMG.files[0];
     			var ext = file.type.split('/')[1];
+
+    			if (ext === 'jpeg') {
+    				ext = 'jpg';
+    			}
+
     			var name = `${$placeId}_____${$eventId}_____${$itemId}.${ext}`;
     			let newFile = new File([file], name, { type: file.type });
     			let formData = new FormData();
@@ -2007,14 +2011,16 @@ var app = (function () {
     					$places
     				);
 
-    				let url = `/${config.artDir}/${$placeId}/arh/${$eventId}/${$itemId}.${ext}`;
-    				set_store_value(currentImage, $currentImage.url = url, $currentImage);
-    				set_store_value(imageFileType, $imageFileType = ext, $imageFileType);
+    				//показываем загружнное изображение
+    				//показываем зеленый клас
     				$$invalidate(1, updated = true);
 
     				setTimeout(
     					() => {
     						$$invalidate(1, updated = false);
+    						let url = `/${config.artDir}/${$placeId}/arh/${$eventId}/${$itemId}.${ext}`;
+    						set_store_value(currentImage, $currentImage.url = url, $currentImage);
+    						set_store_value(imageFileType, $imageFileType = ext, $imageFileType);
     					},
     					1000
     				);
@@ -2048,6 +2054,7 @@ var app = (function () {
     		eventId,
     		itemData,
     		places,
+    		imgURL,
     		IMG,
     		updated,
     		$imageFileType,
@@ -2061,6 +2068,7 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
+    		if ('imgURL' in $$props) imgURL = $$props.imgURL;
     		if ('IMG' in $$props) $$invalidate(0, IMG = $$props.IMG);
     		if ('updated' in $$props) $$invalidate(1, updated = $$props.updated);
     	};
@@ -2070,7 +2078,7 @@ var app = (function () {
     	}
 
     	$$invalidate(1, updated = false);
-    	return [IMG, updated, $currentImage, $itemId, $playerName, input_binding];
+    	return [IMG, updated, $itemId, $playerName, input_binding];
     }
 
     class Image extends SvelteComponentDev {
@@ -2525,13 +2533,13 @@ var app = (function () {
     			create_component(info.$$.fragment);
     			t4 = space();
     			create_component(map.$$.fragment);
-    			attr_dev(aside0, "class", "left svelte-1a2ekqm");
+    			attr_dev(aside0, "class", "left svelte-un1qyu");
     			add_location(aside0, file, 13, 2, 314);
-    			attr_dev(aside1, "class", "center svelte-1a2ekqm");
+    			attr_dev(aside1, "class", "center svelte-un1qyu");
     			add_location(aside1, file, 17, 2, 379);
-    			attr_dev(aside2, "class", "right svelte-1a2ekqm");
+    			attr_dev(aside2, "class", "right svelte-un1qyu");
     			add_location(aside2, file, 20, 2, 431);
-    			attr_dev(main, "class", "svelte-1a2ekqm");
+    			attr_dev(main, "class", "svelte-un1qyu");
     			add_location(main, file, 11, 0, 304);
     		},
     		l: function claim(nodes) {

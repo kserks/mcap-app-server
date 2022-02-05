@@ -144,10 +144,7 @@ function resetHandler (){
 .mb10{
   margin-bottom: 10px;
 }
-.updated{
-  background-color: #11f294;
-  color: ghostwhite;
-}
+
 .not-exist{
   background-color: crimson;
   color: white;

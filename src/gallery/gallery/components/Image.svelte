@@ -20,6 +20,9 @@ try {
     }
 
 $:updated = false
+let imgURL = $currentImage.url
+
+
 
 let IMG = null
 onMount(()=>{
@@ -38,6 +41,9 @@ IMG.addEventListener('change', event=>{
      
           var file = IMG.files[0]
           var ext = file.type.split('/')[1]
+          if(ext==='jpeg'){
+            ext = 'jpg'
+          }
           var name = `${$placeId}_____${$eventId}_____${$itemId}.${ext}`
 
           let newFile = new File([file], name, { type: file.type })
@@ -49,19 +55,24 @@ IMG.addEventListener('change', event=>{
                     body: formData
           })
           .then(data => {
-              // убираем красный клас
-                $places = $places.map(item=>{
+
+                  // убираем красный клас
+                  $places = $places.map(item=>{
                               if(item.text===$itemId){
                                 item.exist = true
                               }
 
                               return item
                           })
-              let url = `/${config.artDir}/${$placeId}/arh/${$eventId}/${$itemId}.${ext}`
-             $currentImage.url = url
-             $imageFileType = ext
+                  //показываем загружнное изображение
+                  //показываем зеленый клас
                   updated = true
-                  setTimeout(()=>{updated = false},1000)
+                  setTimeout(()=>{
+                      updated = false
+                      let url = `/${config.artDir}/${$placeId}/arh/${$eventId}/${$itemId}.${ext}`
+                      $currentImage.url = url
+                      $imageFileType = ext
+                  },1000)
 
           })
           .catch(error => {
@@ -77,14 +88,14 @@ IMG.addEventListener('change', event=>{
 
 <div class="component">
   <div class="image-viewer">
-      <div class="image" style="background-image: url({$currentImage.url||''})"></div>
+      <div class="image" style="background-image: url({currentImage.url||''})"></div>
   </div>
   {#if !$playerName}
     <div class="btn-wrapper {$itemId?'':'disabled'}">
       
-        <div class="image-upload {updated?'updated':''}" >
+        <div class="image-upload" >
           <label for="file-input">
-            <div class="btn">Загрузить</div>
+            <div class="btn {updated?'updated':''}">Загрузить</div>
           </label>
 
           <input id="file-input" type="file" accept="image/*" bind:this={IMG}/>

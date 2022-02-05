@@ -41,7 +41,7 @@
         <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['C'] )"><img src="icons/circle.svg"></button></div>
         <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['A'] )"><img src="icons/arc.svg"></button></div>
         <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['REC'] )"><img src="icons/rectangle.svg"></button></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['RTL'] )"><img src="icons/rectangle-to-line.svg"></button></div>
+        <div class="tooltip"><button class="tool" , onclick="rectToLines()"><img src="icons/rectangle-to-line.svg"></button></div>
 
 
         <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['HATCHING'] )"><img src="icons/grid-btn.svg"></button></div>
@@ -2210,6 +2210,51 @@ function showSlides(n) {
   slides[slideIndex-1].style.display = "block";  
   dots[slideIndex-1].className += " active";
 }
+
+
+/**
+ * 
+ */
+function rectToLines (){
+  let rect = selectedItems[0]
+  if(rect&&rect.type==="Rectangle"){
+/*
+0: Point {x: 55, y: 558}
+1: Point {x: 454.8991249265597, y: 558}
+2: Point {x: 454.8991249265597, y: 450.8473524220152}
+3: Point {x: 55, y: 450.8473524220152}
+4: Point {x: 55, y: 558}
+
+
+ */
+
+    let a = rect.points[0]
+    let b = rect.points[2]
+
+    addLine (a.x, a.y, b.x, a.y)
+
+    addLine (a.x, b.y, b.x, b.y)
+    addLine (a.x, a.y, a.x, b.y)
+    addLine (b.x, a.y, b.x, b.y)
+    setTimeout(()=>{
+        items = items.filter(item=>{
+                    if(item.type==='Rectangle'&&JSON.stringify(item.points)===JSON.stringify(rect.points)){
+
+                    }
+                    else{
+                        return true
+                    }
+                })
+    }, 0)
+
+  }
+  else{
+    
+    sceneControl('Enter', ['RTL'] )
+  }
+
+}
+
 
 </script>
 

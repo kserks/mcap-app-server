@@ -61,9 +61,9 @@ function addLine (x, y, x2, y2){
 
 RECT_TO_LINES.prototype.drawLines = function (points){
 
-    const a = points[0]
-    const b = points[1]
-    console.log(a, b)
+    let a = points[0]
+    let b = points[1]
+
 
     addLine (a.x, a.y, b.x, a.y)
     addLine (a.x, b.y, b.x, b.y)

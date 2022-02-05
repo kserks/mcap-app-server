@@ -24,7 +24,10 @@ body {
   align-items: center;
 }
 
-
+body main aside .component .updated{
+  background-color: #11f294 !important;
+  color: ghostwhite !important;
+}
 a {
 	color: rgb(0,100,200);
 	text-decoration: none;
