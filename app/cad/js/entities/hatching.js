@@ -47,8 +47,13 @@ function HATCHING(data) //startX, startY, endX, endY)
 function addLines (x, y, x2, y2, width, height){
     let step = height
     const qty = (width/height).toFixed()
+    console.log(qty)
     let sp = 0
     for(let i=0; i<qty; i++){
+        if(qty>50){
+
+            break;
+        }
         let data = {
             points: [ new Point(x+sp, y), new Point(x+sp+height, y2) ],
             colour: "BYLAYER",
@@ -61,7 +66,7 @@ function addLines (x, y, x2, y2, width, height){
    // удаляем прямоугольник
    setTimeout(()=>{
         items = items.filter(item=>item.type!=="HATCHING")
-   }, 0)
+   }, 10)
 
 
 
@@ -73,12 +78,14 @@ HATCHING.prototype.drawLines = function (points){
     const a = points[0]
     const b = points[1]
    
+console.clear()
+//console.log('a.y-b.y ', a.y-b.y)
+//console.log('a.x- b.x ', a.x- b.x)
+if( (a.y-b.y)<5&&(a.x-b.x) ){
 
-
-if( (a.x-b.y)<3&&(a.y-b.y)<3 ){
    setTimeout(()=>{
         items = items.filter(item=>item.type!=="HATCHING")
-   }, 0)
+   }, 10)
 }
 else{
     let width = 0
