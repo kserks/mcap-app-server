@@ -81,13 +81,13 @@ HATCHING.prototype.drawLines = function (points){
 console.clear()
 //console.log('a.y-b.y ', a.y-b.y)
 //console.log('a.x- b.x ', a.x- b.x)
-if( (a.y-b.y)<5&&(a.x-b.x) ){
+/*if( (a.y-b.y)<5&&(a.x-b.x) ){
 
    setTimeout(()=>{
         items = items.filter(item=>item.type!=="HATCHING")
    }, 10)
 }
-else{
+else{*/
     let width = 0
     let height = 0
     if(b.y>a.y){
@@ -107,7 +107,7 @@ else{
         addLines(b.x, b.y, b.x, a.y, width, height)
     }
 }
-}
+//}
 
 
 HATCHING.prototype.prompt = function (inputArray) {
