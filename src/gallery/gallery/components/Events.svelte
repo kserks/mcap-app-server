@@ -67,7 +67,7 @@ ul li{
   z-index: 1000;
 }
 .currentEvent:after{
-  background-color: darkcyan;
+  background-color: darkturquoise;
   content: '';
   position: absolute;
   right: 5px;

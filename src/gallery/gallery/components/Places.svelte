@@ -4,40 +4,8 @@ import { places, placeId, events, placeObj, eventId, items, itemId, itemData , c
 import currentReset from '../methods/currentReset.js'
 
 
-$:updated = false
-async function setCurrent (){
-  let url = `/gallery/art?placeId=${$placeId}&eventId=${$eventId}`
-  let obj = {...$placeObj, event: $eventId}
-  delete obj.active
 
-  if($eventId){
-    try{
 
-      $events.map(item=>{
-          if($eventId===item.id){
-            item.current = true
-          }
-          else{
-            item.current = false
-          }
-      })
-      let res =  await fetch(url)
-      let res2 = await fetch(api.updateLocation(obj.id, obj))
-      updated = true
-      setTimeout(()=>{
-        updated = false
-      },1000)
-
-    }
-    catch(e){
-        console.error(e)
-    }
-  }
-  else{
-    console.log('[ eventId ] не задан')
-  }
-
-}
 
 
 
@@ -75,7 +43,7 @@ function getCurrentItem(name){
   else{
 
     $currentImage = {
-              url: '/gallery/_gallery/images/placeholder.jpg',
+              url: '',
               data: {
                 info1: null,
                 info2: null,
@@ -111,7 +79,42 @@ function resetHandler (){
   })
 
 }
+/**
+ * Задаем новое событие
+ */
+let updated = false
+async function setCurrent (){
+  let url = `/gallery/art?placeId=${$placeId}&eventId=${$eventId}`
+  let obj = {...$placeObj, event: $eventId}
+  delete obj.active
 
+  if($eventId){
+    try{
+
+      let res =  await fetch(url)
+      let res2 = await fetch(api.updateLocation(obj.id, obj))
+      $events = $events.map(item=>{
+          if($eventId===item.id){
+            item.current = true
+          }
+          else{
+            item.current = false
+          }
+          return item
+      })
+      updated = true
+      setTimeout(()=>{ updated = false; }, 1000)
+
+    }
+    catch(e){
+        console.error(e)
+    }
+  }
+  else{
+    console.log('[ eventId ] не задан')
+  }
+
+}
 </script>
 
 <div class="component">
