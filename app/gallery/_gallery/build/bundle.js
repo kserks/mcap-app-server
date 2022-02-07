@@ -1303,7 +1303,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (124:4) {#each $places as item, index}
+    // (126:4) {#each $places as item, index}
     function create_each_block(ctx) {
     	let li;
     	let t_value = /*item*/ ctx[19].text + "";
@@ -1325,7 +1325,7 @@ var app = (function () {
     			? 'not-exist'
     			: '') + " svelte-7k6sw3"));
 
-    			add_location(li, file$3, 124, 6, 2633);
+    			add_location(li, file$3, 126, 6, 2733);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -1357,14 +1357,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(124:4) {#each $places as item, index}",
+    		source: "(126:4) {#each $places as item, index}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (128:2) {#if $placeId}
+    // (130:2) {#if $placeId}
     function create_if_block$1(ctx) {
     	let div0;
     	let t1;
@@ -1389,11 +1389,11 @@ var app = (function () {
     			div2 = element("div");
     			t4 = text("Применить");
     			attr_dev(div0, "class", "btn mb10 svelte-7k6sw3");
-    			add_location(div0, file$3, 128, 6, 2827);
+    			add_location(div0, file$3, 130, 6, 2927);
     			attr_dev(div1, "class", div1_class_value = "btn mb10 " + (!/*$eventId*/ ctx[1] ? 'disabled' : '') + " svelte-7k6sw3");
-    			add_location(div1, file$3, 129, 6, 2904);
+    			add_location(div1, file$3, 131, 6, 3004);
     			attr_dev(div2, "class", div2_class_value = "btn " + (/*updated*/ ctx[0] ? 'updated' : '') + " " + (!/*$eventId*/ ctx[1] ? 'disabled' : '') + " svelte-7k6sw3");
-    			add_location(div2, file$3, 130, 6, 3004);
+    			add_location(div2, file$3, 132, 6, 3104);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -1438,7 +1438,7 @@ var app = (function () {
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(128:2) {#if $placeId}",
+    		source: "(130:2) {#if $placeId}",
     		ctx
     	});
 
@@ -1475,11 +1475,11 @@ var app = (function () {
 
     			t2 = space();
     			if (if_block) if_block.c();
-    			add_location(h3, file$3, 120, 2, 2565);
+    			add_location(h3, file$3, 122, 2, 2665);
     			attr_dev(ul, "class", "svelte-7k6sw3");
-    			add_location(ul, file$3, 122, 2, 2585);
+    			add_location(ul, file$3, 124, 2, 2685);
     			attr_dev(div, "class", "component svelte-7k6sw3");
-    			add_location(div, file$3, 119, 0, 2538);
+    			add_location(div, file$3, 121, 0, 2638);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1563,8 +1563,8 @@ var app = (function () {
     	let $currentImage;
     	let $places;
     	let $isImgExist;
-    	let $itemData;
     	let $imageFileType;
+    	let $itemData;
     	let $items;
     	let $itemId;
     	let $showMap;
@@ -1582,10 +1582,10 @@ var app = (function () {
     	component_subscribe($$self, places, $$value => $$invalidate(3, $places = $$value));
     	validate_store(isImgExist, 'isImgExist');
     	component_subscribe($$self, isImgExist, $$value => $$invalidate(13, $isImgExist = $$value));
-    	validate_store(itemData, 'itemData');
-    	component_subscribe($$self, itemData, $$value => $$invalidate(14, $itemData = $$value));
     	validate_store(imageFileType, 'imageFileType');
-    	component_subscribe($$self, imageFileType, $$value => $$invalidate(15, $imageFileType = $$value));
+    	component_subscribe($$self, imageFileType, $$value => $$invalidate(14, $imageFileType = $$value));
+    	validate_store(itemData, 'itemData');
+    	component_subscribe($$self, itemData, $$value => $$invalidate(15, $itemData = $$value));
     	validate_store(items, 'items');
     	component_subscribe($$self, items, $$value => $$invalidate(16, $items = $$value));
     	validate_store(itemId, 'itemId');
@@ -1612,15 +1612,18 @@ var app = (function () {
      * Выбираем место и получаем пусть к текущему изображению
      */
     	function getCurrentItem(name) {
-    		let data = $items.filter(item => item.name === name);
-    		set_store_value(itemData, $itemData = null, $itemData);
+    		set_store_value(itemData, $itemData = $items.filter(item => item.name === name)[0], $itemData);
 
-    		if (data.length > 0) {
-    			set_store_value(itemData, $itemData = data[0], $itemData);
-    			set_store_value(imageFileType, $imageFileType = $itemData.ext, $imageFileType);
-    			set_store_value(currentImage, $currentImage.data = data[0], $currentImage);
-    			let url = `/${config.artDir}/${$placeId}/arh/${$eventId}/${name}.${$currentImage.data.ext}`;
+    		//$itemData = null
+    		if ($itemData) {
+    			//$itemData = data[0]
+    			//$itemData.ext = $imageFileType
+    			console.log($itemData.ext, $imageFileType);
+
+    			set_store_value(currentImage, $currentImage.data = $itemData, $currentImage);
+    			let url = `/${config.artDir}/${$placeId}/arh/${$eventId}/${name}.${$itemData.ext}?v=${new Date().getTime()}`;
     			set_store_value(currentImage, $currentImage.url = url, $currentImage);
+    			set_store_value(imageFileType, $imageFileType = null, $imageFileType);
     			set_store_value(isImgExist, $isImgExist = true, $isImgExist);
     		} else {
     			set_store_value(
@@ -1761,8 +1764,8 @@ var app = (function () {
     		$currentImage,
     		$places,
     		$isImgExist,
-    		$itemData,
     		$imageFileType,
+    		$itemData,
     		$items,
     		$itemId,
     		$showMap
@@ -2206,60 +2209,60 @@ var app = (function () {
     			label5 = element("label");
     			t15 = space();
     			div6 = element("div");
-    			t16 = text("Записать");
+    			t16 = text("Сохранить изменения");
     			attr_dev(label0, "for", "");
     			attr_dev(label0, "class", "svelte-jrx5od");
-    			add_location(label0, file$1, 67, 6, 1448);
+    			add_location(label0, file$1, 75, 6, 1748);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "class", "info1");
-    			add_location(input0, file$1, 68, 6, 1484);
+    			add_location(input0, file$1, 76, 6, 1784);
     			attr_dev(div0, "class", "info-item svelte-jrx5od");
-    			add_location(div0, file$1, 66, 4, 1417);
+    			add_location(div0, file$1, 74, 4, 1717);
     			attr_dev(label1, "for", "");
     			attr_dev(label1, "class", "svelte-jrx5od");
-    			add_location(label1, file$1, 71, 6, 1604);
+    			add_location(label1, file$1, 79, 6, 1904);
     			attr_dev(input1, "type", "text");
     			attr_dev(input1, "class", "info2");
-    			add_location(input1, file$1, 72, 6, 1640);
+    			add_location(input1, file$1, 80, 6, 1940);
     			attr_dev(div1, "class", "info-item svelte-jrx5od");
-    			add_location(div1, file$1, 70, 4, 1573);
+    			add_location(div1, file$1, 78, 4, 1873);
     			attr_dev(label2, "for", "");
     			attr_dev(label2, "class", "svelte-jrx5od");
-    			add_location(label2, file$1, 75, 6, 1760);
+    			add_location(label2, file$1, 83, 6, 2060);
     			attr_dev(input2, "type", "text");
     			attr_dev(input2, "class", "info3");
-    			add_location(input2, file$1, 76, 6, 1796);
+    			add_location(input2, file$1, 84, 6, 2096);
     			attr_dev(div2, "class", "info-item svelte-jrx5od");
-    			add_location(div2, file$1, 74, 4, 1729);
+    			add_location(div2, file$1, 82, 4, 2029);
     			attr_dev(label3, "for", "");
     			attr_dev(label3, "class", "svelte-jrx5od");
-    			add_location(label3, file$1, 79, 6, 1916);
+    			add_location(label3, file$1, 87, 6, 2216);
     			attr_dev(input3, "type", "text");
     			attr_dev(input3, "class", "info4");
-    			add_location(input3, file$1, 80, 6, 1952);
+    			add_location(input3, file$1, 88, 6, 2252);
     			attr_dev(div3, "class", "info-item svelte-jrx5od");
-    			add_location(div3, file$1, 78, 4, 1885);
+    			add_location(div3, file$1, 86, 4, 2185);
     			attr_dev(label4, "for", "");
     			attr_dev(label4, "class", "descr-label svelte-jrx5od");
-    			add_location(label4, file$1, 83, 6, 2072);
+    			add_location(label4, file$1, 91, 6, 2372);
     			attr_dev(textarea, "class", "svelte-jrx5od");
-    			add_location(textarea, file$1, 84, 6, 2128);
+    			add_location(textarea, file$1, 92, 6, 2428);
     			attr_dev(div4, "class", "info-item svelte-jrx5od");
-    			add_location(div4, file$1, 82, 4, 2041);
+    			add_location(div4, file$1, 90, 4, 2341);
     			attr_dev(div5, "class", "info");
-    			add_location(div5, file$1, 64, 2, 1388);
+    			add_location(div5, file$1, 72, 2, 1688);
     			attr_dev(label5, "for", "#save");
     			attr_dev(label5, "class", "svelte-jrx5od");
-    			add_location(label5, file$1, 90, 6, 2282);
-    			attr_dev(div6, "class", div6_class_value = "btn " + (/*$currentImage*/ ctx[0].url ? '' : 'disabled'));
+    			add_location(label5, file$1, 98, 6, 2582);
+    			attr_dev(div6, "class", div6_class_value = "btn " + (/*$currentImage*/ ctx[1].url ? '' : 'disabled') + " " + (/*updated*/ ctx[0] ? 'updated' : ''));
     			attr_dev(div6, "id", "save");
-    			add_location(div6, file$1, 91, 6, 2317);
+    			add_location(div6, file$1, 99, 6, 2617);
     			attr_dev(div7, "class", "info-item svelte-jrx5od");
-    			add_location(div7, file$1, 89, 4, 2251);
+    			add_location(div7, file$1, 97, 4, 2551);
     			attr_dev(div8, "class", "btn-wrapper svelte-jrx5od");
-    			add_location(div8, file$1, 88, 2, 2220);
+    			add_location(div8, file$1, 96, 2, 2520);
     			attr_dev(div9, "class", "component svelte-jrx5od");
-    			add_location(div9, file$1, 62, 0, 1359);
+    			add_location(div9, file$1, 70, 0, 1659);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2271,31 +2274,31 @@ var app = (function () {
     			append_dev(div0, label0);
     			append_dev(div0, t1);
     			append_dev(div0, input0);
-    			set_input_value(input0, /*$currentImage*/ ctx[0].data.info1);
+    			set_input_value(input0, /*$currentImage*/ ctx[1].data.info1);
     			append_dev(div5, t2);
     			append_dev(div5, div1);
     			append_dev(div1, label1);
     			append_dev(div1, t4);
     			append_dev(div1, input1);
-    			set_input_value(input1, /*$currentImage*/ ctx[0].data.info2);
+    			set_input_value(input1, /*$currentImage*/ ctx[1].data.info2);
     			append_dev(div5, t5);
     			append_dev(div5, div2);
     			append_dev(div2, label2);
     			append_dev(div2, t7);
     			append_dev(div2, input2);
-    			set_input_value(input2, /*$currentImage*/ ctx[0].data.info3);
+    			set_input_value(input2, /*$currentImage*/ ctx[1].data.info3);
     			append_dev(div5, t8);
     			append_dev(div5, div3);
     			append_dev(div3, label3);
     			append_dev(div3, t10);
     			append_dev(div3, input3);
-    			set_input_value(input3, /*$currentImage*/ ctx[0].data.info4);
+    			set_input_value(input3, /*$currentImage*/ ctx[1].data.info4);
     			append_dev(div5, t11);
     			append_dev(div5, div4);
     			append_dev(div4, label4);
     			append_dev(div4, t13);
     			append_dev(div4, textarea);
-    			set_input_value(textarea, /*$currentImage*/ ctx[0].data.descr);
+    			set_input_value(textarea, /*$currentImage*/ ctx[1].data.descr);
     			append_dev(div9, t14);
     			append_dev(div9, div8);
     			append_dev(div8, div7);
@@ -2306,39 +2309,39 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[2]),
-    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[3]),
-    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[4]),
-    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[5]),
-    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[6]),
-    					listen_dev(div6, "mousedown", /*save*/ ctx[1], false, false, false)
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[3]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[4]),
+    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[5]),
+    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[6]),
+    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[7]),
+    					listen_dev(div6, "mousedown", /*save*/ ctx[2], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*$currentImage*/ 1 && input0.value !== /*$currentImage*/ ctx[0].data.info1) {
-    				set_input_value(input0, /*$currentImage*/ ctx[0].data.info1);
+    			if (dirty & /*$currentImage*/ 2 && input0.value !== /*$currentImage*/ ctx[1].data.info1) {
+    				set_input_value(input0, /*$currentImage*/ ctx[1].data.info1);
     			}
 
-    			if (dirty & /*$currentImage*/ 1 && input1.value !== /*$currentImage*/ ctx[0].data.info2) {
-    				set_input_value(input1, /*$currentImage*/ ctx[0].data.info2);
+    			if (dirty & /*$currentImage*/ 2 && input1.value !== /*$currentImage*/ ctx[1].data.info2) {
+    				set_input_value(input1, /*$currentImage*/ ctx[1].data.info2);
     			}
 
-    			if (dirty & /*$currentImage*/ 1 && input2.value !== /*$currentImage*/ ctx[0].data.info3) {
-    				set_input_value(input2, /*$currentImage*/ ctx[0].data.info3);
+    			if (dirty & /*$currentImage*/ 2 && input2.value !== /*$currentImage*/ ctx[1].data.info3) {
+    				set_input_value(input2, /*$currentImage*/ ctx[1].data.info3);
     			}
 
-    			if (dirty & /*$currentImage*/ 1 && input3.value !== /*$currentImage*/ ctx[0].data.info4) {
-    				set_input_value(input3, /*$currentImage*/ ctx[0].data.info4);
+    			if (dirty & /*$currentImage*/ 2 && input3.value !== /*$currentImage*/ ctx[1].data.info4) {
+    				set_input_value(input3, /*$currentImage*/ ctx[1].data.info4);
     			}
 
-    			if (dirty & /*$currentImage*/ 1) {
-    				set_input_value(textarea, /*$currentImage*/ ctx[0].data.descr);
+    			if (dirty & /*$currentImage*/ 2) {
+    				set_input_value(textarea, /*$currentImage*/ ctx[1].data.descr);
     			}
 
-    			if (dirty & /*$currentImage*/ 1 && div6_class_value !== (div6_class_value = "btn " + (/*$currentImage*/ ctx[0].url ? '' : 'disabled'))) {
+    			if (dirty & /*$currentImage, updated*/ 3 && div6_class_value !== (div6_class_value = "btn " + (/*$currentImage*/ ctx[1].url ? '' : 'disabled') + " " + (/*updated*/ ctx[0] ? 'updated' : ''))) {
     				attr_dev(div6, "class", div6_class_value);
     			}
     		},
@@ -2363,23 +2366,27 @@ var app = (function () {
     }
 
     function instance$1($$self, $$props, $$invalidate) {
+    	let $items;
     	let $eventId;
     	let $currentImage;
     	let $itemId;
     	let $imageFileType;
     	let $isImgExist;
+    	validate_store(items, 'items');
+    	component_subscribe($$self, items, $$value => $$invalidate(8, $items = $$value));
     	validate_store(eventId, 'eventId');
-    	component_subscribe($$self, eventId, $$value => $$invalidate(7, $eventId = $$value));
+    	component_subscribe($$self, eventId, $$value => $$invalidate(9, $eventId = $$value));
     	validate_store(currentImage, 'currentImage');
-    	component_subscribe($$self, currentImage, $$value => $$invalidate(0, $currentImage = $$value));
+    	component_subscribe($$self, currentImage, $$value => $$invalidate(1, $currentImage = $$value));
     	validate_store(itemId, 'itemId');
-    	component_subscribe($$self, itemId, $$value => $$invalidate(8, $itemId = $$value));
+    	component_subscribe($$self, itemId, $$value => $$invalidate(10, $itemId = $$value));
     	validate_store(imageFileType, 'imageFileType');
-    	component_subscribe($$self, imageFileType, $$value => $$invalidate(9, $imageFileType = $$value));
+    	component_subscribe($$self, imageFileType, $$value => $$invalidate(11, $imageFileType = $$value));
     	validate_store(isImgExist, 'isImgExist');
-    	component_subscribe($$self, isImgExist, $$value => $$invalidate(10, $isImgExist = $$value));
+    	component_subscribe($$self, isImgExist, $$value => $$invalidate(12, $isImgExist = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Info', slots, []);
+    	let updated = false;
 
     	async function save() {
     		try {
@@ -2395,10 +2402,19 @@ var app = (function () {
     				name: $itemId
     			};
 
-    			console.log($imageFileType);
-
     			if ($isImgExist) {
     				let res2 = await fetch(api.updateInfo(id, body));
+
+    				//$itemData = Object.assign($itemData, body)
+    				//показываем зеленый клас
+    				$$invalidate(0, updated = true);
+
+    				setTimeout(
+    					() => {
+    						$$invalidate(0, updated = false);
+    					},
+    					1000
+    				);
     			} else {
     				let data = {
     					id: uid(),
@@ -2420,8 +2436,18 @@ var app = (function () {
     					},
     					body: JSON.stringify(data)
     				}).then(r => {
-    					console.log(r);
-    				}).catch(e => console.error(e));
+    					//показываем зеленый клас
+    					$$invalidate(0, updated = true);
+
+    					setTimeout(
+    						() => {
+    							$$invalidate(0, updated = false);
+    						},
+    						1000
+    					);
+
+    					set_store_value(items, $items = [...$items, data], $items);
+    				}).catch(e => console.error(e)); //$itemData = data
     			}
     		} catch(e) {
     			console.error(e);
@@ -2469,7 +2495,9 @@ var app = (function () {
     		imageFileType,
     		itemData,
     		uid,
+    		updated,
     		save,
+    		$items,
     		$eventId,
     		$currentImage,
     		$itemId,
@@ -2477,7 +2505,16 @@ var app = (function () {
     		$isImgExist
     	});
 
+    	$$self.$inject_state = $$props => {
+    		if ('updated' in $$props) $$invalidate(0, updated = $$props.updated);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
     	return [
+    		updated,
     		$currentImage,
     		save,
     		input0_input_handler,

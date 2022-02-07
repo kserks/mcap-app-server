@@ -3,7 +3,7 @@ import api from '../helpers/api.js'
 import { currentImage, isImgExist, eventId, items, itemId, imageFileType, itemData} from '../stores.js'
 import uid from '../helpers/uid.js'
 
-
+let updated = false
 async function save (){
 
 try{
@@ -18,9 +18,13 @@ try{
     ext: $imageFileType,
     name: $itemId
   }
-  console.log($imageFileType)
+ 
   if($isImgExist){
-     let res2 = await fetch(api.updateInfo(id, body))
+      let res2 = await fetch(api.updateInfo(id, body))
+      //$itemData = Object.assign($itemData, body)
+      //показываем зеленый клас
+      updated = true
+      setTimeout(()=>{ updated = false; },1000)
   }
   else{
  
@@ -45,7 +49,11 @@ try{
         body: JSON.stringify(data)
      })
     .then(r=>{
-      console.log(r)
+        //показываем зеленый клас
+        updated = true
+        setTimeout(()=>{ updated = false; },1000)
+        $items = [...$items, data]
+        //$itemData = data
     })
     .catch(e=>console.error(e))
   }
@@ -89,7 +97,7 @@ catch (e){
   <div class="btn-wrapper">
     <div class="info-item">
       <label for="#save"></label>
-      <div class="btn {$currentImage.url?'':'disabled'}" id="save" on:mousedown={save}>Записать</div>
+      <div class="btn {$currentImage.url?'':'disabled'} {updated?'updated':''}" id="save" on:mousedown={save}>Сохранить изменения</div>
     </div>
   </div>
 

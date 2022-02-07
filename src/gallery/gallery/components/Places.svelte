@@ -30,14 +30,16 @@ function imageHandler (item, index){
 
 function getCurrentItem(name){
 
-  let data = $items.filter(item=>item.name===name)
-  $itemData = null
-  if(data.length>0){
-    $itemData = data[0]
-    $imageFileType = $itemData.ext
-    $currentImage.data = data[0]
-    let url = `/${config.artDir}/${$placeId}/arh/${$eventId}/${name}.${$currentImage.data.ext}`
+  $itemData = $items.filter(item=>item.name===name)[0]
+  //$itemData = null
+  if($itemData){
+    //$itemData = data[0]
+    //$itemData.ext = $imageFileType
+    console.log($itemData.ext, $imageFileType)
+    $currentImage.data = $itemData
+    let url = `/${config.artDir}/${$placeId}/arh/${$eventId}/${name}.${$itemData.ext}?v=${new Date().getTime()}`
     $currentImage.url = url
+    $imageFileType = null
     $isImgExist = true
   }
   else{
