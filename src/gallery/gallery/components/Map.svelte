@@ -8,7 +8,7 @@ $:mapImg = ()=>{
 
 </script>
 
-<div class="component {$showMap?'show':''}">
+<div class="place-map {$showMap?'show':''}">
   <div class="close" on:mousedown={()=>{$showMap=false}}>x</div>
   {#if $placeId}
     <div class="image-container" style="{mapImg()}"></div>
@@ -18,13 +18,13 @@ $:mapImg = ()=>{
 
 <style scoped>
 
-.component{
+.place-map{
   position: absolute;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: none;
-  z-index: 100;
+  z-index: 2000;
 }
 .show{
   display: flex;

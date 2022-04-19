@@ -31,7 +31,7 @@ export class FenEditor extends Component {
             fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
             spriteUrl: "./assets/images/chessboard-sprite-staunty.svg",
             onChange: undefined,
-            cookieName: "cfe-fen" // set to null, if you don't want to persist the position
+            cookieName: null // set to null, if you don't want to persist the position
         }, props)
         super(undefined, context, props)
         this.state = Bind({

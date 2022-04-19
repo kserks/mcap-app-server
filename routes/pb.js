@@ -4,18 +4,21 @@ const { join } = require('path')
 const fs = require('fs-extra')
 const request = require('request');
 
-
+let ROOT = '/html/pb'
+if(global.DEV){
+  ROOT = '..app/pb'
+}
 
 
 
 app.get('/user-images', (req, res)=>{
 
-  const dir = join(__dirname,`../app/pb/images/`, req.query.playerName)
+  const dir = join(`${ROOT}/images/`, req.query.playerName)
 
   if(!fs.existsSync(dir)){
         fs.mkdirSync(dir);
   }
-  let shared = join(__dirname, `../app/pb/images/shared`)
+  let shared = join(`${ROOT}/images/shared`)
   if (!fs.existsSync(shared)){
         fs.mkdirSync(shared);
   }
@@ -36,7 +39,7 @@ app.get('/user-images', (req, res)=>{
 app.post('/save-image', (req, res)=>{
 
 const fileName = `/${req.body.fileName}.png`
-const dir = join(__dirname,`../app/pb/images/`, req.body.type)
+const dir = join(`${ROOT}/images/`, req.body.type)
 
 if(!fs.existsSync(dir)){
     fs.mkdirSync(dir);
@@ -59,7 +62,7 @@ fs.writeFile(dir+fileName, base64Image, { encoding: 'base64' }, function(err) {
 app.post('/upload-image', (req, res) => {
     let { file, playerName }  = req.body
     let fileName = file.split('/')[file.split('/').length-1].replace('*','_')
-    let fileDist = join(__dirname,'../app/pb/images/', playerName, fileName)
+    let fileDist = join(`${ROOT}/images/`, playerName, fileName)
     
   request({
     url: file,
@@ -83,7 +86,7 @@ app.post('/upload-image', (req, res) => {
 app.post('/remove-image', (req, res) => {
   let { fileName, playerName } = req.body
 
-  let filePath = join(__dirname, '../app/pb/images/', playerName , fileName)
+  let filePath = join(__dirname, `${ROOT}/images/`, playerName , fileName)
  
   fs.unlink(filePath, err=>{
     if(err){
@@ -96,7 +99,7 @@ app.post('/remove-image', (req, res) => {
 })
 
 app.get('/shared-images', (req, res)=>{
-    let shared = join(__dirname, `../app/pb/images/shared`)
+    let shared = join(__dirname, `${ROOT}/images/shared`)
     if (!fs.existsSync(shared)){
         fs.mkdirSync(shared);
     }
@@ -106,7 +109,7 @@ app.get('/shared-images', (req, res)=>{
 })
 
 app.get('/shared-remove', (req, res)=>{
-  let shared = join(__dirname, `../app/pb/images/shared`)
+  let shared = join(__dirname, `${ROOT}/images/shared`)
   try{
       let dir = fs.readdirSync(shared)
       let reg = new RegExp(req.query.id)

@@ -50,7 +50,7 @@ function loadFileByUrl(){
   let fileName = url.searchParams.get('file')
   let userName = url.searchParams.get('user')
   if(fileName){
-    fetch(`/cad/files/${userName||player.name}/${fileName}.dxf`)
+    fetch(`files/${userName||player.name}/${fileName}.dxf`)
       .then(r=>r.blob())
       .then(readFile)
   }
@@ -107,7 +107,7 @@ $html('#save-file').addEventListener('click', function (e){
   }
 $html('#mcap__filename').focus()
 $html('#save-list__modal').innerHTML = ""
-fetch(`/cad/dir?player=${player.name}`)
+fetch(`dir?player=${player.name}`)
   .then(r=>r.json())
   .then(r=>{
       r.map(fileName=>{
@@ -126,6 +126,7 @@ fetch(`/cad/dir?player=${player.name}`)
 
 
 $html('#mcap__save-btn').addEventListener('mousedown', e=>{
+  e.preventDefault();
   var fileName = $html('#mcap__filename').value
 var body = {
       playerName: player.name,
@@ -134,7 +135,7 @@ var body = {
     }
    
 
-  fetch('/cad/save-file', {
+  fetch('save-file', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
@@ -159,7 +160,7 @@ $html('#load-file').addEventListener('mousedown', function (e){
 $html('#save__modal').style.display = 'none'
 saveOpen = false
 $html('#load-list__modal').innerHTML = ''
-fetch(`/cad/dir?player=${player.name}`)
+fetch(`dir?player=${player.name}`)
   .then(r=>r.json())
   .then(r=>{
       r.map(fileName=>{
@@ -187,7 +188,7 @@ fetch(`/cad/dir?player=${player.name}`)
   }
 
 function getFileBody(playerName, userFileName){
-  fetch(`/cad/files/${player.name}/${userFileName}`)
+  fetch(`files/${player.name}/${userFileName}`)
     .then(r=>r.blob())
     .then(r=>{
       readFile(r)

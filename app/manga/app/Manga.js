@@ -3,25 +3,26 @@ function $(selector){
 }
 
 class Manga {
-  index = 0
-  float = 0
-  constructor (body, title, chapterTitle){
-    this.body = body
-    this.title = title
-    this.chapterTitle = chapterTitle
-    this.list = Object.keys(body)
-    this.float = this.list.indexOf(this.chapterTitle)
+  index = 0;
+  float = 0;
+  constructor (body, title, chapterTitle, root){
+    this.root = root;
+    this.body = body;
+    this.title = title;
+    this.chapterTitle = chapterTitle;
+    this.list = Object.keys(body);
+    this.float = this.list.indexOf(this.chapterTitle);
   }
 
 
   get img (){
-    return this.chapter[this.index]
+    return this.chapter[this.index];
   }
   get chapter (){
-    return this.body[this.list[this.float]]
+    return this.body[this.list[this.float]];
   }
   get url (){
-    return `url(/manga/_store/${this.title}/${this.chapterTitle}/${this.img})`
+    return `url(${this.root}store/${this.title}/${this.chapterTitle}/${this.img})`;
   }
   get progress (){
     return `
@@ -30,14 +31,14 @@ class Manga {
            `
   }
   render (){
-    $('.viewer').style.backgroundImage = this.url
-    $('.progress__data').innerHTML = this.progress
+    $('.viewer').style.backgroundImage = this.url;
+    $('.progress__data').innerHTML = this.progress;
   }
 
   reset(){
-    this.index = 0
+    this.index = 0;
 
-    this.render()
+    this.render();
   }
   prev(){
     --this.index
@@ -82,10 +83,4 @@ class Manga {
   isWall(){
 
   }
-  /*
-  replaceUrl (){
-    let url = `${location.protocol}//${location.host}/manga/${this.title}/${this.chapterTitle}`
-    location.replace(url)
-  }
-  */
 }

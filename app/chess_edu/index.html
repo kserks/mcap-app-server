@@ -180,7 +180,7 @@ try {
 }
 
 
-const FEN_STORE = [
+let FEN_STORE = [
         {
             title: 'Пустая доска',
             value: '8/8/8/8/8/8/8/8 w - - 0 1'
@@ -269,7 +269,7 @@ function renderFenList (){
 
 function save (){
 
-  fetch('/tutor/save', {
+  fetch('save', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
@@ -279,21 +279,23 @@ function save (){
   .then(r=>{
     console.log('Сохранено')
   })
+  .catch(e=>{console.error(e)})
 }
-function load(){
 
-    fetch(`/tutor/${player.name}__fen_store.json`)
+function load(){
+    let url = `${player.name}__fen_store.json`
+    //let url = `http://app.mcap.fun/8080/chess_edu/mcap_uknown__fen_store.json`
+    fetch(url)
         .then(r=>r.json())
         .then(data=>{
             if(data){
-          
-                FEN_STORE = data
-
+                FEN_STORE = data;
             }
-           init()
+            init();
         })
         .catch(err=>{
-           init()
+           console.error(err);
+           init();
         })
     
 }

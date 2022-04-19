@@ -1,7 +1,7 @@
 <script>
 import api from '../helpers/api.js'
-import { places, placeId, events, placeObj, eventId, items, itemId, itemData , config, currentImage, showMap, isImgExist, imageFileType } from '../stores.js'
-import currentReset from '../methods/currentReset.js'
+import { places, placeId, events, placeObj, eventId, items, itemId, itemData , config, currentImage, showMap, isImgExist, imageFileType } from '../stores.js';
+import currentReset from '../methods/currentReset.js';
 
 
 
@@ -11,16 +11,16 @@ import currentReset from '../methods/currentReset.js'
 
 function imageHandler (item, index){
 
-  $places.forEach(item=>item.active=false)
-  $places[index].active = true
-  $itemId = $places[index].text
+  $places.forEach(item=>item.active=false);
+  $places[index].active = true;
+  $itemId = $places[index].text;
 
   if($eventId){
-      getCurrentItem(item.text)
+      getCurrentItem(item.text);
   }
   else{
-      let url = `/${config.artDir}/${$placeId}/cls/${item.text}.jpg`
-      $currentImage.url = url
+      let url = `/${config.artDir}/${$placeId}/cls/${item.text}.jpg`;
+      $currentImage.url = url;
   }
 }
 
@@ -30,12 +30,12 @@ function imageHandler (item, index){
 
 function getCurrentItem(name){
 
-  $itemData = $items.filter(item=>item.name===name)[0]
+  $itemData = $items.filter(item=>item.name===name)[0];
   //$itemData = null
   if($itemData){
     //$itemData = data[0]
     //$itemData.ext = $imageFileType
-    console.log($itemData.ext, $imageFileType)
+
     $currentImage.data = $itemData
     let url = `/${config.artDir}/${$placeId}/arh/${$eventId}/${name}.${$itemData.ext}?v=${new Date().getTime()}`
     $currentImage.url = url
@@ -63,22 +63,33 @@ function getCurrentItem(name){
 
 function resetHandler (){
   $events = $events.map(item=>{
-    item.active=false
-    return item
+    item.active=false;
+    return item;
   })
 
   $places = $places.map(item=>{
-    item.active=false
-    item.exist = true
-    return item
+    item.active=false;
+    item.exist = true;
+    return item;
   })
 
-  currentReset($placeId)
-  $currentImage.url = ''
-  fetch(api.updateLocation($placeObj.id, {event: 'cls'}))
-  $events.map(item=>{
-    item.current = false
-  })
+  $currentImage.url = '';
+  //fetch(api.updateLocation($placeObj.id, {event: 'cls'}));
+    $placeObj.event = 'cls'
+    let obj = {...$placeObj}
+    delete obj.active
+    fetch(api.updateLocation(), {
+        method: 'POST',
+        body: JSON.stringify(obj)
+    })
+    .then(e=>{
+        window.location.reload();
+        //currentReset($placeId);
+    })
+    .catch(e=>console.error(e));
+  //$events.map(item=>{
+    //item.current = false;
+  //})
 
 }
 /**
@@ -86,34 +97,41 @@ function resetHandler (){
  */
 let updated = false
 async function setCurrent (){
-  let url = `/gallery/art?placeId=${$placeId}&eventId=${$eventId}`
-  let obj = {...$placeObj, event: $eventId}
-  delete obj.active
+  let url = `/${config.PORT}/gallery/art?placeId=${$placeId}&eventId=${$eventId}`
+  let obj = {...$placeObj, event: $eventId};
+  delete obj.active;
 
   if($eventId){
     try{
 
-      let res =  await fetch(url)
-      let res2 = await fetch(api.updateLocation(obj.id, obj))
+      let res =  await fetch(url); // копирование изображений
+      fetch(api.updateLocation(), {
+          method: 'POST',
+          body: JSON.stringify(obj)
+      })    
+      .then(e=>{
+        //console.log(e)
+      })
+      .catch(e=>console.error(e));
       $events = $events.map(item=>{
           if($eventId===item.id){
-            item.current = true
+            item.current = true;
           }
           else{
-            item.current = false
+            item.current = false;
           }
-          return item
+          return item;
       })
-      updated = true
-      setTimeout(()=>{ updated = false; }, 1000)
+      updated = true;
+      setTimeout(()=>{ updated = false; }, 1000);
 
     }
     catch(e){
-        console.error(e)
+        console.error(e);
     }
   }
   else{
-    console.log('[ eventId ] не задан')
+    console.log('[ eventId ] не задан');
   }
 
 }

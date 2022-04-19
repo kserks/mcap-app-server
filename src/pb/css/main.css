@@ -249,6 +249,7 @@ footer >div{
 .footer__album-list--item:hover{
   background: rgba(0,0,0,0.5);
   color: #fcfcfc;
+  cursor: pointer;
 }
 /**
  * 

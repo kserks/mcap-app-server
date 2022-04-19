@@ -9,8 +9,7 @@ app.get('/dir', (req, res)=>{
   const pathToDir = join(__dirname,'../app/cad/files/',req.query.player)
   fs.readdir(pathToDir, (err, files) => {
       if(err){
-        console.error(err)
-        res.sendStatus(500)
+        res.send(err)
       }
       res.send(JSON.stringify(files))
   });
@@ -22,11 +21,9 @@ app.post('/save-file', (req, res)=>{
 
   fs.outputFile(pathToFile, req.body.data, (err, data)=>{
     if(err){
-      console.error(err)
-      res.sendStatus(500)
+      res.send(err)
     }
     else{
-      console.log(pathToFile)
       res.sendStatus(200)
     }
   })

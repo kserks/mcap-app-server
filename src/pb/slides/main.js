@@ -4,16 +4,14 @@ import evt from '../lib/emitter.js'
 import { board } from '../lib/mode.js'
 
 //import Collection from './Collection.js'
-
-
-
-export default function (){
-  let url = 'http://atlant.mcacademy.ru/reindexer/api/v1/db/mcap_slides/query?q=select%20*%20from%20topics'
+let STORE = {};
+export default function (ROOT){
+  let url = '/pb/json/store.json'//'http://app.mcap.fun' // Content-Type: plane-text
   fetch(url)
     .then(r=>r.json())
     .then(topics=>{
-      console.log(topics.items)
-        init(topics.items)
+        STORE = topics;
+        init(Object.values(topics), ROOT, 10000);
     })
     .catch(err=>{
       console.error(err)
@@ -21,23 +19,21 @@ export default function (){
 }
 
 
-
-
-function init(topics){
+function init(topics, ROOT){
   var flag = false
   topics.map(col=>{
-    let $tpl = `<div class="footer__album-list--item" data-id="${col.id}">${col.name}</div>`
+    let $tpl = `<div class="footer__album-list--item" data-id="${col.title}">${col.name}</div>`
     $('.footer__album-list').append($tpl)
 
   })
 
   $('.footer__album-list').on('mousedown', '.footer__album-list--item', function (){
-      board.setBackground('./images/backgrounds/greed.jpg')
-      let id = $(this).data('id')
+      
+      let id = $(this).data('id');
       flag = false
       $('.footer__album-list').hide()
-
-      collectionInit(id)
+      board.setBackground(`/pb/store/${id}/${STORE[id].chapters[0]}`);
+      lesson.init(STORE[id].chapters, id)
   })
 
 
@@ -59,56 +55,36 @@ function init(topics){
 
 
 
-function collectionInit (id){
-
-  let url = `http://atlant.mcacademy.ru/reindexer/api/v1/db/mcap_slides/query?q=select%20%2a%20from%20topics%20where%20id%3D%27${id}%27%20join%20%28select%20%2a%20from%20slides%20where%20hide%3Dfalse%20order%20by%20order%29%20on%20slides.topic%3Dtopics.id`
-  fetch(url)
-    .then(r=>r.json())
-    .then(collection=>{
-      let { base, descr, id, name, joined_slides } = collection.items[0]
-
-      lesson.init(joined_slides, id, base)
-
-
-    })
-    .catch(err=>{
-      console.error(err)
-    })
-
-
-}
-
-
 
 var lesson = {
     collection: null,
     paused: true,
     index: 0,
-    pathToImage: null,
     tid: null,
-    init: function (collection, id, base){
-      console.log(collection)
-      this.collection = collection
-      this.pathToImage = base
-      this.index = 0
-      this.pause()
-      this.render()
+    urlImg: '',
+    init: function (collection, id, timeStep){
+      this.timeStep = timeStep
+      this.collection = collection;
+      this.index = 0;
+      this.id = id;
+      this.pause();
+      this.render();
     },
     play: function (){
-      this.paused = false
-      this.next()
-      evt.emit('play')
+      this.paused = false;
+      this.next();
+      evt.emit('play');
     },
     pause: function (){
-      this.paused = true
-      evt.emit('pause')
+      this.paused = true;
+      evt.emit('pause');
     }
 }
 
 lesson.render = function (){
     $('.footer__slides').empty();
     this.collection.map( (slide, index)=>{
-        let $tpl = $(`<div class='footer__slides--exist' data-url="${slide.url}" data-index='${index}'>${index+1}</div>`)
+        let $tpl = $(`<div class='footer__slides--exist' data-url="${slide}" data-index='${index}'>${index+1}</div>`)
         $('.footer__slides').append($tpl)
     })
 }
@@ -125,12 +101,10 @@ lesson.currentClass = function (){
 
 lesson.next = function (){
     this.currentClass()
-    let pathname = this.collection[this.index].url
-    let urlImg = this.pathToImage+pathname
-    if(/http/i.test(pathname) ){
-      urlImg = pathname
-    }
-    board.setBackground( urlImg )
+    let imageName = this.collection[this.index]
+    this.urlImg = `/pb/store/${this.id}/`
+
+    board.setBackground( this.urlImg+imageName)
 
     this.tid = setTimeout(()=>{
       this.index++
@@ -140,14 +114,15 @@ lesson.next = function (){
 
         this.index = 0
         this.currentClass()
-        board.setBackground( urlImg )
+
+        board.setBackground( this.urlImg+imageName )
       }
       else{
         if(!this.paused)
                 this.next()
       }
 
-    }, this.collection[this.index].pause*1000)
+    }, this.timeStep/*this.collection[this.index].pause*1000*/)
 }
 
 /*
@@ -185,7 +160,7 @@ $('.footer__slides').on('mousedown', '.footer__slides--exist', function (){
     let url = $(this).data('url')
     lesson.index = $(this).data('index')
 
-    board.setBackground(lesson.pathToImage+url)
+    board.setBackground(lesson.urlImg+url)
     lesson.currentClass()
     lesson.paused = true
     evt.emit('pause')

@@ -1,5 +1,10 @@
-./manga _store/GenshinInpact
+
+@dirname 
+@title
+
+node manga.js GenshinInpact "Геншин инпакт"
 
 
-http://localhost:8080/manga/GenshinInpact/01-00
-http://localhost:8080/manga/GenshinInpact/01-11-01
+
+
+http://localhost:8080/?title=GenshinInpact&chapter=01-01

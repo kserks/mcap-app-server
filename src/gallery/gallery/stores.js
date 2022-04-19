@@ -29,6 +29,6 @@ export let playerName = writable(null)
 
 export let config = {
   artDir: 'art',
-
+  PORT: 8080
 }
 

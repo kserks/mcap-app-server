@@ -1,10 +1,11 @@
 /**
  * Копируем изображения из [ cls ] в папку [ cur ]
  */
+import { config } from '../stores.js'
 
 export default function (id){
 
-    fetch('/gallery/art/cls?placeId='+id)
+    fetch(`/${config.PORT}/gallery/art/cls?placeId=${id}`)
         .then(r=>{
             console.log(r)
         })

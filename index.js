@@ -1,44 +1,61 @@
-const
-  express                     = require('express'),
-  bodyParser                  = require('body-parser'),
-  fs                          = require('fs-extra'),
-  { join, resolve }           = require('path'),
-  cors                        = require('cors');
-global.appRoot = resolve(__dirname);
-const
-  _cad                        = require('./routes/cad'),
-  _pb                         = require('./routes/pb'),
-  _tutor                      = require('./routes/tutor'),
-  _manga                      = require('./routes/manga')
-  _gallery                    = require('./routes/gallery')
-
-const PORT = require('./mcap-config.json').PORT
-const app = express()
-
-
-
-app.use(bodyParser.json({limit:'50mb'})); 
-app.use(bodyParser.urlencoded({extended:true, limit:'50mb', parameterLimit: 100000})); 
-app.use(cors());
-
-app.use(express.static(join(__dirname, '/app')))
 
 /**
- * Routes
+ * DEPS
  */
-app.use('/cad', _cad)
-app.use('/pb', _pb)
-app.use('/tutor', _tutor)
-app.use('/manga', _manga)
-app.use('/gallery', _gallery)
+const express                     = require('express');
+const bodyParser                  = require('body-parser');
+const fs                          = require('fs-extra');
+const { join, resolve }           = require('path');
+const cors                        = require('cors');
+/**
+ * GLOBALS
+ */
+global.appRoot = resolve(__dirname);
+global.DEV = false;
+
+/**
+ * ROUTES
+ */
+const _cad                        = require('./routes/cad');
+const _pb                         = require('./routes/pb');
+const _tutor                      = require('./routes/tutor');
+const _gallery                    = require('./routes/gallery');
+const _uploadImages               = require('./routes/upload-images');
+
+/**
+ * INIT
+ */
+const PORT = require('./mcap-config.json').PORT;
+const app = express();
+
+app.use(bodyParser.json({limit:'500mb'})); 
+app.use(bodyParser.urlencoded({extended:true, limit:'500mb', parameterLimit: 100000})); 
+app.use(cors());
+/**
+ * STATIC
+ */
+app.use(express.static(join(__dirname, '/app')));
+
+if(global.DEV){
+  app.use(express.static(join(__dirname, '/html')));
+  console.log('env = DEV')
+}
+/**
+ * REGISTER ROUTES
+ */
+app.use('/cad', _cad);
+app.use('/pb', _pb);
+app.use(`/chess_edu`, _tutor);
+app.use('/gallery/_gallery', _gallery);
+app.use('/upload-images', _uploadImages);
 /*
- * router
+ * home
  */
 app.get('/', (req, res)=>{
-  res.sendFile(join(__dirname,'/app/index.html'))
+  res.sendFile(join(__dirname,'/app/index.html'));
 });
 
 
 app.listen(PORT, ()=>{
-  console.log('[start] http://localhost:'+PORT)
+  console.log('[start] http://localhost:'+PORT);
 })

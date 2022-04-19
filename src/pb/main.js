@@ -22,7 +22,15 @@ import lineWidth from './modes/line-width.js'
  */
 import slides from './slides/main.js'
 
-slides()
+const DEV = false
+
+let ROOT = '/pb/images'
+
+if(DEV){
+  ROOT = 'images'
+}
+
+slides(ROOT)
 
 
 addMode('marker', marker)
@@ -60,7 +68,7 @@ try {
 
 selectMode('marker', 2, '#fc0505')
 setColor('#63676b')
-board.setBackground('./images/backgrounds/greed.jpg')
+board.setBackground(`${ROOT}/backgrounds/greed.jpg`)
 /**
  * 
  */
@@ -236,7 +244,7 @@ $('.weight__list').on('click', 'div', function (){
  */
 function saveUserImage (img, fileName, type){
 
-    fetch('/pb/save-image', {
+    fetch('save-image', {
       mode: 'cors',
       credentials: 'same-origin',
       headers: {
@@ -272,7 +280,7 @@ $('#save').on('click', function (){
     saveOpen = true
     $('.save__modal').css('display', 'flex')
     $('#save__input').focus()
-    fetch(`/pb/user-images?playerName=${player.name}`)
+    fetch(`user-images?playerName=${player.name}`)
       .then(r=>r.json())
       .then(r=>{
         $('.save__files-list').html('')
@@ -315,7 +323,7 @@ $('#bg__user').on('click', function (){
   else{
     flag2 = true
 
-    fetch(`/pb/user-images?playerName=${player.name}`)
+    fetch(`user-images?playerName=${player.name}`)
       .then(r=>r.json())
       .then(r=>{
 
@@ -338,7 +346,7 @@ $('#bg__user').on('click', function (){
 
 $('.files-list').on('click', '.user-image-item__filename', function (){
   let playerName = $(this).data('type')
- let url = `./images/${playerName}/${ $(this).html() }`
+ let url = `${ROOT}/${playerName}/${ $(this).html() }`
   const imgUrl = new URL(url, import.meta.url)
   board.setBackground(imgUrl)
   $('.bg-user__image-list').hide()
@@ -350,7 +358,7 @@ $('.files-list').on('click', '.user-image-item__filename', function (){
 
 function uploadImage (file){
 
-    fetch('/pb/upload-image', {
+    fetch('upload-image', {
       mode: 'cors',
       credentials: 'same-origin',
       headers: {
@@ -402,17 +410,17 @@ navigator.clipboard.readText()
 
 $('#bg__black').on('click', function (){
 
-  board.setBackground('./images/backgrounds/black.jpg')
+  board.setBackground(`${ROOT}/backgrounds/black.jpg`);
 })
 
 $('#bg__white').on('click', function (){
 
-    board.setBackground('./images/backgrounds/white.jpg')
+    board.setBackground(`${ROOT}/backgrounds/white.jpg`);
 })
 
 $('#bg__greed').on('click', function (){
 
-  board.setBackground('./images/backgrounds/greed.jpg')
+  board.setBackground(`${ROOT}/backgrounds/greed.jpg`);
 })
 
 //
@@ -424,7 +432,7 @@ $('#bg__greed').on('click', function (){
 
 function removeImage (fileName){
 
-    fetch('/pb/remove-image', {
+    fetch('remove-image', {
       mode: 'cors',
       credentials: 'same-origin',
       headers: {
@@ -468,7 +476,7 @@ $('.paint-board__fs').append($tpl)
 $('#url__param').html(sharedID)
 $('#share').on('mousedown', function (){
  
-      fetch('/pb/shared-images')
+      fetch('shared-images')
         .then(r=>r.json())
         .then(async  files=>{
           
@@ -480,7 +488,7 @@ $('#share').on('mousedown', function (){
 
 $('#shared__remove').on('mousedown', function (){
 
-      fetch(`/pb/shared-remove?id=${sharedID}`)
+      fetch(`shared-remove?id=${sharedID}`)
         .then(files=>{
           alert('Директория [ shared ] очищена')
           

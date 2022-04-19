@@ -60,6 +60,7 @@ function handler (obj, index){
                         return item
                     })
       })
+      .catch(e=>console.error(e))
 
 }
 
