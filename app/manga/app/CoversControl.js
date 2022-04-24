@@ -16,9 +16,7 @@ class CoversControl {
   get url (){
     return `url(${this.root}store/${this.title}/cover.jpg)`;
   }
-  historyPushTitle (){
-    history.pushState(null, null, '?title='+ this.title);
-  }
+
   next (){
     this.index++;
     if(this.index>this.covers.length-1){
@@ -39,6 +37,6 @@ class CoversControl {
     //this.historyPushTitle();
   }
   get progress (){
-    return `<div>${this.index+1} / ${this.covers.length}</div>`
+    return `<div>${Number(this.index)+1} / ${this.covers.length}</div>`
   }
 }

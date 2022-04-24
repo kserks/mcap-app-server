@@ -34,13 +34,20 @@
           <i class="fa fa-chevron-right" aria-hidden="true"></i>
         </div>
     </div>
-    <div class="audio-control">
-        <svg class="play" style="width:40px;height:40px" viewBox="0 0 24 24">
-            <path fill="#334" d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M10,16.5L16,12L10,7.5V16.5Z" />
-        </svg>
-        <svg class="pause" style="width:40px;height:40px" viewBox="0 0 24 24">
-            <path fill="#334" d="M13,16V8H15V16H13M9,16V8H11V16H9M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
-        </svg>
+    <div class="audio">
+        <div class="audio-control--volume">
+                <input type="range" step="0.05" value="0.5" min="0" max="1" id="volume-control">
+        </div>
+        <div class="audio-control">
+            <svg class="play" style="width:100px;height:100px" viewBox="0 0 24 24">
+                <path fill="#778" d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M10,16.5L16,12L10,7.5V16.5Z" />
+            </svg>
+            <svg class="pause" style="width:100px;height:100px" viewBox="0 0 24 24">
+                <path fill="#778" d="M13,16V8H15V16H13M9,16V8H11V16H9M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+            </svg>
+
+        </div>
+
 
     </div>
   </div>
@@ -85,7 +92,12 @@ if(params.get('title')&&params.get('chapter')){
 
 else{
   // covers
-  drawMangaItems();
+  let index = params.get('index')
+  if(index){
+    index = index-1;
+    document.querySelector('.controls').style.display = 'none'
+  }
+  drawMangaItems(index);
 
 }
 
@@ -94,23 +106,26 @@ else{
  * SHOW COVERS
  */
 
-function drawMangaItems() {
+function drawMangaItems(index=0) {
+
+
 fetch(root+'json/store.json')
   .then(res=>res.json())
   .then(data=>{
     originalStore = data;
-
+  
     const covers = Object.keys(originalStore)
-    const coversControl = new CoversControl(covers, 8, root);
+    const coversControl = new CoversControl(covers, index, root);
 
 
-    $('.prev').addEventListener('click', ()=>{coversControl.prev()})
-    $('.next').addEventListener('click', ()=>{coversControl.next()})
-    $('.cover').addEventListener('click', ()=>{
+    $('.prev').addEventListener('mousedown', ()=>{coversControl.prev()})
+    $('.next').addEventListener('mousedown', ()=>{coversControl.next()})
+    $('.cover').addEventListener('mousedown', ()=>{
         title = coversControl.title;
         chapters = originalStore[title].chapters;
         drawChapters (chapters);
         $('.viewer').style.display = 'none';
+        $('.cover').style.pointerEvents="none";
     })
 
 
@@ -138,10 +153,11 @@ function drawChapters (){
 
 }
 
-  items.addEventListener('click', function (e){
+  items.addEventListener('mousedown', function (e){
 
       chapterName = e.target.getAttribute('data-title');
       if(!chapterName ) return;
+      document.querySelector('.controls').style.display = 'flex';
       history.pushState(null, null, `?title=${title}&chapter=${chapterName}`);
       openViewer();
 
@@ -175,14 +191,21 @@ function playAudio(){
 
   var sound = new Howl({
         src: [path],
-        loop: true
+        loop: true,
+        volume: 0.5
       });
   sound.on('load', ()=>{
-      $('.audio-control').style.display = 'block';
+      $('.audio-control').style.display = 'flex';
+      $('.audio-control--volume').style.display = 'block';
   })
 
+  $('#volume-control').addEventListener('change', e=>{
+      console.log(e.target.value)
+      sound.volume(e.target.value);
+      console.log(sound)
+  })
 
-$('.audio-control').addEventListener('click', toggle)
+$('.audio-control').addEventListener('mousedown', toggle)
 
 let audioPlay = false;
 function toggle (){

@@ -4,8 +4,8 @@ let manga = new Manga(body, title, chapter, root)
 //window.manga = manga
 manga.render()
 
-$('.prev').addEventListener('click', ()=>{manga.prev()})
-$('.next').addEventListener('click', ()=>{manga.next()})
+$('.prev').addEventListener('mousedown', ()=>{manga.prev()})
+$('.next').addEventListener('mousedown', ()=>{manga.next()})
 
 document.addEventListener('keydown', function(event) {
   if(event.code==='ArrowLeft'){

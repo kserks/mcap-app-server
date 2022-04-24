@@ -11,7 +11,7 @@ const cors                        = require('cors');
  * GLOBALS
  */
 global.appRoot = resolve(__dirname);
-global.DEV = false;
+global.DEV = true;
 
 /**
  * ROUTES

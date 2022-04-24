@@ -43,20 +43,21 @@ body{
 
 .controls{
   width: 100%;
-  height: 50px;
+  height: 100px;
   display: flex;
   justify-content: space-between;
   background-color: rgba(0,0,0,0.1);
 }
 .controls .arrow{
-  width: 50px;
-  height: 50px;
+  width: 150px;
+  height: 100px;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0,0,0,0.05);
   color: #778;
+  font-size: 50px;
 }
 .progress{
   flex: 1;
@@ -149,14 +150,68 @@ body{
 /**
  * audio
  */
-.audio-control{
+.audio{
   position: absolute;
   top: 15px;
   right: 15px;
   cursor: pointer;
+}
+.audio-control{
+  justify-content: center;
+  align-items: center;
   display: none;
 }
 
 .pause{
   display: none;
 }
+.audio-control--volume{
+  widows: 100px;
+  opacity: 0.3;
+  display: none;
+}
+
+/**
+ * ползунок
+ */
+input[type=range]  {
+      width: 100px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      outline: none;
+      overflow: hidden;
+      height: 7px;
+    }
+
+    input[type=range]::-webkit-slider-runnable-track {
+      height: 7px;
+      background-color: gray;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      background: #ecf0f1;
+      cursor: pointer;
+      width:15px;
+      height: 15px;
+      -webkit-appearance: none;
+      margin-top: -4px;
+      box-shadow: -200px  0 0 200px  #445;
+
+    }
+
+    input[type=range]::-moz-range-track {
+        height: 7px;
+        background-color: gray;
+    }
+
+
+   input[type=range]::-moz-range-thumb {
+      background: #ecf0f1;
+      cursor: pointer;
+      height: 7px;
+      border-radius:0px;
+      box-shadow: -200px  0px 0px 200px   #43e5f7;
+      padding: 0px;
+      margin: 0px;
+    }

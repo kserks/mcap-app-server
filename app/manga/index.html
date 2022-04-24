@@ -33,13 +33,20 @@
           <i class="fa fa-chevron-right" aria-hidden="true"></i>
         </div>
     </div>
-    <div class="audio-control">
-        <svg class="play" style="width:40px;height:40px" viewBox="0 0 24 24">
-            <path fill="#334" d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M10,16.5L16,12L10,7.5V16.5Z" />
-        </svg>
-        <svg class="pause" style="width:40px;height:40px" viewBox="0 0 24 24">
-            <path fill="#334" d="M13,16V8H15V16H13M9,16V8H11V16H9M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
-        </svg>
+    <div class="audio">
+        <div class="audio-control--volume">
+                <input type="range" step="0.05" value="0.5" min="0" max="1" id="volume-control">
+        </div>
+        <div class="audio-control">
+            <svg class="play" style="width:100px;height:100px" viewBox="0 0 24 24">
+                <path fill="#778" d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M10,16.5L16,12L10,7.5V16.5Z" />
+            </svg>
+            <svg class="pause" style="width:100px;height:100px" viewBox="0 0 24 24">
+                <path fill="#778" d="M13,16V8H15V16H13M9,16V8H11V16H9M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+            </svg>
+
+        </div>
+
 
     </div>
   </div>
@@ -89,7 +96,7 @@ else{
 
   drawMangaItems()
 
-  items.addEventListener('click', function (e){
+  items.addEventListener('mousedown', function (e){
     switch(state){
       case 'list':
         title = e.target.getAttribute('data-title');
@@ -122,32 +129,43 @@ function openViewer(){
 }
 
 
+
+/**
+ * AUDIO
+ */
+
 function playAudio(){
   let path = `${root}store/${title}/cover.mp3`;
 
   var sound = new Howl({
         src: [path],
-        loop: true
+        loop: true,
+        volume: 0.5
       });
-  sound.on('loaderror', ()=>{
-      document.querySelector('.audio-control').style.display = 'none';
+  sound.on('load', ()=>{
+      $('.audio-control').style.display = 'flex';
+      $('.audio-control--volume').style.display = 'block';
   })
 
+  $('#volume-control').addEventListener('change', e=>{
+      console.log(e.target.value)
+      sound.volume(e.target.value);
+      console.log(sound)
+  })
 
-document.querySelector('.audio-control')
-        .addEventListener('click', toggle)
+$('.audio-control').addEventListener('mousedown', toggle)
 
 let audioPlay = false;
 function toggle (){
   if(audioPlay){
-    document.querySelector('.play').style.display = 'block';
-    document.querySelector('.pause').style.display = 'none';
+    $('.play').style.display = 'block';
+    $('.pause').style.display = 'none';
     audioPlay = false;
     sound.pause();
   }
   else{
-    document.querySelector('.play').style.display = 'none';
-    document.querySelector('.pause').style.display = 'block';
+    $('.play').style.display = 'none';
+    $('.pause').style.display = 'block';
     audioPlay = true;
     sound.play();
   }
