@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>v1</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+
+  <div class="app">
+
+      <div class="board-wrapper">
+          <div class="board">
+              <canvas class="board__canvas"></canvas>
+          </div>
+          <div class="controls">
+              <img class="controls__item controls__item--grid" src="icons/grid.svg">
+              <div class="controls__group">
+                <img class="controls__item controls__item--flip-v" src="icons/flip-v.svg">
+                <img class="controls__item controls__item--flip-h" src="icons/flip-h.svg">
+                <img class="controls__item controls__item--rotate" src="icons/rotate.svg">
+              </div>
+          </div>
+      </div>
+      <div class="figures">
+          <div class="figures__container"></div>
+      </div>
+      <div class="modal-levels">
+          <p class="modal-levels__close">x</p>
+           <p class="modal-levels__levels"></p> 
+
+      </div>   
+      <p class="figure-json"></p> 
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

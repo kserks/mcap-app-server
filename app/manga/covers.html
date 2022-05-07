@@ -36,7 +36,7 @@
     </div>
     <div class="audio">
         <div class="audio-control--volume">
-                <input type="range" step="0.05" value="0.5" min="0" max="1" id="volume-control">
+                <input type="range" step="0.01" value="0.5" min="0" max="1" id="volume-control">
         </div>
         <div class="audio-control">
             <svg class="play" style="width:100px;height:100px" viewBox="0 0 24 24">
@@ -95,9 +95,14 @@ else{
   let index = params.get('index')
   if(index){
     index = index-1;
-    document.querySelector('.controls').style.display = 'none'
+    document.querySelector('.controls').style.display = 'none';
+    drawMangaItems(index);
+    
   }
-  drawMangaItems(index);
+  else{
+      drawMangaItems(0);
+  }
+  
 
 }
 
@@ -106,7 +111,7 @@ else{
  * SHOW COVERS
  */
 
-function drawMangaItems(index=0) {
+function drawMangaItems(index) {
 
 
 fetch(root+'json/store.json')
@@ -200,9 +205,9 @@ function playAudio(){
   })
 
   $('#volume-control').addEventListener('change', e=>{
-      console.log(e.target.value)
+    
       sound.volume(e.target.value);
-      console.log(sound)
+ 
   })
 
 $('.audio-control').addEventListener('mousedown', toggle)

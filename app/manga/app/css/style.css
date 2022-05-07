@@ -155,25 +155,31 @@ body{
   top: 15px;
   right: 15px;
   cursor: pointer;
+  flex-direction: column-reverse;
+  display: flex;
 }
 .audio-control{
   justify-content: center;
   align-items: center;
   display: none;
+
 }
 
 .pause{
   display: none;
 }
 .audio-control--volume{
-  widows: 100px;
+  width: 100px;
   opacity: 0.3;
   display: none;
+  transform: rotate(-90deg) scale(2);
+  margin-top: 200px;
 }
 
 /**
  * ползунок
  */
+/*
 input[type=range]  {
       width: 100px;
       -webkit-appearance: none;
@@ -214,4 +220,4 @@ input[type=range]  {
       box-shadow: -200px  0px 0px 200px   #43e5f7;
       padding: 0px;
       margin: 0px;
-    }
+    }*/
