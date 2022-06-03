@@ -11,7 +11,7 @@ const cors                        = require('cors');
  * GLOBALS
  */
 global.appRoot = resolve(__dirname);
-global.DEV = true;
+global.DEV = false;
 
 /**
  * ROUTES
@@ -21,7 +21,7 @@ const _pb                         = require('./routes/pb');
 const _tutor                      = require('./routes/tutor');
 const _gallery                    = require('./routes/gallery');
 const _uploadImages               = require('./routes/upload-images');
-
+const _vnjsonPublish              = require('./routes/vnjson-publish')
 /**
  * INIT
  */
@@ -48,6 +48,10 @@ app.use('/pb', _pb);
 app.use(`/chess_edu`, _tutor);
 app.use('/gallery/_gallery', _gallery);
 app.use('/upload-images', _uploadImages);
+/*
+ *
+ */
+app.use(_vnjsonPublish)
 /*
  * home
  */
