@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="./mcap.css">
 
 </head>
-<body>
+<body style="position: relative;">
     <title>Design</title>
     <link rel="stylesheet" href="css/design.css">
     <link rel="stylesheet" href="css/settings.css">
@@ -36,6 +36,7 @@
         <div class="tooltip"><button class="tool" id="load-file"><img src="icons/open.svg"></button></div>
         <div class="tooltip"><button class="tool" id="save-file"><img src="icons/save.svg"></button></div>
         <div class="tooltip"><span class="separator"></span></div>
+        <div class="tooltip"><button class="tool select-target-point"><img src="icons/target.svg"></button></div>
         <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['L'] )"><img src="icons/line.svg"></button></div>
         <!--<div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['PL'] )"><img src="icons/polyline.svg"></button></div>-->
         <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['C'] )"><img src="icons/circle.svg"></button></div>
@@ -65,8 +66,10 @@
         <div class="tooltip"><button class="tool tool__keyboard" id="mc__Space">Space</button></div>
         <div class="tooltip"><button class="tool tool__keyboard" id="mc__Enter">Enter</button></div>
 
-    </div>
 
+    </div>
+    <div class="coords-data"></div>
+    <div class="offset-target"></div>
 </body>
 
 <!--<footer>-->
@@ -176,10 +179,12 @@
 
         var listItems = [{
             name: "Enter", action: function(){reset(); closePopover();}
-        }, {
+        }, /*
+        {
             name: "Mid Between 2 Points", action: function(){closePopover();}
-        }, {
-            name: "Settings", action: function(){showSettings(); closePopover();}
+        }, */
+        {
+            name: "Параметры", action: function(){showSettings(); closePopover();}
         }];
         popover_showList(listItems);
     }

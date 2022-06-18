@@ -35,9 +35,6 @@ export class Board {
     for(let i=0;i<this.scene.length;i++){
           this.scene[i].render(this.ctx)
     }
-   
-
-
 
   }
   clear (){

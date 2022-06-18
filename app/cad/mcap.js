@@ -127,12 +127,12 @@ fetch(`dir?player=${player.name}`)
 
 $html('#mcap__save-btn').addEventListener('mousedown', e=>{
   e.preventDefault();
-  var fileName = $html('#mcap__filename').value
-var body = {
-      playerName: player.name,
-      fileName: fileName+'.dxf',
-      data:  savedxf()
-    }
+  const fileName = $html('#mcap__filename').value
+  const body = {
+        playerName: player.name,
+        fileName: fileName+'.dxf',
+        data:  savedxf()
+      }
    
 
   fetch('save-file', {
@@ -155,7 +155,7 @@ var body = {
  * Load
  */
 
-var loadOpen = false
+let loadOpen = false
 $html('#load-file').addEventListener('mousedown', function (e){
 $html('#save__modal').style.display = 'none'
 saveOpen = false
@@ -165,7 +165,7 @@ fetch(`dir?player=${player.name}`)
   .then(r=>{
       r.map(fileName=>{
 
-        let el = document.createElement('li')
+          const el = document.createElement('li')
           el.innerHTML = fileName
           el.addEventListener('mousedown', e=>{
                 getFileBody(player.name, e.target.innerHTML)
@@ -230,41 +230,69 @@ $html('#mc__Esc').addEventListener('mousedown', e=>{
 /*
  * координаты
  */
-var tootipElement = document.createElement('div')
-    Object.assign(tootipElement.style, {
-        'min-width': '100px',
-        display: 'inline-flex',
-        color: 'gray',
-        position: 'absolute',
-        right: '20px',
-        top: '50%',
-        transform: 'translateY(-50%)'
-    })
-    $html('.toolbar').appendChild(tootipElement)
+let offsetCoordsFlag = false
+let offsetCoords = {x: 0, y: 0}
 
+$html('.select-target-point').addEventListener('mousedown', e=>{
+  offsetCoordsFlag = true
 
+  /*if(!offsetCoordsFlag){
+    offsetCoords = {x: 0, y: 0}
+  }*/
+})
 
-var coordLabel2 = document.createElement('div')
-    coordLabel2.id = 'coordLabel2'
-    Object.assign(coordLabel2.style, {
-      'white-space': 'nowrap',
-      'text-transform': 'lowercase'
-    })
-    tootipElement.appendChild(coordLabel2)
+let _obj_params = null
+$html('#designCanvas').addEventListener('click', e=>{
+  if(!offsetCoordsFlag) {
+      return
+  }
+  //const targetMarker = $html('.offset-target')
 
+  offsetCoords.x = _obj_params.x
+  offsetCoords.y = _obj_params.y  
+/*
+  targetMarker.style.left = (1280 - offsetCoords.x + 15)+'px'
+  targetMarker.style.top = (921 - offsetCoords.y + 15)+'px'
+*/
+  offsetCoordsFlag = false 
 
+})
 
 $html('#designCanvas').addEventListener('mousemove', e=>{
-  let data = $html('#coordLabel').innerHTML
-  let replaceData = data.replace('X:', '<span">x: </span>')
-                        .replace('Y:', '<span">&nbsp;&nbsp;y: </span>')
+  const data = $html('#coordLabel').innerHTML
 
-  $html('#coordLabel2').innerHTML = replaceData
+  const _dataArr = data.replaceAll(',', '').split(" ")
+
+  _obj_params = {
+          x: Math.floor( Number(_dataArr[1])  ),
+          y: Math.floor( Number(_dataArr[3]) ),
+          delta: _dataArr[5],
+          ang: _dataArr[7],
+  }
+
+  if(offsetCoords.x>0&&offsetCoords.y>0){
+    _obj_params.x = Math.floor( Number(_dataArr[1]) - offsetCoords.x )
+    _obj_params.y = Math.floor( Number(_dataArr[3]) - offsetCoords.y )
+  }
+
+  /*
+   * Подготовка строки для вывода
+   */
+  let outputData;
+
+  outputData = `x: <span class="coords-data__num">${_obj_params.x} </span>y: <span class="coords-data__num">${_obj_params.y} </span>` 
+  if(_obj_params.delta){
+    outputData += `delta:  <span class="coords-data__num">${_obj_params.delta}</span>`
+  }
+  if(_obj_params.ang){
+    outputData += ` ang:  <span class="coords-data__num">${_obj_params.ang}</span>`
+  }
+  $html('.coords-data').innerHTML = outputData
 })
 
 
 /**
- * main cross
+ * Смещение синий полосок на халте
  */
 
   setTimeout(()=>{

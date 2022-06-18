@@ -1,5 +1,5 @@
 {
   "PORT": 8080,
   "art": "/html/art",
-  "vnjson-publish": "/html/vn/draft"
+  "vnjson-publish": "F:/mcap/$server/html/vnjson/draft"
 }
