@@ -26,7 +26,7 @@
         <!--<canvas id="myCanvas" width="600" height="400" style="border:1px solid #c3c3c3;">-->
         <canvas id="designCanvas" style="border:1px solid #c3c3c3;">
                 Your browser does not support the HTML5 canvas tag.
-            </canvas>
+        </canvas>
     </div>
 
 
@@ -62,14 +62,18 @@
            
     
         <!--<div class="tooltip"><button class="tool" , onclick="showHidePropertiesManager()"><img src="icons/properties.svg"></button><span class="tooltiptext">Properties</span></div>-->
-        <div class="tooltip"><button class="tool tool__keyboard" id="mc__Esc">Esc</button></div>
-        <div class="tooltip"><button class="tool tool__keyboard" id="mc__Space">Space</button></div>
-        <div class="tooltip"><button class="tool tool__keyboard" id="mc__Enter">Enter</button></div>
-
 
     </div>
-    <div class="coords-data"></div>
-    <div class="offset-target"></div>
+    <div class="tools-2-wrapper">
+        <div class="tools-2">
+            <button class="tool tool__keyboard tool__keyboard--btn" id="mc__Esc">Esc</button>
+            <button class="tool tool__keyboard tool__keyboard--btn" id="mc__Space">Space</button>
+            <button class="tool tool__keyboard tool__keyboard--btn" id="mc__Enter">Enter</button>
+        </div>
+        <div class="coords-data"></div>
+    </div>
+    
+
 </body>
 
 <!--<footer>-->
@@ -1596,6 +1600,7 @@ function layerColourChange(colour, layerIndex){
 </select>
 </div>
 
+
 <!--
 <div id="Ortho" class="Design-sidebar-listitem">
 <img src="icons/ortho.svg" style="width:32px;height:32px;">
@@ -1614,6 +1619,17 @@ function layerColourChange(colour, layerIndex){
 <span class="slider"></span>
 </label>
 </div>
+
+<div id="offset-marker" class="Design-sidebar-listitem">
+    <img src="icons/target.svg" style="width:32px;height:32px;">
+    <p>Маркер смещения</p>
+    <label class="toggle">
+        <input type="checkbox"  id="offset-market-input" checked="true"/>
+        <span class="slider"></span>
+    </label>
+</div>
+
+
 
 </ul>
 </div>

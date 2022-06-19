@@ -62,24 +62,20 @@ loadFileByUrl()
 /*добавление кнопок в панель инструментов*/
 function mcapAddBtns(){
 
-    var toolbar = $html('.toolbar')
-    var mc_tpl_plus = `<div  class="tooltip">
-                          <button data-id="mc_plus" class="tool">
+
+    const mc_tpl_plus = `<button data-id="mc_plus" class="tool tool__keyboard">
                               <svg data-id="mc_plus" style="width:24px;height:24px" viewBox="0 0 24 24">
                                   <path data-id="mc_plus" fill="gray" d="M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z" />
                             </svg>
-                          </button>
-                      </div>`
-    var mc_tpl_minus = `<div  class="tooltip">
-                            <button data-id="mc_minus" class="tool">
+                        </button>`
+    const mc_tpl_minus = `<button data-id="mc_minus" class="tool tool__keyboard">
                               <svg  data-id="mc_minus" style="width:24px;height:24px" viewBox="0 0 24 24">
                                   <path data-id="mc_minus"  fill="gray" d="M15.5,14H14.71L14.43,13.73C15.41,12.59 16,11.11 16,9.5A6.5,6.5 0 0,0 9.5,3A6.5,6.5 0 0,0 3,9.5A6.5,6.5 0 0,0 9.5,16C11.11,16 12.59,15.41 13.73,14.43L14,14.71V15.5L19,20.5L20.5,19L15.5,14M9.5,14C7,14 5,12 5,9.5C5,7 7,5 9.5,5C12,5 14,7 14,9.5C14,12 12,14 9.5,14M7,9H12V10H7V9Z" />
                               </svg>
-                            </button>
-                        </div>`
+                        </button>`
 
-    toolbar.innerHTML += mc_tpl_plus+mc_tpl_minus
-    toolbar.addEventListener('mousedown', function(e){
+    $html('.tools-2').innerHTML += mc_tpl_plus+mc_tpl_minus
+    $html('.tools-2').addEventListener('mousedown', function(e){
         var id = e.target.getAttribute('data-id')
         if(id==='mc_minus'){
             canvas.zoomMC(0.9)
@@ -240,20 +236,20 @@ $html('.select-target-point').addEventListener('mousedown', e=>{
     offsetCoords = {x: 0, y: 0}
   }*/
 })
-
+const targetMarker = $html('.offset-target')
 let _obj_params = null
 $html('#designCanvas').addEventListener('click', e=>{
   if(!offsetCoordsFlag) {
       return
   }
-  //const targetMarker = $html('.offset-target')
+
 
   offsetCoords.x = _obj_params.x
   offsetCoords.y = _obj_params.y  
-/*
-  targetMarker.style.left = (1280 - offsetCoords.x + 15)+'px'
-  targetMarker.style.top = (921 - offsetCoords.y + 15)+'px'
-*/
+
+  targetMarker.style.left = (e.pageX - 17)+'px'
+  targetMarker.style.top = (e.pageY - 17)+'px'
+
   offsetCoordsFlag = false 
 
 })
@@ -282,12 +278,25 @@ $html('#designCanvas').addEventListener('mousemove', e=>{
 
   outputData = `x: <span class="coords-data__num">${_obj_params.x} </span>y: <span class="coords-data__num">${_obj_params.y} </span>` 
   if(_obj_params.delta){
-    outputData += `delta:  <span class="coords-data__num">${_obj_params.delta}</span>`
+    outputData += `Δ: <span class="coords-data__num">${_obj_params.delta}</span>`
   }
   if(_obj_params.ang){
-    outputData += ` ang:  <span class="coords-data__num">${_obj_params.ang}</span>`
+    outputData += ` ∠:  <span class="coords-data__num">${_obj_params.ang}</span>`
   }
   $html('.coords-data').innerHTML = outputData
+})
+
+/**
+ * Показать маркер ( круг ) смещенных координат
+ */
+$html('#offset-market-input').addEventListener('change', function (e){
+  if(this.checked){
+    targetMarker.style.display = "block"
+  }
+  else{
+    targetMarker.style.display = "none"
+  }
+
 })
 
 

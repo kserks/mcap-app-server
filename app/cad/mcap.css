@@ -136,31 +136,42 @@
 select#polarAngle{
   width: 50px;
 }
-
-.coords-data{
+.tools-2-wrapper{
+  display: flex;
   position: absolute;
   left: 0;
   bottom: 0;
-  min-width: 200px;
-  height: 50px;
+  min-width: 430px;
+  color: #999;
+  border-radius: 4px 4px 0 0;
   padding: 15px 20px;
   background-color: rgba(0,0,0,0.7);
-  color: wheat;
-  border-radius: 4px;
   box-sizing: border-box;
-  font-size: 20px;
   user-select: none;
+}
+.tools-2-wrapper *{
+  box-sizing: border-box;
+}
+
+.tools-2{
+  display: flex;
+  padding-right: 5px;
+}
+.coords-data{
+  font-size: 20px;
+
 }
 .coords-data__num{
   color: lightgreen;
 }
-/*
-.offset-target{
-  border-radius: 50%;
-  border: 2px solid red;
-  width: 30px;
-  height: 30px;
-  position: absolute;
 
+
+.tool.tool__keyboard{
+  color: #999;
+  cursor: pointer;
+  height: 30px;
+  border-radius: 4px;
+  border: 1px solid gray;
+  padding: 3px 5px;
+  margin-right: 5px;
 }
-*/
