@@ -1,10 +1,12 @@
+function $html(selector){
+  return document.querySelector(selector)
+}
+
+
 (function (){
 
 
 
-function $html(selector){
-  return document.querySelector(selector)
-}
 
 
 var player = null
@@ -220,81 +222,6 @@ $html('#mc__Space').addEventListener('mousedown', e=>{
 $html('#mc__Esc').addEventListener('mousedown', e=>{
 
   sceneControl("RightClick", [])
-})
-/*
- * координаты
- */
-let offsetCoordsFlag = false
-let offsetCoords = {x: 0, y: 0}
-
-$html('.select-target-point').addEventListener('mousedown', e=>{
-  offsetCoordsFlag = true
-
-  /*if(!offsetCoordsFlag){
-    offsetCoords = {x: 0, y: 0}
-  }*/
-})
-
-let _obj_params = null
-$html('#designCanvas').addEventListener('click', e=>{
-  if(!offsetCoordsFlag) {
-      return
-  }
-
-
-  offsetCoords.x = _obj_params.x
-  offsetCoords.y = _obj_params.y  
-
-
-  offsetCoordsFlag = false 
-
-})
-
-$html('#designCanvas').addEventListener('mousemove', e=>{
-  const data = $html('#coordLabel').innerHTML
-
-  const _dataArr = data.replaceAll(',', '').split(" ")
-
-  _obj_params = {
-          x: Math.floor( Number(_dataArr[1])  ),
-          y: Math.floor( Number(_dataArr[3]) ),
-          delta: _dataArr[5],
-          ang: _dataArr[7],
-  }
-
-  if(offsetCoords.x>0&&offsetCoords.y>0){
-    _obj_params.x = Math.floor( Number(_dataArr[1]) - offsetCoords.x )
-    _obj_params.y = Math.floor( Number(_dataArr[3]) - offsetCoords.y )
-  }
-
-  /*
-   * Подготовка строки для вывода
-   */
-  let outputData;
-
-  outputData = `x: <span class="coords-data__num">${_obj_params.x} </span>y: <span class="coords-data__num">${_obj_params.y} </span>` 
-  if(_obj_params.delta){
-    outputData += `Δ: <span class="coords-data__num">${_obj_params.delta}</span>`
-  }
-  if(_obj_params.ang){
-    outputData += ` ∠:  <span class="coords-data__num">${_obj_params.ang}</span>`
-  }
-  $html('.coords-data').innerHTML = outputData
-})
-
-/**
- * Показать маркер ( круг ) смещенных координат
- */
-$html('#offset-market-input').addEventListener('change', function (e){
-  if(this.checked){
-    let om_x = 100
-    let om_y = 100
-    addCircleToCanvas(om_x, om_y, om_x+15, om_y+15)
-  }
-  else{
-    removeCircleFromCanvas()
-  }
-
 })
 
 
@@ -631,26 +558,3 @@ function copyGeometryToLayer (layer, move){
     }
 }
 
-
-/**
- * Circle to x:0 y:0
- */
-function addCircleToCanvas (x, y, x2, y2){
-
-
-        let data = {
-            points: [ new Point(x, y), new Point(x2, y2) ],
-            colour: "BYLAYER",
-            layer: LM.getCLayer()
-        }
-        let circle = new Circle(data)
-        circle._id = 'offset-target'
-        items.push(circle)
-        canvas.requestPaint();
-
-}
-
-function removeCircleFromCanvas (){
-  items = items.filter(el => !el._id==='offset-target'  )
-  canvas.requestPaint();
-}
