@@ -29,8 +29,6 @@ try {
 Canvas.prototype.zoomMC = function (scale) {
 
   // Convert pinch coordinates to canvas coordinates
-  var x =  canvas.scale;
-  var y =  canvas.scale;
 
   // Zoom at mouse pointer
  // canvas.context.translate(x, y);
@@ -236,7 +234,7 @@ $html('.select-target-point').addEventListener('mousedown', e=>{
     offsetCoords = {x: 0, y: 0}
   }*/
 })
-const targetMarker = $html('.offset-target')
+
 let _obj_params = null
 $html('#designCanvas').addEventListener('click', e=>{
   if(!offsetCoordsFlag) {
@@ -247,8 +245,6 @@ $html('#designCanvas').addEventListener('click', e=>{
   offsetCoords.x = _obj_params.x
   offsetCoords.y = _obj_params.y  
 
-  targetMarker.style.left = (e.pageX - 17)+'px'
-  targetMarker.style.top = (e.pageY - 17)+'px'
 
   offsetCoordsFlag = false 
 
@@ -291,10 +287,12 @@ $html('#designCanvas').addEventListener('mousemove', e=>{
  */
 $html('#offset-market-input').addEventListener('change', function (e){
   if(this.checked){
-    targetMarker.style.display = "block"
+    let om_x = 100
+    let om_y = 100
+    addCircleToCanvas(om_x, om_y, om_x+15, om_y+15)
   }
   else{
-    targetMarker.style.display = "none"
+    removeCircleFromCanvas()
   }
 
 })
@@ -631,4 +629,28 @@ function copyGeometryToLayer (layer, move){
     if(move){
       sceneControl('Enter', ['E'] )
     }
+}
+
+
+/**
+ * Circle to x:0 y:0
+ */
+function addCircleToCanvas (x, y, x2, y2){
+
+
+        let data = {
+            points: [ new Point(x, y), new Point(x2, y2) ],
+            colour: "BYLAYER",
+            layer: LM.getCLayer()
+        }
+        let circle = new Circle(data)
+        circle._id = 'offset-target'
+        items.push(circle)
+        canvas.requestPaint();
+
+}
+
+function removeCircleFromCanvas (){
+  items = items.filter(el => !el._id==='offset-target'  )
+  canvas.requestPaint();
 }
