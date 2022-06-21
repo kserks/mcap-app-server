@@ -1,5 +1,6 @@
 {
   "PORT": 8080,
   "art": "/html/art",
-  "vnjson-publish": "F:/mcap/$server/html/vnjson/draft"
+  "vnjson-publish": "F:/mcap/$server/html/vnjson/draft",
+  "cad-files": ""
 }

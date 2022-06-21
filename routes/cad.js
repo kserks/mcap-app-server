@@ -11,7 +11,7 @@ app.get('/dir', (req, res)=>{
       if(err){
         res.send(err)
       }
-      res.send(JSON.stringify(files))
+      res.send(files)
   });
 })
 app.post('/save-file', (req, res)=>{
@@ -19,7 +19,7 @@ app.post('/save-file', (req, res)=>{
 
   const pathToFile = join(__dirname,'../app/cad/files/', req.body.playerName, req.body.fileName)
 
-  fs.outputFile(pathToFile, req.body.data, (err, data)=>{
+  fs.outputFile(pathToFile, JSON.stringify(req.body.data, null, 2), (err, data)=>{
     if(err){
       res.send(err)
     }

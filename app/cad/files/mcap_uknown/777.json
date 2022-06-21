@@ -1,0 +1,137 @@
+{
+  "layers": [
+    {
+      "type": "Layer",
+      "name": "0",
+      "frozen": false,
+      "on": true,
+      "locked": false,
+      "colour": "#00BFFF",
+      "lineType": "CONTINUOUS",
+      "lineWeight": "DEFAULT",
+      "plotting": true
+    },
+    {
+      "type": "Layer",
+      "name": "DEFPOINTS",
+      "frozen": false,
+      "on": true,
+      "locked": false,
+      "colour": "#FFFFFF",
+      "lineType": "CONTINUOUS",
+      "lineWeight": "DEFAULT",
+      "plotting": true
+    },
+    {
+      "type": "Layer",
+      "name": "NEW_LAYER",
+      "frozen": false,
+      "on": true,
+      "locked": false,
+      "colour": "#FF00FF",
+      "lineType": "CONTINUOUS",
+      "lineWeight": "DEFAULT",
+      "plotting": true
+    },
+    {
+      "type": "Layer",
+      "name": "NEW_LAYER_1",
+      "frozen": false,
+      "on": true,
+      "locked": false,
+      "colour": "#FF7F00",
+      "lineType": "CONTINUOUS",
+      "lineWeight": "DEFAULT",
+      "plotting": true
+    }
+  ],
+  "items": [
+    {
+      "type": "Circle",
+      "points": [
+        {
+          "x": 252,
+          "y": 633
+        },
+        {
+          "x": 315.2902933345803,
+          "y": 579.8931382058518
+        }
+      ],
+      "colour": "BYLAYER",
+      "layer": "0"
+    },
+    {
+      "type": "Polyline",
+      "points": [
+        {
+          "x": 290,
+          "y": 525
+        },
+        {
+          "x": 546.1554513174423,
+          "y": 525
+        },
+        {
+          "x": 546.1554513174423,
+          "y": 431.7670403754257
+        },
+        {
+          "x": 290,
+          "y": 431.7670403754257
+        },
+        {
+          "x": 290,
+          "y": 525
+        }
+      ],
+      "colour": "BYLAYER",
+      "layer": "NEW_LAYER"
+    },
+    {
+      "type": "Line",
+      "points": [
+        {
+          "x": 174,
+          "y": 291
+        },
+        {
+          "x": 331.52493674630887,
+          "y": 133.4750632536911
+        }
+      ],
+      "colour": "BYLAYER",
+      "layer": "NEW_LAYER_1"
+    },
+    {
+      "type": "Circle",
+      "points": [
+        {
+          "x": 483,
+          "y": 157
+        },
+        {
+          "x": 501,
+          "y": 139
+        }
+      ],
+      "colour": "BYLAYER",
+      "layer": "NEW_LAYER_1"
+    },
+    {
+      "type": "Circle",
+      "points": [
+        {
+          "x": 372,
+          "y": 119
+        },
+        {
+          "x": 396.76495922669426,
+          "y": 101.65938886601255
+        }
+      ],
+      "colour": "BYLAYER",
+      "layer": "NEW_LAYER_1"
+    }
+  ]
+}

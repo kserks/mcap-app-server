@@ -1,30 +1,39 @@
-function $html(selector){
-  return document.querySelector(selector)
-}
+
 
 
 (function (){
 
 
+const _io = new IO()
+_io.loadFileByUrl()
+/**
+ * Save
+ */
+$html('#save-file').addEventListener('click', function (e){
+  _io.openSaveModal()
 
+})
+$html('#mcap__save-btn').addEventListener('mousedown', e=>{
+  e.preventDefault();
+  _io.saveJSON()
+})
+/**
+ * Load
+ */
 
+$html('#load-file').addEventListener('mousedown', function (e){
+  _io.openLoadModal()
 
-var player = null
-const rndID = new Date().getTime()
-try {
-      window.mcefQuery({
-        request: "info",
-        persistent: true,
-        onSuccess:response=>{
-          player = JSON.parse(response)
-        }
-      });
- } catch (err) {
-      player = {
-        name: 'mcap_uknown',
-        uuid: new Date().toLocaleString()
-      }
-}
+})
+
+/**
+ * close
+ */
+document.querySelectorAll('.modal__close').forEach(btn=>{
+    btn.addEventListener('mousedown', function(e){
+         _io.closeAllModal()
+    })
+})
 
 
 
@@ -44,19 +53,9 @@ Canvas.prototype.zoomMC = function (scale) {
 
 
 }
-function loadFileByUrl(){
 
-  const url = new URL(location.href)
-  let fileName = url.searchParams.get('file')
-  let userName = url.searchParams.get('user')
-  if(fileName){
-    fetch(`files/${userName||player.name}/${fileName}.dxf`)
-      .then(r=>r.blob())
-      .then(readFile)
-  }
-}
 
-loadFileByUrl()
+
 
 
 /*добавление кнопок в панель инструментов*/
@@ -84,131 +83,8 @@ function mcapAddBtns(){
             canvas.zoomMC(1.1)
         }
     })
-/**
- * Save
- */
-var saveOpen = false
-$html('#save-file').addEventListener('click', function (e){
-  $html('#load__modal').style.display = 'none'
-  loadOpen = false
-
-  if(saveOpen){
-    $html('#save__modal').style.display = 'none'
-    saveOpen = false
- 
-  }
-  else{
-    $html('#save__modal').style.display = 'flex'
-    saveOpen = true
-  }
-$html('#mcap__filename').focus()
-$html('#save-list__modal').innerHTML = ""
-fetch(`dir?player=${player.name}`)
-  .then(r=>r.json())
-  .then(r=>{
-      r.map(fileName=>{
-
-        let el = document.createElement('li')
-          el.innerHTML = fileName
-          el.addEventListener('mousedown', e=>{
-                document.querySelector('#mcap__filename').value = e.target.innerHTML.split(".dxf")[0]
-
-          })
-          $html('#save-list__modal').appendChild(el)
-      })
-
-  })
 
 
-
-$html('#mcap__save-btn').addEventListener('mousedown', e=>{
-  e.preventDefault();
-  const fileName = $html('#mcap__filename').value
-  const body = {
-        playerName: player.name,
-        fileName: fileName+'.dxf',
-        data:  savedxf()
-      }
-   
-
-  fetch('save-file', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify(body)
-  })
-  .then(r=>{
-    $html('#save__modal').style.display = 'none'
-    saveOpen = false
-  })
-})
-
-
-})
-
-/**
- * Load
- */
-
-let loadOpen = false
-$html('#load-file').addEventListener('mousedown', function (e){
-$html('#save__modal').style.display = 'none'
-saveOpen = false
-$html('#load-list__modal').innerHTML = ''
-fetch(`dir?player=${player.name}`)
-  .then(r=>r.json())
-  .then(r=>{
-      r.map(fileName=>{
-
-          const el = document.createElement('li')
-          el.innerHTML = fileName
-          el.addEventListener('mousedown', e=>{
-                getFileBody(player.name, e.target.innerHTML)
-                $html('#load__modal').style.display = 'none'
-                loadOpen = false
-          })
-          $html('#load-list__modal').appendChild(el)
-      })
-
-  })
-
-
-  if(loadOpen){
-    $html('#load__modal').style.display = 'none'
-    loadOpen = false
-  }
-  else{
-    $html('#load__modal').style.display = 'block'
-    loadOpen = true
-  }
-
-function getFileBody(playerName, userFileName){
-  fetch(`files/${player.name}/${userFileName}`)
-    .then(r=>r.blob())
-    .then(r=>{
-      readFile(r)
-      $html('#load__modal').style.display = 'none'
-      loadOpen = false
-    })  
-}
-
-})
-
-/**
- * close
- */
-document.querySelectorAll('.modal__close').forEach(btn=>{
-    btn.addEventListener('mousedown', function(e){
-      loadOpen = false
-      saveOpen = false
-      $html('#load-list__modal').innerHTML = ''
-      $html('#save-list__modal').innerHTML = ''
-      document.querySelectorAll('.files__modal').forEach(item=>{
-        item.style.display = 'none'
-      })
-    })
-})
 /*Enter, Esc, Space*/
 
 //sceneControl(action, data)
@@ -250,192 +126,6 @@ document.addEventListener('DOMContentLoaded', mcapAddBtns)
 
 })()
 
-/**
- * Переопределяем функцию в файле ./js/lib/fileio.js
- * отличие от стандартной в том, что эта функция 
- * возвращает объект { data } на последней строчке
- * остальное без изменений
- */
-
-function savedxf() {
-
-  var data = ""
-    data = data.concat(
-      //Create Header Data
-      "999",
-      "\nDXF created from www.Design-App.co.uk",
-      "\n0",
-      "\nSECTION",
-      "\n2",
-      "\nHEADER",
-      "\n9",
-      "\n$ACADVER",
-      "\n1",
-      "\nAC1009",
-      "\n9",
-      "\n$CLAYER",
-      "\n8",
-      "\n" + LM.getCLayer(),
-      "\n0",
-      "\nENDSEC"
-)
-
-    data = data.concat(
-      "\n0",
-      "\nSECTION",
-      "\n2",
-      "\nTABLES",
-      "\n0",
-      "\nTABLE",
-      "\n2",
-      "\nLAYER",
-      "\n70",
-      "\n" + LM.layerCount())
-
-    for (var i = 0; i < LM.layerCount(); i++) {
-      data = data.concat("\n", LM.getLayerByIndex(i).dxf())
-    }
-
-    data = data.concat(
-      "\n0",
-      "\nENDTAB",
-      //"\n0",
-      //"\nENDSEC"
-    )
-
-    data = data.concat(
-      "\n0",
-      "\nTABLE",
-      "\n2",
-      "\nSTYLE",
-      "\n70",
-      "\n" + SM.styleCount())
-
-    for (var i = 0; i < SM.styleCount(); i++) {
-      data = data.concat("\n", SM.getStyleByIndex(i).dxf())
-    }
-
-    data = data.concat(
-      "\n0",
-      "\nENDTAB",
-      //"\n0",
-      //"\nENDSEC"
-    )
-
-    var extents = getSceneExtents() //Scene.canvas.getExtents();
-
-    var width = extents.xmax - extents.xmin;
-    var height = extents.ymax - extents.ymin;
-
-  data = data.concat(
-      //"\n0",
-      //"\nENDTAB",
-      //"\n0",
-      //"\nSECTION",
-      "\n0",
-      "\nTABLE",
-      "\n2",      //Table Name
-      "\nVPORT",
-      "\n70",     //Number of entries in table
-      "\n1",
-      "\n0",
-      "\nVPORT",
-      "\n2",      
-      "\n*ACTIVE",
-      "\n70",     //vport flags
-      "\n0",  
-      "\n10",     //lower left corner x pos
-      "\n0.0",
-      "\n20",     //lower left corner y pos
-      "\n0.0",
-      "\n11",     //upper right corner x pos
-      "\n1.0",
-      "\n21",     //upper right corner y pos    
-      "\n1.0",
-      "\n12",     //view centre x pos
-      "\n" + Number(extents.xmin + width / 2),
-      "\n22",     //view centre y pos
-      "\n" + Number(extents.ymin + height / 2),
-      "\n13",     //snap base point x
-      "\n0.0",
-      "\n23",     //snap base point y
-      "\n0.0",
-      "\n14",     //snap spacing x
-      "\n10.0",
-      "\n24",     //snap spacing y
-      "\n10.0",
-      "\n15",     //grid spacing x
-      "\n10.0",
-      "\n25",     //grid spacing y
-      "\n10.0",
-      "\n16",     //view direction (x) from target point
-      "\n0.0",
-      "\n26",     //view direction (y) from target point
-      "\n0.0",
-      "\n 36",    //view direction (z) from target point
-      "\n1.0",
-      "\n 17",    //view target point x
-      "\n0.0",
-      "\n 27",    //view target point y
-      "\n0.0",
-      "\n 37",    //view target point z
-      "\n0.0",
-      "\n40",     //VPort Height
-      "\n" + height,
-      "\n41",     //Vport height/width ratio
-      "\n" + width / height,
-      "\n42",     //Lens Length
-      "\n50.0",
-      "\n 43",    //Front Clipping Plane
-      "\n0.0",
-      "\n 44",    //Back Clipping Plane
-      "\n0.0",
-      "\n 50",    //Snap Rotation Angle
-      "\n0.0",
-      "\n 51",    //View Twist Angle
-      "\n0.0",
-      "\n71",     //Viewmode (System Variable)
-      "\n0",
-      "\n72",     //Cicle sides
-      "\n1000",
-      "\n73",     //?
-      "\n1",
-      "\n74",     //UCSICON Setting
-      "\n3",
-      "\n75",     //?
-      "\n 0",
-      "\n76",     //?
-      "\n 1",
-      "\n77",     //?
-      "\n 0",
-      "\n78",     //?
-      "\n0",
-      "\n0",
-      "\nENDTAB",
-      "\n0",
-      "\nENDSEC")
-
-    data = data.concat(
-      "\n0",
-      "\nSECTION",
-      //Create Entity Data
-      "\n2",
-      "\nENTITIES")
-
-    for (var i = 0; i < items.length; i++) {
-      data = data.concat("\n", items[i].dxf())
-    }
-
-    data = data.concat(
-      //End Entity and Close File
-      "\n0",
-      "\nENDSEC",
-      "\n0",
-      "\nEOF")
-
-    return data
-
-}
 /*
  * Делаем дополнительные кнопки для слоёв
  */
@@ -459,20 +149,17 @@ function getlayerBtns(layerIndex, layerID, dataList){
                     }
                 })
 */
-       
-  
-
-     console.log(LM.getLayerByIndex(layerIndex).name)
+  console.log(LM.getLayerByIndex(layerIndex).name)
              
   //set current        
   listItems.push({
       name: `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z" />
             </svg>`,
-      action: function() {
-          LM.setCLayer(LM.getLayerByIndex(layerIndex).name);
-          closePopover();
-          loadLayers();
+      action: function(){
+          LM.setCLayer(LM.getLayerByIndex(layerIndex).name)
+          closePopover()
+          loadLayers()
       }
   })
   // copy to
@@ -556,5 +243,43 @@ function copyGeometryToLayer (layer, move){
     if(move){
       sceneControl('Enter', ['E'] )
     }
+}
+
+
+
+
+/**
+ * rectToLines
+ */
+function rectToLines (){
+  let rect = selectedItems[0]
+  if(rect&&rect.type==="Rectangle"){
+
+
+    let a = rect.points[0]
+    let b = rect.points[2]
+
+    addLine (a.x, a.y, b.x, a.y)
+
+    addLine (a.x, b.y, b.x, b.y)
+    addLine (a.x, a.y, a.x, b.y)
+    addLine (b.x, a.y, b.x, b.y)
+    setTimeout(()=>{
+        items = items.filter(item=>{
+                    if(item.type==='Rectangle'&&JSON.stringify(item.points)===JSON.stringify(rect.points)){
+
+                    }
+                    else{
+                        return true
+                    }
+                })
+    }, 0)
+
+  }
+  else{
+    
+    sceneControl('Enter', ['RTL'] )
+  }
+
 }
 

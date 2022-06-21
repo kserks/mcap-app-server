@@ -10,6 +10,7 @@ class ToolsCoords {
   $originalCoordsString = $html('#coordLabel')
   $coordsData = $html('.coords-data')
   constructor () {}
+  
   обработкаКликаПоКнопкеНаПанелиИнтсрументов (){
     this.removeOffsetCircleMarker()
     this.offsetCoordsFlag = true
@@ -69,11 +70,13 @@ class ToolsCoords {
             colour: "BYLAYER",
             layer: LM.getCLayer()
         }
-        const circle = new Circle(data)
+        const circle = new OFFSET_TARGET(data)
+        //const circle = new Circle(data)
         circle._id = 'offset-target'
         items.push(circle)
         canvas.requestPaint();
   }
+ 
   removeOffsetCircleMarker (){
     items = items.filter(el => !(el._id==='offset-target')  )
     canvas.requestPaint();
@@ -109,9 +112,8 @@ $html('#designCanvas').addEventListener('mousemove', e => {
 /**
  * Показать маркер ( круг ) смещенных координат
  */
+
 $html('#offset-market-input').addEventListener('change', function (e){
   TC.renderOffsetMarker(this.checked)
 
 })
-
-
