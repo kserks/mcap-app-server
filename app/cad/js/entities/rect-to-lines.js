@@ -47,8 +47,7 @@ function RECT_TO_LINES(data) //startX, startY, endX, endY)
 
 function addLine (x, y, x2, y2, targetRect){
         let layer = LM.getCLayer()
-        if(targetRect) targetRect.layer
-
+        if(targetRect) layer = targetRect.layer
 
 
         let data = {
