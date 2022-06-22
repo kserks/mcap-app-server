@@ -25,6 +25,7 @@ var selectingActive = false; // Are we selecting on screen components?
 
 
 function reset() {
+
 	console.log(" scene.js - Reset: In Reset");
 	points = []; // clear array
 	minPoints = 100; // reset minimum required points
@@ -206,6 +207,7 @@ function selectClosestItem(data) {
 }
 
 function snapping() {
+
 	////////// Object Snapping //////////
 	var snaps = new Array();
 	var delta = 25 / canvas.scale; // find a more suitable starting value

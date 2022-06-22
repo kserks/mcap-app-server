@@ -1,4 +1,4 @@
-
+const CAD_DIR = '/cad_json'
 
 class IO {
   saveOpen = false
@@ -34,8 +34,8 @@ class IO {
       $html('#save-list__modal').innerHTML = ""
       fetch(`dir?player=${this.player.name}`)
         .then(r=>r.json())
-        .then(r=>{
-            r.map(fileName=>{
+        .then(files=>{
+            files.user.map(fileName=>{
                 const el = document.createElement('li')
                 el.innerHTML = fileName
                 el.addEventListener('mousedown', e=>{
@@ -122,14 +122,14 @@ class IO {
     const fileName = url.searchParams.get('file')
     const userName = url.searchParams.get('user')
     if(fileName){
-      fetch(`files/${userName||this.player.name}/${fileName}.json`)
+      fetch(`${CAD_DIR}/${userName||this.player.name}/${fileName}.json`)
         .then(r=>r.json())
         .then(this.renderItems)
     }
   }
 
-  getFileBody(fileName){
-    fetch(`files/${this.player.name}/${fileName}`)
+  getFileBody(owner, fileName){
+    fetch(`${CAD_DIR}/${owner}/${fileName}`)
       .then(r=>r.json())
       .then(r=>{
         this.renderItems(r)
@@ -155,11 +155,21 @@ class IO {
 
     const res = await fetch(`dir?player=${this.player.name}`)
     const files = await res.json()
-    files.map(fileName=>{
+
+    const commonFiles = files.common.map(name=>{
+                            return { name, dir: 'common' }
+                      })
+    const userFiles = files.user.map(name=>{
+                            return { name, dir: this.player.name }
+                      })
+    const joinedFiles = [...commonFiles, ...userFiles]
+
+    joinedFiles.forEach(file=>{
               const el = document.createElement('li')
-              el.innerHTML = fileName
+              el.innerHTML = file.name
+              el.className = "cad-dir--"+file.dir
               el.addEventListener('mousedown', e=>{
-                    this.getFileBody(e.target.innerHTML)
+                    this.getFileBody(file.dir, e.target.innerHTML)
                     this.hideLoadModal()
               })
               $html('#load-list__modal').appendChild(el)

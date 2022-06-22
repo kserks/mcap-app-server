@@ -65,8 +65,11 @@ function sceneControl(action, data) {
 		console.log("design engine - left click- create new point ")
 
 		if (activeCommand === undefined) {
+
 			selectClosestItem(data)
-		} else {
+		} 
+		else {
+
 			var point = new Point()
 			point.x = mouse.x; //data[0];
 			point.y = mouse.y; //data[1];
@@ -74,6 +77,7 @@ function sceneControl(action, data) {
 
 			if (activeCommand.family === "Geometry" || selectionAccepted) {
 				points.push(inputData);
+
 			}
 
 			if (activeCommand.family === "Tools" && !selectionAccepted) {
@@ -131,7 +135,7 @@ function actionInput() {
 	[prompt, resetBool, actionBool, validInput] = activeCommand.prompt(inputArray);
 	console.log("prompt: ", prompt, " reset: ", resetBool, " action: " + actionBool)
 	commandLine.setPrompt(prompt);
-
+		
 	if (!validInput){
 		notify("Invalid Input")
 	}
@@ -141,6 +145,7 @@ function actionInput() {
 
 			activeCommand.action(points, items);
 		} else {
+
 			addToScene(null, null, resetBool)
 		}
 	}
@@ -181,7 +186,7 @@ function convertInputToPoint(input) {
 	// generate data from the prevous point and the radius
 	point.x = points[points.length - 1].x + x;
 	point.y = points[points.length - 1].y + y;
-
+	
 	return point
 }
 

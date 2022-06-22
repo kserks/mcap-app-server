@@ -1,4 +1,4 @@
-
+require('dotenv').config()
 /**
  * DEPS
  */
@@ -11,7 +11,7 @@ const cors                        = require('cors');
  * GLOBALS
  */
 global.appRoot = resolve(__dirname);
-global.DEV = false;
+
 
 /**
  * ROUTES
@@ -21,11 +21,11 @@ const _pb                         = require('./routes/pb');
 const _tutor                      = require('./routes/tutor');
 const _gallery                    = require('./routes/gallery');
 const _uploadImages               = require('./routes/upload-images');
-const _vnjsonPublish              = require('./routes/vnjson-publish')
+
 /**
  * INIT
  */
-const PORT = require('./mcap-config.json').PORT;
+
 const app = express();
 
 app.use(bodyParser.json({limit:'500mb'})); 
@@ -36,9 +36,9 @@ app.use(cors());
  */
 app.use(express.static(join(__dirname, '/app')));
 
-if(global.DEV){
-  app.use(express.static(join(__dirname, '/html')));
+if( JSON.parse( process.env.DEV) ){
   console.log('env = DEV')
+  app.use(express.static(join(__dirname, '/html')));
 }
 /**
  * REGISTER ROUTES
@@ -51,7 +51,7 @@ app.use('/upload-images', _uploadImages);
 /*
  *
  */
-app.use(_vnjsonPublish)
+
 /*
  * home
  */
@@ -60,6 +60,6 @@ app.get('/', (req, res)=>{
 });
 
 
-app.listen(PORT, ()=>{
-  console.log('[start] http://localhost:'+PORT);
+app.listen(process.env.PORT, ()=>{
+  console.log('[start] http://localhost:'+process.env.PORT);
 })

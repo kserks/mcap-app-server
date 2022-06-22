@@ -179,3 +179,7 @@ select#polarAngle{
 .tool.tool__keyboard:hover{
   border-color: #ccc;
 }
+
+.files__list li.cad-dir--common{
+  color: skyblue;
+}

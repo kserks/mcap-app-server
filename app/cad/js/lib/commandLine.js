@@ -153,6 +153,7 @@ CommandLine.prototype.handleKeys = function (e) {
 		//if(keyValue){
 			//console.log("KeyValue: ", keyValue)
 			e.preventDefault();
+
             this.command = this.command + e.key // keyValue; //String.fromCharCode(charCode);
             this.update();
 		//}
@@ -182,7 +183,8 @@ CommandLine.prototype.backPressed = function (event) {
 CommandLine.prototype.leftPressed = function (event) {
     if (this.cmdLine.value.slice(0, this.cmdLine.selectionStart).length === this.prompt.length) {
         event.preventDefault();
-    }
+         
+    }      
 }
 
 CommandLine.prototype.previousCommand = function (direction) {
@@ -209,8 +211,8 @@ CommandLine.prototype.previousCommand = function (direction) {
 
 CommandLine.prototype.enterPressed = function (event) {
     event.preventDefault();
-    //console.log(" UI_Scene.js - Return Pressed")
-    
+
+        
     if (this.cmdLine.value.length > this.prompt.length) {
         //get the inputprompt and remove the prompt text
         var inputCommand = this.cmdLine.value.slice(this.prompt.length)
@@ -232,7 +234,6 @@ CommandLine.prototype.mouseup = function (event){
 
 CommandLine.prototype.disableSnaps = function (event) {
     event.preventDefault();
-
     toggleSnap('endSnap')
     toggleSnap('midSnap')
     toggleSnap('centreSnap')

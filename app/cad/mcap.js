@@ -1,11 +1,11 @@
 
 
-
 (function (){
 
-
-const _io = new IO()
+window._io = new IO()
 _io.loadFileByUrl()
+
+
 /**
  * Save
  */

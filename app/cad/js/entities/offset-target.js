@@ -13,7 +13,7 @@ function OFFSET_TARGET(data) //centreX, centreY, endX, endY)
     this.showPreview = true; //show preview of item as its being created
     //this.limitPoints = true;
     //this.allowMultiple = false;
-    this.helper_geometry = true; // If true a line will be drawn between points when defining geometry
+    this.helper_geometry = false // If true a line will be drawn between points when defining geometry
 
     this.points = [];
     this.radius = 0;
@@ -22,8 +22,8 @@ function OFFSET_TARGET(data) //centreX, centreY, endX, endY)
     this.colour = "BYLAYER";
     this.layer = "0";
     this.alpha = 1.0 //Transparancy
-
-
+    this._id = 'offset-target'
+         
     if (data) {
 
         if (data.points) {
@@ -42,7 +42,7 @@ function OFFSET_TARGET(data) //centreX, centreY, endX, endY)
 }
 
 OFFSET_TARGET.prototype.calculateRadius = function () {
-    this.radius = distBetweenPoints(this.points[0].x, this.points[0].y, this.points[1].x, this.points[1].y);
+    this.radius = 15//distBetweenPoints(this.points[0].x, this.points[0].y, this.points[0].x+15, this.points[0].y+15);
 }
 
 OFFSET_TARGET.prototype.prompt = function (inputArray) {
@@ -221,7 +221,7 @@ OFFSET_TARGET.prototype.snaps = function (mousePoint, delta) {
 }
 
 OFFSET_TARGET.prototype.closestPoint = function (P) {
-
+  
     //find the closest point on the OFFSET_TARGET
     var length = distBetweenPoints(this.points[0].x, this.points[0].y, P.x, P.y)
     var Cx = this.points[0].x + this.radius * (P.x - this.points[0].x) / length

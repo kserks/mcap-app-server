@@ -23,9 +23,12 @@ class ToolsCoords {
     this.offsetCoords.x = this.objData.x
     this.offsetCoords.y = this.objData.y  
     this.offsetCoordsFlag = false 
-    if(this.renderMarker){
-      this.addOffsetCircleMarker()
-    }
+   
+      //sceneControl('Enter', [])
+ 
+   /* if(this.renderMarker){
+       this.addOffsetCircleMarker()
+    }*/
   }
   подготовкаОбъектаСДанными (){
     const _dataArr = this.$originalCoordsString
@@ -61,6 +64,7 @@ class ToolsCoords {
     }
     this.$coordsData.innerHTML = outputData
   }
+  
   addOffsetCircleMarker (){
         const { x, y } = this.offsetCoords
         const x2 = x+15
@@ -76,11 +80,12 @@ class ToolsCoords {
         items.push(circle)
         canvas.requestPaint();
   }
- 
+
   removeOffsetCircleMarker (){
     items = items.filter(el => !(el._id==='offset-target')  )
     canvas.requestPaint();
   }
+  /*
   renderOffsetMarker(flag){
     this.renderMarker = flag
     if(flag){
@@ -89,7 +94,7 @@ class ToolsCoords {
     else{
       this.removeOffsetCircleMarker()
     }
-  }
+  }*/
 }
 
 
@@ -102,7 +107,8 @@ const TC = new ToolsCoords()
 $html('.select-target-point').addEventListener('mousedown', e => {
   TC.обработкаКликаПоКнопкеНаПанелиИнтсрументов()
 })
-$html('#designCanvas').addEventListener('click', e => {
+$html('#designCanvas').addEventListener('mousedown', e => {
+  _io.closeAllModal()
   TC.обработкаКликаПоХолсту()
 })
 $html('#designCanvas').addEventListener('mousemove', e => {
@@ -112,8 +118,9 @@ $html('#designCanvas').addEventListener('mousemove', e => {
 /**
  * Показать маркер ( круг ) смещенных координат
  */
-
+/*
 $html('#offset-market-input').addEventListener('change', function (e){
   TC.renderOffsetMarker(this.checked)
 
 })
+*/

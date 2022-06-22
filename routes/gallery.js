@@ -2,7 +2,7 @@ const express = require('express');
 const app = express.Router();
 const { join, resolve } = require('path')
 const fs = require('fs-extra')
-const config = require('../mcap-config.json')
+
 //const request = require('request');
 const multer  = require('multer')
 
@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
     destination: function(req, file, cb) {
          let name = file.originalname.split("_____")
         //let newDirPath = resolve(__dirname,'../app/uploads/')
-        let newDirPath = join(config.art, name[0], 'arh/', name[1])
+        let newDirPath = join(process.env.GALLERY_DIR, name[0], 'arh/', name[1])
         cb(null, newDirPath)
     },
     filename: function(req, file, cb) {
