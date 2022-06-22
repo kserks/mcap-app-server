@@ -292,7 +292,7 @@ OFFSET_TARGET.prototype.touched = function (selection_extremes) {
         start: rP1,
         end: rP2
     }
-    var output = Intersection.intersectOFFSET_TARGETRectangle(this.intersectPoints(), rectPoints);
+    var output = Intersection.intersectCircleRectangle(this.intersectPoints(), rectPoints);
     console.log(output.status)
 
     if (output.status === "Intersection") {

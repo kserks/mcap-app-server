@@ -39,7 +39,7 @@ class IO {
                 const el = document.createElement('li')
                 el.innerHTML = fileName
                 el.addEventListener('mousedown', e=>{
-                      document.querySelector('#mcap__filename').value = e.target.innerHTML.split(".dxf")[0]
+                      document.querySelector('#mcap__filename').value = e.target.innerHTML.split(".json")[0]
 
                 })
                 $html('#save-list__modal').appendChild(el)
@@ -49,7 +49,7 @@ class IO {
         .catch(err=>console.error(err))
   }
   saveJSON() {
-
+    reset()
     const fileName = $html('#mcap__filename').value
     const _items = items.map(item=>{
       return {
@@ -94,9 +94,15 @@ class IO {
    * renderItems
    */
   renderItems (loadedData){
-    loadedData.layers.map(l=>{
+    reset()
+    LM.layers[0].colour = loadedData.layers[0].colour
+    LM.layers[1].colour = loadedData.layers[1].colour
+    loadedData.layers.slice(0, 2)
+    loadedData.layers.forEach(l=>{
       LM.addLayer(l)
+      console.log(l)
     })
+    
     items = loadedData.items.map(item=>{
         const points = item.points.map( p => new Point(p.x, p.y) )
         
@@ -107,7 +113,7 @@ class IO {
           layer: item.layer
         }
         if(item.type==='Rectangle'){
-          item.type = 'Polyline'
+          item.type = 'RECTANGLE_2_RESTORE'
         }
         const shape = new window[item.type](data)
 
@@ -116,6 +122,7 @@ class IO {
    // addToScene(items)
     LM.checkLayers();
     canvas.requestPaint();
+
   }
   loadFileByUrl(){
     const url = new URL(location.href)

@@ -1,13 +1,27 @@
-// Register this command with the scene
+/**
+ * При востанавлении чертежа из загруженного файла
+ * Необходимо заменить Point's 
+ * Так как в оригинальном Rectangle точки для построения имеют другой
+ * порядок. 
+ * В оригинальной реализации загрузки файлов .dxf вместо Rectangle
+ * через раз исползовался класс Polyline
+ * Но мне это не подходит. Так как у нас есть класс RECT_TO_LINES
+ * предназначенный для разбиения прямоугольника на линии.
+ * Но так как при востановлении чертежа из файла прямоугольник подменялся
+ * на Polyline, который больше не канает
+ * Поэтому было принято решение дублировать оригинальный класс Rectangle
+ * Но заменить Point's на правильные
+ */
+/*
 commands.push({
-    command: "RECT_TO_LINES",
-    shortcut: "RTL"
+    command: "RECTANGLE_2_RESTORE",
+    shortcut: "REC"
 });
-
-function RECT_TO_LINES(data) //startX, startY, endX, endY)
+*/
+function RECTANGLE_2_RESTORE(data) //startX, startY, endX, endY)
 {
     //Define Properties         //Associated DXF Value
-    this.type = "RECT_TO_LINES";
+    this.type = "RECTANGLE_2_RESTORE";
     this.family = "Geometry";
     this.minPoints = 2;
     this.showPreview = true; //show preview of item as its being created
@@ -19,8 +33,17 @@ function RECT_TO_LINES(data) //startX, startY, endX, endY)
     this.colour = "BYLAYER";
     this.layer = "0";
     this.alpha = 1.0 //Transparancy
+    //this.RECTANGLE_2_RESTOREType
+    //this.RECTANGLE_2_RESTOREtypeScale
+    //this.PlotStyle
+    //this.RECTANGLE_2_RESTOREWeight
+
+
     if (data) {
+        
         if (data.points) {
+            this.points = data.points
+            /*
             var point1 = new Point(data.points[0].x, data.points[0].y);
             var point2 = new Point(data.points[1].x, data.points[0].y);
             var point3 = new Point(data.points[1].x, data.points[1].y);
@@ -32,8 +55,9 @@ function RECT_TO_LINES(data) //startX, startY, endX, endY)
             this.points.push(point3);
             this.points.push(point4);
             this.points.push(point5);
+               */
         }
-
+     
         if (data.colour) {
             this.colour = data.colour;
         }
@@ -43,48 +67,8 @@ function RECT_TO_LINES(data) //startX, startY, endX, endY)
         }
     }
 }
-/***/
 
-function addLine (x, y, x2, y2, targetRect){
-        let layer = LM.getCLayer()
-        if(targetRect) targetRect.layer
-
-
-
-        let data = {
-            points: [ new Point(x, y), new Point(x2, y2) ],
-            colour: "BYLAYER",
-            layer: layer
-        }
-        let line = new Line(data)
-        items.push(line)
-   
-
-}
-
-RECT_TO_LINES.prototype.drawLines = function (points){
-
-    let a = points[0]
-    let b = points[1]
-
-
-    addLine (a.x, a.y, b.x, a.y)
-    addLine (a.x, b.y, b.x, b.y)
-    addLine (a.x, a.y, a.x, b.y)
-    addLine (b.x, a.y, b.x, b.y)
-   // удаляем прямоугольник
-   setTimeout(()=>{
-        items = items.filter(item=>{
-            if(item.type==="RECT_TO_LINES") return false  
-            return true
-        })
-
-   }, 0)
-
-}
-
-
-RECT_TO_LINES.prototype.prompt = function (inputArray) {
+RECTANGLE_2_RESTORE.prototype.prompt = function (inputArray) {
     var num = inputArray.length;
     var expectedType = [];
     var reset = false;
@@ -105,15 +89,14 @@ RECT_TO_LINES.prototype.prompt = function (inputArray) {
     if(!validInput || num > this.minPoints){
         inputArray.pop()
     }else if (inputArray.length === this.minPoints){
-        this.drawLines(inputArray)
         action = true;
         reset = true
     }
- 
+    
     return [prompt[inputArray.length], reset, action, validInput]
 }
 
-RECT_TO_LINES.prototype.draw = function (ctx, scale) {
+RECTANGLE_2_RESTORE.prototype.draw = function (ctx, scale) {
 
     if (!LM.layerVisible(this.layer)) {
         return
@@ -136,25 +119,25 @@ RECT_TO_LINES.prototype.draw = function (ctx, scale) {
     ctx.stroke()
 }
 
-RECT_TO_LINES.prototype.svg = function () {
-    //<RECT_TO_LINES x1="0" y1="0" x2="200" y2="200" style="stroke:rgb(255,0,0);stroke-width:2" />
-    //<RECT_TO_LINES x1="20" y1="100" x2="100" y2="100" stroke-width="2" stroke="black"/>
+RECTANGLE_2_RESTORE.prototype.svg = function () {
+    //<RECTANGLE_2_RESTORE x1="0" y1="0" x2="200" y2="200" style="stroke:rgb(255,0,0);stroke-width:2" />
+    //<RECTANGLE_2_RESTORE x1="20" y1="100" x2="100" y2="100" stroke-width="2" stroke="black"/>
     var quote = "\""
     var svgstr = ""
-    var data = svgstr.concat("<rect x1=", "\"", this.startX, "\"",
+    var data = svgstr.concat("<RECTANGLE_2_RESTORE x1=", "\"", this.startX, "\"",
         " y1=", "\"", this.startY, "\"",
         " x2=", "\"", this.endX, "\"",
         " y2=", "\"", this.endY, "\"",
         " stroke=", "\"", this.colour, "\"",
-        " stroke-width=", "\"", this.RECT_TO_LINESWidth, "\"", "/>"
+        " stroke-width=", "\"", this.RECTANGLE_2_RESTOREWidth, "\"", "/>"
     )
-
+    //console.log(data)
     return data
 }
 
-RECT_TO_LINES.prototype.dxf = function () {
+RECTANGLE_2_RESTORE.prototype.dxf = function () {
 
-    //Save the RECT_TO_LINES as a polyline as there is no RECT_TO_LINES DXF code
+    //Save the RECTANGLE_2_RESTORE as a polyline as there is no RECTANGLE_2_RESTORE DXF code
     var closed = (this.points[0].x === this.points[this.points.length - 1].x && this.points[0].y === this.points[this.points.length - 1].y);
     var vertices = this.vertices();
     var dxfitem = ""
@@ -185,11 +168,11 @@ RECT_TO_LINES.prototype.dxf = function () {
         "\n", "8", //LAYERNAME
         "\n", this.layer
     )
-    console.log(" RECT_TO_LINES.js - DXF Data:" + data)
+    console.log(" RECTANGLE_2_RESTORE.js - DXF Data:" + data)
     return data
 }
 
-RECT_TO_LINES.prototype.vertices = function () {
+RECTANGLE_2_RESTORE.prototype.vertices = function () {
  
     var vertices_data = "";
     for (var i = 0; i < this.points.length; i++) {
@@ -219,8 +202,8 @@ RECT_TO_LINES.prototype.vertices = function () {
     return vertices_data;
 }
 
-RECT_TO_LINES.prototype.intersectPoints = function () {
-         
+RECTANGLE_2_RESTORE.prototype.intersectPoints = function () {
+
     return {
         start: this.points[0],
         end: this.points[2]
@@ -228,7 +211,7 @@ RECT_TO_LINES.prototype.intersectPoints = function () {
 }
 
 
-RECT_TO_LINES.prototype.midPoint = function (x, x1, y, y1) {
+RECTANGLE_2_RESTORE.prototype.midPoint = function (x, x1, y, y1) {
 
     var midX = (x + x1) / 2
     var midY = (y + y1) / 2
@@ -239,7 +222,7 @@ RECT_TO_LINES.prototype.midPoint = function (x, x1, y, y1) {
 }
 
 
-RECT_TO_LINES.prototype.snaps = function (mousePoint, delta) {
+RECTANGLE_2_RESTORE.prototype.snaps = function (mousePoint, delta) {
 
     if (!LM.layerVisible(this.layer)) {
         return
@@ -248,7 +231,6 @@ RECT_TO_LINES.prototype.snaps = function (mousePoint, delta) {
     var snaps = [];
 
     if (settings.endSnap) {
-
         // End points for each segment
         for (var i = 0; i < this.points.length; i++) {
             snaps.push(this.points[i]);
@@ -278,7 +260,7 @@ RECT_TO_LINES.prototype.snaps = function (mousePoint, delta) {
     return snaps;
 }
 
-RECT_TO_LINES.prototype.closestPoint = function (P) {
+RECTANGLE_2_RESTORE.prototype.closestPoint = function (P) {
 
     var closest = new Point();
     var distance = 1.65;
@@ -305,7 +287,7 @@ RECT_TO_LINES.prototype.closestPoint = function (P) {
             closest.y = A.y + ABy * t
 
             var dist = distBetweenPoints(P.x, P.y, closest.x, closest.y);
-            //console.log(" RECT_TO_LINES.js - Dist: " + dist);
+            //console.log(" RECTANGLE_2_RESTORE.js - Dist: " + dist);
             if (dist < distance) {
                 distance = dist;
             }
@@ -315,7 +297,7 @@ RECT_TO_LINES.prototype.closestPoint = function (P) {
     return [closest, distance]
 }
 
-RECT_TO_LINES.prototype.extremes = function () {
+RECTANGLE_2_RESTORE.prototype.extremes = function () {
 
     var x_values = [];
     var y_values = [];
@@ -333,7 +315,7 @@ RECT_TO_LINES.prototype.extremes = function () {
     return [xmin, xmax, ymin, ymax]
 }
 
-RECT_TO_LINES.prototype.within = function (selection_extremes) {
+RECTANGLE_2_RESTORE.prototype.within = function (selection_extremes) {
 
     if (!LM.layerVisible(this.layer)) {
         return
@@ -353,7 +335,7 @@ RECT_TO_LINES.prototype.within = function (selection_extremes) {
     }
 }
 
-RECT_TO_LINES.prototype.touched = function (selection_extremes) {
+RECTANGLE_2_RESTORE.prototype.touched = function (selection_extremes) {
 
     if (!LM.layerVisible(this.layer)) {
         return
@@ -368,7 +350,7 @@ RECT_TO_LINES.prototype.touched = function (selection_extremes) {
     };
 
     var output = Intersection.intersectRectangleRectangle(this.intersectPoints(), rectPoints);
-    //console.log(output.status)
+    console.log(output.status)
 
     if (output.status === "Intersection") {
         return true

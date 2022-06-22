@@ -601,7 +601,10 @@ function layerColourChange(colour, layerIndex){
 
             case 2:
                 //console.log("right");
-                var listItems = [{
+                /*
+                var listItems = [
+
+                {
                     name: "Rename",
                     action: function() {
                         console.log("Rename layer:", LM.getLayerByIndex(layerIndex).name);
@@ -623,7 +626,8 @@ function layerColourChange(colour, layerIndex){
                         loadLayers();
                         canvas.requestPaint();
                     }
-                }];
+                }
+                ];
                 if (LM.getCLayer() + "-layer" !== layerID) {
                     listItems.push({
                         name: "Set Current",
@@ -638,6 +642,7 @@ function layerColourChange(colour, layerIndex){
                 }
 
                 popover_showList(listItems);
+                */
                 break
         }
     }

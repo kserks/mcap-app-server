@@ -393,12 +393,12 @@ HATCHING.prototype.touched = function (selection_extremes) {
         end: rP2
     };
 
- /*   var output = Intersection.intersectHATCHING(this.intersectPoints(), rectPoints);
+    var output = Intersection.intersectRectangleRectangle(this.intersectPoints(), rectPoints);
     //console.log(output.status)
 
     if (output.status === "Intersection") {
         return true
-    }*/
+    }
     //no intersection found. return false
     return false
 }
