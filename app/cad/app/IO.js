@@ -123,7 +123,7 @@ class IO {
 
         return shape
     })
-   // addToScene(items)
+    LM.setCLayer(LM.getLayerByIndex(0).name)
     LM.checkLayers();
     canvas.requestPaint();
     loadLayers()
