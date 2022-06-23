@@ -14,7 +14,7 @@
     cnvs.addEventListener('mousedown', canvas.mousedown.bind(canvas), false);
     cnvs.addEventListener('mouseup', canvas.mouseup, false);
     cnvs.addEventListener('dblclick', canvas.dblclick, false);
-    cnvs.addEventListener('contextmenu', function() {canvas_contextmenu()}, false);
+    //cnvs.addEventListener('contextmenu', function() {canvas_contextmenu()}, false);
     //cnvs.addEventListener('wheel', canvas.wheel, false);
     cnvs.addEventListener('DOMMouseScroll', canvas.wheel, false);
     cnvs.addEventListener('mousewheel', canvas.wheel, false);
@@ -37,19 +37,19 @@
   }
 
 
-    function canvas_contextmenu() {
+   /* function canvas_contextmenu() {
 
         var listItems = [{
             name: "Enter", action: function(){reset(); closePopover();}
-        }, /*
+        }, 
         {
             name: "Mid Between 2 Points", action: function(){closePopover();}
-        }, */
+        }, 
         {
             name: "Параметры", action: function(){showSettings(); closePopover();}
         }];
         popover_showList(listItems);
-    }
+    }*/
 
     var lastDownTarget, canvas;
     window.onload = function() {
@@ -866,7 +866,7 @@ function layerColourChange(colour, layerIndex){
         showPopover();
     }
 
-    function popover_showList(listItems) {
+   /* function popover_showList(listItems) {
     var popover_list = document.createElement("ui");
         popover_list.className = "Popover-list";
         popover_list.id = "Popover-list";
@@ -881,7 +881,7 @@ function layerColourChange(colour, layerIndex){
         }
 
         popover_appendContent(popover_list)
-    }
+    }*/
 
     function popover_clearContent() {
         var popover = document.getElementById("Popover-body")

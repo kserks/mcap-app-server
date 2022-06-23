@@ -16,7 +16,7 @@ $html('#save-file').addEventListener('click', function (e){
 $html('#mcap__save-btn').addEventListener('mousedown', e=>{
   e.preventDefault();
   _io.saveJSON()
-})
+}, false)
 /**
  * Load
  */

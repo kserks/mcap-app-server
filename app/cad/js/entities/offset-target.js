@@ -42,7 +42,7 @@ function OFFSET_TARGET(data) //centreX, centreY, endX, endY)
 }
 
 OFFSET_TARGET.prototype.calculateRadius = function () {
-    this.radius = 15//distBetweenPoints(this.points[0].x, this.points[0].y, this.points[0].x+15, this.points[0].y+15);
+    this.radius = distBetweenPoints(this.points[0].x, this.points[0].y, this.points[1].x, this.points[1].y);
 }
 
 OFFSET_TARGET.prototype.prompt = function (inputArray) {

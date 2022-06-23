@@ -35,6 +35,7 @@ class IO {
       fetch(`dir?player=${this.player.name}`)
         .then(r=>r.json())
         .then(files=>{
+            //console.log(111111111)
             files.user.map(fileName=>{
                 const el = document.createElement('li')
                 el.innerHTML = fileName
@@ -49,7 +50,7 @@ class IO {
         .catch(err=>console.error(err))
   }
   saveJSON() {
-    reset()
+    
     const fileName = $html('#mcap__filename').value
     const _items = items.map(item=>{
       return {
@@ -79,7 +80,10 @@ class IO {
       },
       body: JSON.stringify(body)
     })
-    .then( r => this.hideSaveModal() ) 
+    .then( r => { 
+      this.hideSaveModal()
+      reset()
+    }) 
   }
   showSaveModal (){
       this.$saveModal.style.display = 'flex'
@@ -94,14 +98,14 @@ class IO {
    * renderItems
    */
   renderItems (loadedData){
+
     reset()
-    LM.layers[0].colour = loadedData.layers[0].colour
-    LM.layers[1].colour = loadedData.layers[1].colour
-    loadedData.layers.slice(0, 2)
-    loadedData.layers.forEach(l=>{
-      LM.addLayer(l)
-      console.log(l)
-    })
+    LM.layers = []
+    //LM.layers[0].colour = loadedData.layers[0].colour
+    //LM.layers[1].colour = loadedData.layers[1].colour
+    //LM.layers.slice(2, LM.layers.length-1)
+    //loadedData.layers.slice(0, 2)
+    loadedData.layers.forEach(l => LM.addLayer(l) )
     
     items = loadedData.items.map(item=>{
         const points = item.points.map( p => new Point(p.x, p.y) )
@@ -122,7 +126,7 @@ class IO {
    // addToScene(items)
     LM.checkLayers();
     canvas.requestPaint();
-
+    loadLayers()
   }
   loadFileByUrl(){
     const url = new URL(location.href)
