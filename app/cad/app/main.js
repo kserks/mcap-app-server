@@ -1338,7 +1338,7 @@ var settings = {
   nearestSnap: false,
   quadrantSnap: false,
   polarAngle: 5,
-  polar: true,
+  polar: false,
   ortho: false,
   drawGrid: true
 }
@@ -1358,12 +1358,26 @@ function cookiesAccepted(){
   saveSetting("Design", designVersion, 365);
   saveAllSettings(settings)
 }
-
+/**
+ * toggleSnap
+ */
 function toggleSnap(snap){
-    settings[snap] = !settings[snap]
+  settings[snap] = !settings[snap]
   saveAllSettings(settings)
     canvas.zoom(1)
 }
+
+function toggleSnapPolar(snap){
+  settings[snap] = !settings[snap]
+  saveAllSettings(settings)
+    canvas.zoom(1)
+}
+function toggleSnapNearest(snap){
+  settings[snap] = !settings[snap]
+  saveAllSettings(settings)
+    canvas.zoom(1)
+}
+
 
 function changePolarAngle(angle){
 

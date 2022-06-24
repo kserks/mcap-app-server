@@ -31,7 +31,7 @@ function getlayerBtns(layerIndex, layerID, dataList){
             </svg>`,
       action: function(){
           LM.setCLayer(LM.getLayerByIndex(layerIndex).name)
-          closePopover()
+
           loadLayers()
       }
   })
@@ -43,6 +43,7 @@ function getlayerBtns(layerIndex, layerID, dataList){
       action: function() {
           const { name } = LM.getLayerByIndex(layerIndex)
           copyGeometryToLayer (name)
+
       }
   })
   // move to
@@ -53,6 +54,7 @@ function getlayerBtns(layerIndex, layerID, dataList){
       action: function() {
           const { name } = LM.getLayerByIndex(layerIndex)
           copyGeometryToLayer (name, true)
+
       }
   })
   // delete
@@ -62,7 +64,6 @@ function getlayerBtns(layerIndex, layerID, dataList){
             </svg>`,
       action: function() {
           LM.deleteLayer(layerIndex);
-          closePopover();
           loadLayers();
           canvas.requestPaint();
       }
@@ -92,9 +93,8 @@ function getlayerBtns(layerIndex, layerID, dataList){
  * INIT LAYER BTNs
  */
 
-
-document.querySelector('#LayerManagerList').addEventListener('mousedown', function (e){
-
+const $layerManagerList = document.querySelector('#LayerManagerList')
+$layerManagerList.addEventListener('click', function (e){
   const layerIndex = Number(e.target.parentElement.id)
   const dataList = e.target.parentElement.parentElement.querySelector('.layerManagerListItemDetails')
 

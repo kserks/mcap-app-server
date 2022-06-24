@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="./mcap.css">
-
+ 
+    <link rel="icon" href="icons/favicon.png" sizes="any">
 </head>
 <body style="position: relative;">
     <title>Design</title>
@@ -254,7 +255,7 @@
 <div></div>
 </div>
 <div class="Design-sidebar-listitem">
-<div id="polarSnapColour" class="Design-shape" onclick="changeColour(this.id)"></div>
+<div id="polarSnapColour"  class="Design-shape" onclick="changeColour(this.id)"></div>
 <p>Цвет напраляющей угловой привязки</p>
 <div></div>
 </div>
@@ -307,7 +308,7 @@
 <img src="icons/snap-nearest.svg" style="width:32px;height:32px;">
 <p>К ближайшей точке</p>
 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('nearestSnap')" checked=function(){settings["nearestSnap"]};>
+<input type="checkbox" onclick="toggleSnapNearest('nearestSnap')">
 <span class="slider"></span>
 </label>
 </div>
@@ -320,7 +321,7 @@
 <img src="icons/polar.svg" style="width:32px;height:32px;">
 <p>Угловая привязка</p>
 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('polar')" checked=function(){settings["polar"]};>
+<input type="checkbox" onclick="toggleSnapPolar('polar')">
 <span class="slider"></span>
 </label>
 </div>
@@ -660,8 +661,9 @@ hobbyists and professionals that require a first class CAD application.</p>
 <!--@3--->
 <script src="app/main.js"></script>
 <!--@etc--->
-<script src="app/IO.js"></script>
 <script src="app/offset-target.js"></script>
+<script src="app/IO.js"></script>
+
 <script src="app/layers-mod.js"></script>
 <script src="app/mcap.js"></script>
 

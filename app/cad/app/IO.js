@@ -99,7 +99,7 @@ class IO {
    */
   renderItems (loadedData){
 
-    reset()
+
     LM.layers = []
     //LM.layers[0].colour = loadedData.layers[0].colour
     //LM.layers[1].colour = loadedData.layers[1].colour
@@ -123,10 +123,14 @@ class IO {
 
         return shape
     })
+
+
     LM.setCLayer(LM.getLayerByIndex(0).name)
     LM.checkLayers();
+    reset()
     canvas.requestPaint();
     loadLayers()
+
   }
   loadFileByUrl(){
     const url = new URL(location.href)
@@ -189,3 +193,9 @@ class IO {
 
   }
 }
+
+
+/*
+ * form disable enter
+ */
+window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);

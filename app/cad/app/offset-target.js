@@ -9,8 +9,13 @@ class ToolsCoords {
   objData = null
   $originalCoordsString = $html('#coordLabel')
   $coordsData = $html('.coords-data')
-  constructor () {}
-  
+  constructor () {
+    this.рисуемКружокВЦвентреКоординат()
+  }
+  рисуемКружокВЦвентреКоординат (){
+    this.removeOffsetCircleMarker()
+    this.addOffsetCircleMarker(0, 0)
+  }
   обработкаКликаПоКнопкеНаПанелиИнтсрументов (){
     this.removeOffsetCircleMarker()
     this.offsetCoordsFlag = true
@@ -65,8 +70,8 @@ class ToolsCoords {
     this.$coordsData.innerHTML = outputData
   }
   
-  addOffsetCircleMarker (){
-        const { x, y } = this.offsetCoords
+  addOffsetCircleMarker (x, y){
+        //const { x, y } = this.offsetCoords
         const x2 = x+15
         const y2 = y+15
         const data = {
@@ -76,7 +81,6 @@ class ToolsCoords {
         }
         const circle = new OFFSET_TARGET(data)
         //const circle = new Circle(data)
-        circle._id = 'offset-target'
         items.push(circle)
         canvas.requestPaint();
   }
