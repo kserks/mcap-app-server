@@ -19,12 +19,12 @@ function getACADColour(hex_colour) {
 var conversion_table = {
     // Map the 256 AutoCAD colours to the equivalent hex colour
     1: '#FF0000',
-    2: '#FFFF00',
-    3: '#00FF00',
+    2: '#000000',
+    3: '#17c25b',
     4: '#00FFFF',
     5: '#0000FF',
-    6: '#FF00FF',
-    7: '#FFFFFF',
+    6: '#d0f', // pink
+    7: '#cf6c25',
     8: '#808080',
     9: '#C0C0C0',
     10: '#FF0000',
@@ -247,7 +247,7 @@ var conversion_table = {
     227: '#7F3F6F',
     228: '#4C0039',
     229: '#4C2642',
-    230: '#FF007F',
+    230: '#9d00ff',
     231: '#FF7FBF',
     232: '#CC0066',
     233: '#CC6699',
@@ -273,5 +273,5 @@ var conversion_table = {
     253: '#ADADAD',
     254: '#D6D6D6',
     255: '#FFFFFF',
-    256: 'BYLAYER' //'#000000'
+    256: '#ffffff'//'BYLAYER' //'#000000'
 }
