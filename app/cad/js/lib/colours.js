@@ -26,7 +26,7 @@ var conversion_table = {
     6: '#d0f', // pink
     7: '#cf6c25',
     8: '#808080',
-    9: '#C0C0C0',
+    9: '#00bfff',//
     10: '#FF0000',
     11: '#FF7F7F',
     12: '#CC0000',
@@ -273,5 +273,5 @@ var conversion_table = {
     253: '#ADADAD',
     254: '#D6D6D6',
     255: '#FFFFFF',
-    256: '#ffffff'//'BYLAYER' //'#000000'
+    256: 'BYLAYER' //'#000000'
 }

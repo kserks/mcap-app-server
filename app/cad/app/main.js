@@ -109,7 +109,7 @@
         ColourPicker_table.className = "ColourPicker-table";
         ColourPicker_table.id = "ColourPicker-table";
 
-        var colours = [1, 2, 3, 4, 5, 6, 230, 30, 7, 8, 9, 256]
+        var colours = [1, 2, 3, 4, 5, 6, 230, 30, 7, 8, 9, 255]
 
         for (var i = 0; i < colours.length; i++) {
         var ACIColour = document.createElement("div");
