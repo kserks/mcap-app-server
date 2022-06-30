@@ -5,7 +5,9 @@
 window._io = new IO()
 _io.loadFileByUrl()
 
-
+setTimeout(()=>{
+  console.log(tempItems)
+}, 3000)
 /**
  * Save
  */

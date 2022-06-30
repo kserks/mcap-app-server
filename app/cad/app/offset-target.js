@@ -28,9 +28,7 @@ class ToolsCoords {
     this.offsetCoords.x = this.objData.x
     this.offsetCoords.y = this.objData.y  
     this.offsetCoordsFlag = false 
-   
       //sceneControl('Enter', [])
- 
    /* if(this.renderMarker){
        this.addOffsetCircleMarker()
     }*/
@@ -41,17 +39,23 @@ class ToolsCoords {
                                     .replaceAll(',', '')
                                     .split(" ")
     this.objData = {
-            x: Math.floor( Number(_dataArr[1])  ),
-            y: Math.floor( Number(_dataArr[3]) ),
+            x: Math.floor( Number(_dataArr[1]) - this.offsetCoords.x-1 ),
+            y: Math.floor( Number(_dataArr[3]) - this.offsetCoords.y+1 ),
             delta: _dataArr[5],
             ang: _dataArr[7],
     }
-
-    //if(this.offsetCoords.x>0&&this.offsetCoords.y>0){
-      this.objData.x = Math.floor( Number(_dataArr[1]) - this.offsetCoords.x )
-      this.objData.y = Math.floor( Number(_dataArr[3]) - this.offsetCoords.y )
-    //}
-
+    if(__mcap.snap){
+      this.objData.x = this.objData.x+1
+      this.objData.y = this.objData.y-1
+    }
+/**
+    this.objData = {
+            x: Math.floor( __mcap.data.x - this.offsetCoords.x-1 ),
+            y: Math.floor( __mcap.data.y - this.offsetCoords.y+1 ),
+            delta: Math.floor(__mcap.data.len),
+            ang: Math.floor(__mcap.data.angle),
+    }
+ */
   }
   // mousemove
   выводКоординат (){
@@ -72,8 +76,8 @@ class ToolsCoords {
   
   addOffsetCircleMarker (x, y){
         //const { x, y } = this.offsetCoords
-        const x2 = x+15
-        const y2 = y+15
+        const x2 = x+25
+        const y2 = 0
         const data = {
             points: [ new Point(x, y), new Point(x2, y2) ],
             colour: "BYLAYER",

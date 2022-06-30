@@ -135,6 +135,7 @@ Canvas.prototype.dblclick = function (ev) {
 };
 
 Canvas.prototype.pan = function () {
+    console.log(138, 'Canvas.prototype.pan')
     if (canvas.panning) {
         var deltaX = mouse.canvasX - mouse.lastX;
         var deltaY = (mouse.canvasY - mouse.lastY);

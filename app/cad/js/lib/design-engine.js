@@ -180,6 +180,7 @@ function initialiseItem(item) {
 };
 
 function convertInputToPoint(input) {
+
 	var point = new Point()
 	var x = input * Math.cos(degrees2radians(angle));
 	var y = input * Math.sin(degrees2radians(angle));

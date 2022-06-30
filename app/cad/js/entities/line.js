@@ -257,7 +257,7 @@ Line.prototype.trim = function (points) {
 }
 
 Line.prototype.extend = function (points) {
-
+ 
     var originPoint;
     var destinationPoint;
 

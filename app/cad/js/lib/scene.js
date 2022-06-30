@@ -1,3 +1,8 @@
+var __mcap = {
+	data: {},
+	snap: false
+}
+
 // initialise the scene variables
 //var parent = this;                                // 'window' object - store 'this' so it can be acessed from children.
 var items = new Array(); // Main array that stores all the geometry
@@ -25,8 +30,6 @@ var selectingActive = false; // Are we selecting on screen components?
 
 
 function reset() {
-
-	console.log(" scene.js - Reset: In Reset");
 	points = []; // clear array
 	minPoints = 100; // reset minimum required points
 	activeCommand = undefined; // reset the active command
@@ -131,9 +134,6 @@ function writeStatusMessage(label, message) {
 }
 
 function findClosestItem() {
-
-	console.log("[scene.js] - findClosestItem- Selected Items:" + selectedItems.length)
-	////////// Object Snapping //////////
 	var delta = 1.65; // find a more suitable starting value
 	var mousePoint = new Point(mouse.x, mouse.y);
 	var closestItem;
@@ -207,7 +207,7 @@ function selectClosestItem(data) {
 }
 
 function snapping() {
-
+	__mcap.snap = false
 	////////// Object Snapping //////////
 	var snaps = new Array();
 	var delta = 25 / canvas.scale; // find a more suitable starting value
@@ -238,7 +238,7 @@ function snapping() {
 					mouse.y = itemSnaps[j].y;
 					//console.log(snaps[j].x, snaps[j].y, delta);
 					tempItems.push(item)
-
+					__mcap.snap = true
 					////////// Object Snapping //////////
 				}
 			}
@@ -394,6 +394,8 @@ function writeCoordinates(label, coordinates) {
 
 	mouse.x = coordinates[0]; //set the mouse coordinates
 	mouse.y = coordinates[1]; //set the mouse coordinates
+	__mcap.data.x = mouse.x
+	__mcap.data.y = mouse.y
 
 	if (activeCommand !== undefined && activeCommand.family === "Geometry" || selectionAccepted === true && activeCommand.movement !== "Modify") {
 		snapping();
@@ -447,8 +449,9 @@ function writeCoordinates(label, coordinates) {
 		}
 
 		angle = radians2degrees(previousPoint.angle(mouse))
+		__mcap.data.angle = angle
 		var len = distBetweenPoints(previousPoint.x, previousPoint.y, point.x, point.y);
-
+		__mcap.data.len = len
 		label.innerHTML = "X: " + mouse.x.toFixed(1) + " Y: " + mouse.y.toFixed(1) + ", Len: " + Math.round(len) + ", Ang: " + Math.round(angle)
 	} else {
 		label.innerHTML = "X: " + mouse.x.toFixed(1) + " Y: " + mouse.y.toFixed(1)
