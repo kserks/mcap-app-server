@@ -112,7 +112,7 @@ $html('#mc__Esc').addEventListener('mousedown', e=>{
       canvas.panX +=200;
       canvas.panY +=200;
       canvas.requestPaint();
-  },1000)
+  }, 1000)
 
 
 

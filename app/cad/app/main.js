@@ -5,6 +5,7 @@
   var designVersion = "Pre-Alpha-Dev";
     var mouse = new Mouse();
     var canvas = new Canvas(cnvs);
+
     var commandLine = new CommandLine(cmd_Line);
     var LM = new LayerManager();
     var SM = new StyleManager();
@@ -35,7 +36,6 @@
       closeColourPicker();
       closeSettings();
   }
-
 
    /* function canvas_contextmenu() {
 
@@ -979,7 +979,7 @@ function layerColourChange(colour, layerIndex){
 
     function getProperties() {
 
-        console.log(document.getElementById("PropertiesManager").style.width)
+        //console.log(document.getElementById("PropertiesManager").style.width)
         if (document.getElementById("PropertiesManager").style.width > "0px") {
             console.log("[PropertiesManager] - getProperties()")
             if (selectionSet.length) {

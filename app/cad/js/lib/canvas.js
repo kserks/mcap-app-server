@@ -135,7 +135,7 @@ Canvas.prototype.dblclick = function (ev) {
 };
 
 Canvas.prototype.pan = function () {
-    console.log(138, 'Canvas.prototype.pan')
+    //console.log(138, 'Canvas.prototype.pan')
     if (canvas.panning) {
         var deltaX = mouse.canvasX - mouse.lastX;
         var deltaY = (mouse.canvasY - mouse.lastY);
@@ -369,8 +369,9 @@ Canvas.prototype.paintGrid = function () {
 
         this.context.lineWidth = 0.25 / this.scale;
 
-        var gridInterval = 25;
+        var gridInterval = 10// * this.scale;
 
+        /*
         if (this.scale >= 2) {
             gridInterval = 12.5
         }
@@ -379,7 +380,7 @@ Canvas.prototype.paintGrid = function () {
         }
         else {
             gridInterval = 25;
-        }
+        }*/
 
        // console.log("Scale = " + this.scale + " GridInterval = " + gridInterval);
 

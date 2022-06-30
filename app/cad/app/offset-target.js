@@ -14,6 +14,7 @@ class ToolsCoords {
   }
   рисуемКружокВЦвентреКоординат (){
     this.removeOffsetCircleMarker()
+
     this.addOffsetCircleMarker(0, 0)
   }
   обработкаКликаПоКнопкеНаПанелиИнтсрументов (){
@@ -39,8 +40,8 @@ class ToolsCoords {
                                     .replaceAll(',', '')
                                     .split(" ")
     this.objData = {
-            x: Math.floor( Number(_dataArr[1]) - this.offsetCoords.x-1 ),
-            y: Math.floor( Number(_dataArr[3]) - this.offsetCoords.y+1 ),
+            x: Math.ceil( Number(mouse.x) - this.offsetCoords.x-1 ),
+            y: Math.floor( Number(mouse.y) - this.offsetCoords.y+1 ),
             delta: _dataArr[5],
             ang: _dataArr[7],
     }
@@ -48,6 +49,8 @@ class ToolsCoords {
       this.objData.x = this.objData.x+1
       this.objData.y = this.objData.y-1
     }
+    // mouse.x = this.objData.x
+
 /**
     this.objData = {
             x: Math.floor( __mcap.data.x - this.offsetCoords.x-1 ),
@@ -76,7 +79,7 @@ class ToolsCoords {
   
   addOffsetCircleMarker (x, y){
         //const { x, y } = this.offsetCoords
-        const x2 = x+25
+        const x2 = x+20
         const y2 = 0
         const data = {
             points: [ new Point(x, y), new Point(x2, y2) ],
