@@ -66,15 +66,83 @@
 
     </div>
     <div class="tools-2-wrapper">
+        <!--buttons-->
         <div class="tools-2">
-            <button class="tool tool__keyboard tool__keyboard--btn" id="mc__Esc">Esc</button>
-            <button class="tool tool__keyboard tool__keyboard--btn" id="mc__Space">Space</button>
-            <button class="tool tool__keyboard tool__keyboard--btn" id="mc__Enter">Enter</button>
+                <button class="tool tool__keyboard tool__keyboard--btn" id="mc__Esc">Esc</button>
+                <button class="tool tool__keyboard tool__keyboard--btn" id="mc__Space">Space</button>
+                <button class="tool tool__keyboard tool__keyboard--btn" id="mc__Enter">Enter</button>
         </div>
-        <div class="coords-data"></div>
+        <!--cords-->
+        <div class="coords-data__coords">
+              <div class="coords-data__item">
+                  <span>x: </span>
+                  <span class="coords-data__num coords-data__num--x"></span>
+              </div>
+              <div class="coords-data__item">
+                  <span>y: </span>
+                  <span class="coords-data__num coords-data__num--y"></span>
+              </div>
+              <div class="coords-data__item--delta">
+                  <span>Δ: </span>
+                  <span class="coords-data__num coords-data__num--delta"></span>
+              </div>
+              <div class="coords-data__item--ang">
+                  <span>∠: </span>
+                  <span class="coords-data__num coords-data__num--ang"></span>
+              </div>
+        </div>
+        <!--text-->
+        
+        <div class="coords-data__text">
+                <div class="coords-data__size coords-data__btn">30</div>
+                <div class="coords-data__input-wrapper">
+                    <input class="coords-data__input" type="text">
+                </div>
+                <div class="coords-data__arrow coords-data__btn">
+                    <div class="coords-data__text-rotate-btn">
+                        <img src="icons/arrow.svg" alt="rotate" class="coords-data__text-rotate">
+                    </div>
+                </div>
+                <div class="coords-data__chars coords-data__btn">Ins</div>
+                <div class="coords-data__send coords-data__btn">
+                    <img src="icons/font.svg" alt="font">
+                </div>
+                <div class="coords-data__size-set">
+                    <div class="coords-data__size-item">5</div>
+                    <div class="coords-data__size-item">10</div>
+                    <div class="coords-data__size-item">12</div>
+                    <div class="coords-data__size-item">14</div>
+                    <div class="coords-data__size-item">16</div>
+                    <div class="coords-data__size-item">18</div>
+                    <div class="coords-data__size-item">20</div>
+                    <div class="coords-data__size-item">24</div>
+                    <div class="coords-data__size-item">28</div>
+                    <div class="coords-data__size-item">32</div>
+                    <div class="coords-data__size-item">36</div>
+                    <div class="coords-data__size-item">40</div>
+                    <div class="coords-data__size-item">44</div>
+                    <div class="coords-data__size-item">50</div>
+                    <div class="coords-data__size-item">56</div>    
+                    <div class="coords-data__size-item">62</div>
+                    <div class="coords-data__size-item">66</div>
+                    <div class="coords-data__size-item">72</div>
+                    <div class="coords-data__size-item">78</div>
+                    <div class="coords-data__size-item">84</div>
+                </div>
+                <div class="coords-data__chars-set">
+                    <div class="coords-data__size-item">°</div>
+                    <div class="coords-data__size-item">↑</div>
+                    <div class="coords-data__size-item"></div>
+                    <div class="coords-data__size-item">←</div>
+                    <div class="coords-data__size-item">±</div>
+                    <div class="coords-data__size-item">→</div>
+                    <div class="coords-data__size-item"></div>
+                    <div class="coords-data__size-item">↓</div>
+                    <div class="coords-data__size-item"></div>
+                </div>
+        </div>
+       
     </div>
-    
-
 </body>
 
 <!--<footer>-->
@@ -665,6 +733,7 @@ hobbyists and professionals that require a first class CAD application.</p>
 <script src="app/IO.js"></script>
 
 <script src="app/layers-mod.js"></script>
+<script src="app/TextControl.js"></script>
 <script src="app/mcap.js"></script>
 
 </html>

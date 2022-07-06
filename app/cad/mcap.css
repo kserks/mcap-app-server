@@ -148,6 +148,8 @@ select#polarAngle{
   background-color: rgba(0,0,0,0.7);
   box-sizing: border-box;
   user-select: none;
+  justify-content: space-between;
+  width: 100%;
 }
 .tools-2-wrapper *{
   box-sizing: border-box;
@@ -156,13 +158,17 @@ select#polarAngle{
 .tools-2{
   display: flex;
   padding-right: 5px;
+  
 }
-.coords-data{
-  font-size: 20px;
+.coords-data__coords{
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+}
 
-}
 .coords-data__num{
   color: lightgreen;
+  padding-right: 5px;
 }
 
 
@@ -182,4 +188,111 @@ select#polarAngle{
 
 .files__list li.cad-dir--common{
   color: skyblue;
+}
+
+/**
+ * TEXT
+ */
+
+.coords-data__text{
+  display: flex;
+  position: relative;
+}
+.coords-data__size{
+  margin-left: 5px;
+}
+.coords-data__input{
+  outline: none;
+
+  background-color: rgba(200,200,200,0.1);
+  height: 30px;
+  border-radius: 4px;
+  border: 1px solid gray;
+  padding: 3px 5px;
+  margin-left: 5px;
+  font-size: 16px;
+  color: lightgreen;
+}
+.coords-data__arrow img{
+  width: 20px;
+  height: 20px;
+}
+
+.coords-data__btn{
+  border: 1px solid gray;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+.coords-data__btn:hover{
+
+  filter: brightness(130%);
+}
+.coords-data__send img{
+  width: 20px;
+  height: 20px;
+}
+.coords-data__text-rotate-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.coords-data__text-rotate{
+  transform: rotate(43deg);
+}
+
+.coords-data__size-set{
+  background-color: rgba(0,0,0,0.7);
+  position: absolute;
+  top: -95px;
+  right: -10px;
+  /*display: flex;*/
+  flex-wrap: wrap;
+  width: 360px;
+ 
+  border: 2px solid gray;
+  padding: 2.5px;
+  border-radius: 4px;
+  display: none;
+  /*transform: translate(-50%);*/
+}
+.coords-data__size-item{
+  color: gray;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 4px;
+  background-color: rgba(0,0,0,0.2);
+  width: 30px;
+  height: 30px;
+  margin: 2.5px;
+
+}
+
+.coords-data__size-item:hover{
+
+  filter: brightness(130%);
+  cursor: pointer;
+
+}
+.coords-data__chars-set{
+  background-color: rgba(0,0,0,0.7);
+  position: absolute;
+  top: -132px;
+  right: -10px;
+  /*display: flex;*/
+  flex-wrap: wrap;
+  width: 115px;
+  height: 115px;
+  border: 2px solid gray;
+  padding: 2.5px;
+  border-radius: 4px;
+  display: none;
 }

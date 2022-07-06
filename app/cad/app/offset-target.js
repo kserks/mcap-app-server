@@ -8,7 +8,7 @@ class ToolsCoords {
   offsetCoords = {x: 0, y: 0}
   objData = null
   $originalCoordsString = $html('#coordLabel')
-  $coordsData = $html('.coords-data')
+  $coorsNode = $html('.coords-data__coords')
   constructor () {
     this.рисуемКружокВЦвентреКоординат()
   }
@@ -63,18 +63,25 @@ class ToolsCoords {
   // mousemove
   выводКоординат (){
     this.подготовкаОбъектаСДанными()
-    /*
-     * Подготовка строки для вывода
-     */
-    let outputData;
-    outputData = `x: <span class="coords-data__num">${this.objData.x} </span>y: <span class="coords-data__num">${this.objData.y} </span>` 
+
+    $html('.coords-data__num--x').innerHTML = this.objData.x
+    $html('.coords-data__num--y').innerHTML = this.objData.y
+    
     if(this.objData.delta){
-      outputData += `Δ: <span class="coords-data__num">${this.objData.delta}</span>`
+      $html('.coords-data__item--delta').style.display = 'block'
+      $html('.coords-data__num--delta').innerHTML = this.objData.delta
+    }
+    else{
+      $html('.coords-data__item--delta').style.display = 'none'
     }
     if(this.objData.ang){
-      outputData += ` ∠:  <span class="coords-data__num">${this.objData.ang}</span>`
+      $html('.coords-data__item--ang').style.display = 'block'
+      $html('.coords-data__num--ang').innerHTML = this.objData.ang
     }
-    this.$coordsData.innerHTML = outputData
+    else{
+      $html('.coords-data__item--ang').style.display = 'none'
+    }
+    //this.$coorsNode.innerHTML = outputData
   }
   
   addOffsetCircleMarker (x, y){
