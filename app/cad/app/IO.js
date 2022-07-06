@@ -53,12 +53,21 @@ class IO {
     
     const fileName = $html('#mcap__filename').value
     const _items = items.map(item=>{
-      return {
+      let data = {
         type: item.type,
         points: item.points,
         colour: item.colour,
         layer: item.layer
       }
+      if(item.type==='Text'){
+        data = Object.assign(data, { 
+                height: item.height, 
+                rotation: item.rotation,
+                string: item.string
+            })
+      }
+
+      return data
     })
 
     const body = {
@@ -110,16 +119,28 @@ class IO {
     items = loadedData.items.map(item=>{
         const points = item.points.map( p => new Point(p.x, p.y) )
         
-
-        const data = {
+        let shape = null
+        let data = {
           points,
           colour: item.colour,
           layer: item.layer
         }
+
         if(item.type==='Rectangle'){
           item.type = 'RECTANGLE_2_RESTORE'
         }
-        const shape = new window[item.type](data)
+        if(item.type==='Text'){
+          data = Object.assign(data, { 
+                height: item.height, 
+                rotation: item.rotation,
+                string: item.string
+          })
+          shape = new Text(data)
+        }
+        else{
+          shape = new window[item.type](data)
+        }
+      
 
         return shape
     })

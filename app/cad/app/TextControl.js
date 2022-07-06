@@ -35,8 +35,8 @@ class TextControl {
             //horizontalAlignment: 'center',
             //verticalAlignment: 'center',
         }
-        const circle = new Text(data)
-        items.push(circle)
+        const text = new Text(data)
+        items.push(text)
         canvas.requestPaint();
   }
   addHandler (){
