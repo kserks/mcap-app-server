@@ -209,7 +209,8 @@ Text.prototype.draw = function (ctx, scale) {
         colour = LM.getLayerByName(this.layer).colour
     }
 
-    ctx.strokeStyle = colour;
+
+    //ctx.strokeStyle = colour;
     ctx.font = this.height + "pt " + SM.getStyleByName(this.styleName).font.toString();
     ctx.fillStyle = colour;
     ctx.textAlign = this.getHorizontalAlignment();

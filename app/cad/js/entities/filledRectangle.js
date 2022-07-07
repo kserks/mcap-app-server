@@ -17,7 +17,7 @@ function FilledRectangle(data) //startX, startY, endX, endY)
     this.points = [];
     this.lineWidth = 2; //Thickness
     this.colour = "BYLAYER";
-    this.layer = "0";
+    this.layer = LM.getCLayer();
     this.alpha = 1.0 //Transparancy
     this.width = 0.0
     this.height = 0.0
@@ -85,11 +85,12 @@ FilledRectangle.prototype.prompt = function (inputArray) {
 }
 
 FilledRectangle.prototype.draw = function (ctx, scale) {
-
+  
     if (!LM.layerVisible(this.layer)) {
         return
     }
-
+  
+  
     var colour = this.colour;
 
     if (this.colour === "BYLAYER") {

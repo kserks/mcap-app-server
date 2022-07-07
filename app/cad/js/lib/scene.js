@@ -343,8 +343,9 @@ function addHelperGeometry(type, points, colour) {
 	//helperPoints.push(point);
 	
 	var data = {
+		layer: LM.getCLayer(),
 		points: points,
-		colour: colour //"#00BFFF"
+		colour: "BYLAYER" //"#00BFFF"
 	}
 	var helper = new this[type](data); //new Rectangle(data);       // Create a templine to help define geometry
 	tempItems.push(helper); // Add it to the tempItems Array
