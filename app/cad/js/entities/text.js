@@ -324,7 +324,7 @@ Text.prototype.closestPoint = function (P) {
         P.y < topRight.y
     ){distance = 0}
 
-    console.log(distance);
+    //console.log(distance);
 
     return [mid, distance]
 }

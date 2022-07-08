@@ -40,6 +40,7 @@ class TextControl {
         canvas.requestPaint();
   }
   addHandler (){
+    //sceneControl('Enter', ['DT'] )  
     if(this.enter){
         this.add($textContainer.value)
         this.reset()

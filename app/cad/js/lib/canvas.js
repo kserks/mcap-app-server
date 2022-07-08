@@ -65,7 +65,7 @@ Canvas.prototype.mousedown = function (ev) {
             mouse.downY = mouse.y;
             selectingActive = true;
             break;
-        case 1: //middle button
+        case 2: //middle button
             canvas.panning = true;
             ev.target.style.cursor = "move";
             var doubleClickThreshold = 250;
@@ -79,7 +79,7 @@ Canvas.prototype.mousedown = function (ev) {
                 this.zoomExtents()
             }
             break;
-        case 2: //right button
+        case 1: //right button
             //console.log("right click")
             //var data = true;
             //sceneControl("RightClick", data);
@@ -100,13 +100,13 @@ Canvas.prototype.mouseup = function (ev) {
             selectingActive = false;
             selecting([mouse.downX, mouse.downY, mouse.x, mouse.y], "");
             break;
-        case 1: //middle button
+        case 2: //middle button
             //console.log("middle click")
             canvas.panning = false;
             canvas.requestPaint();
             ev.target.style.cursor = "crosshair";
             break;
-        case 2: //right button
+        case 1: //right button
             //console.log("right click")
             break;
             //default:

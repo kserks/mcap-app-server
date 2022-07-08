@@ -150,6 +150,7 @@ select#polarAngle{
   user-select: none;
   justify-content: space-between;
   width: 100%;
+  z-index: 9999;
 }
 .tools-2-wrapper *{
   box-sizing: border-box;

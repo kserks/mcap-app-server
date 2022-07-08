@@ -9,7 +9,7 @@ function OFFSET_TARGET(data) //centreX, centreY, endX, endY)
     //Define Properties         //Associated DXF Value
     this.type = "OFFSET_TARGET";
     this.family = "Geometry";
-    this.minPoints = 2;
+    this.minPoints = 1;
     this.showPreview = true; //show preview of item as its being created
     //this.limitPoints = true;
     //this.allowMultiple = false;
@@ -42,7 +42,7 @@ function OFFSET_TARGET(data) //centreX, centreY, endX, endY)
 }
 
 OFFSET_TARGET.prototype.calculateRadius = function () {
-    this.radius = distBetweenPoints(this.points[0].x, this.points[0].y, this.points[1].x, this.points[1].y);
+    this.radius = 20//distBetweenPoints(this.points[0].x, this.points[0].y, this.points[1].x, this.points[1].y);
 }
 
 OFFSET_TARGET.prototype.prompt = function (inputArray) {
@@ -57,9 +57,9 @@ OFFSET_TARGET.prototype.prompt = function (inputArray) {
  
     expectedType[1] = ["object"];   
     prompt[1] = "Pick another point or Enter radius:";
-
+/*
     expectedType[2] = ["object", "number"];   
-    prompt[2] = prompt[1];
+    prompt[2] = prompt[1];*/
             
     var validInput = expectedType[num].includes(typeof inputArray[num-1])
             
