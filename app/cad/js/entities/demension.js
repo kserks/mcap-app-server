@@ -57,6 +57,12 @@ const getVerticalDistance = (points) => {
     const _distance = points[2].x
     return  points[0].x - ( points[0].x - _distance )
 }
+const isHReverseSelection = (points) => {
+    return true
+}
+const isVReverseSelection = (points) => {
+    return true
+}
 /**
  * Lines
  */
@@ -104,7 +110,7 @@ const addBorder = (points, mode) => {
         items.push(line)
 }
 
-const addMainLine = (points, direction) => {
+const addBaseLine = (points, direction) => {
         let x1 = 0
         let y1 = 0
         let x2 = 0
@@ -136,7 +142,7 @@ const addMainLine = (points, direction) => {
 /**
  * Arraw
  */
-const addArraw = (points, mode) => {
+const addArrow = (points, mode) => {
         let x = 0
         let y = 0
         let string = ''
@@ -153,13 +159,13 @@ const addArraw = (points, mode) => {
                     string = '►'
                     break
             case 'TOP':
-                    x = points[0].x - 5.65
-                    y = getHorizontalDistance(points) - 2.252
+                    x = getVerticalDistance(points) - 3.297
+                    y = points[0].y - 4.62
                     string = '▲'
                     break
             case 'BOTTOM':
-                    x = points[0].x - 5.65
-                    y = getHorizontalDistance(points) - 2.252
+                    x = getVerticalDistance(points) - 3.297
+                    y = points[1].y + 0.1
                     string = '▼'
                     break
         }
@@ -177,25 +183,89 @@ const addArraw = (points, mode) => {
         const text = new Text(data)
         items.push(text)
 }
-Demension.prototype.drawShape = function (points){
-    // определить горизонтальную разметку
-    // определить как строится фигура с лева направо или наоборот
-    // если строить размер слева направо то отступ выбивается
-    const direction = 'V'
+
+const indentControl = (points, direction) => {
+    let route = ''
+    INDENT = 0
 
     if(direction==='H'){
-        addMainLine(points, direction)
-        addBorder(points, 'LEFT')
-        addBorder(points, 'RIGHT')
-        addArraw(points, 'LEFT')
-        addArraw(points, 'RIGHT')
+            if(points[0].x<points[2].x){
+                route = 'RIGHT'
+                INDENT = 15
+            }
+            if(points[0].x>points[2].x){
+                route = 'LEFT'
+                INDENT = -15
+            }
+            if(points[0].y<points[2].y){
+                route = 'TOP'
+                INDENT = -15
+            }/*
+            if(points[0].y>points[2].y){
+                route = 'BOTTOM'
+               // INDENT = 15
+            }*/
     }
     if(direction==='V'){
-        addMainLine(points, direction)
+            if(points[0].x<points[2].x){
+                route = 'RIGHT'
+                INDENT = 15
+            }
+            if(points[0].x>points[2].x){
+                route = 'LEFT'
+                INDENT = -15
+            }
+            if(points[0].y<points[2].y){
+                route = 'TOP'
+                INDENT = -15
+            }
+            if(points[0].y>points[2].y){
+                route = 'BOTTOM'
+                //INDENT = -15
+            }
+    }
+
+    console.warn(points[0].x, points[2].x, direction, route, INDENT)
+}
+
+const getDirection = (points) => {
+        const Pt1 = this.points[0];
+        const Pt2 = this.points[1];
+        const Pt3 = this.points[2];
+        const dx = Pt2.x - Pt1.x;
+        const dy = Pt2.y - Pt1.y;
+
+        const iX = ((Math.abs(Pt3.x - Pt1.x) + Math.abs(Pt2.x - Pt3.x)) - Math.abs(dx));
+        const iY = ((Math.abs(Pt3.y - Pt1.y) + Math.abs(Pt2.y - Pt3.y)) - Math.abs(dy));
+
+        if (iX > iY && dy !== 0) {
+            return 'V'
+        } 
+        else if (iX < iY && dx !== 0) {
+            return 'H'
+        }
+}
+
+
+Demension.prototype.drawShape = function (points){
+
+    const direction = getDirection(points)
+
+    indentControl(points, direction)
+
+    if(direction==='H'){
+        addBaseLine(points, direction)
+        addBorder(points, 'LEFT')
+        addBorder(points, 'RIGHT')
+        addArrow(points, 'LEFT')
+        addArrow(points, 'RIGHT')
+    }
+    if(direction==='V'){
+        addBaseLine(points, direction)
         addBorder(points, 'TOP')
         addBorder(points, 'BOTTOM')
-        //addArraw(points, 'TOP')
-        //addArraw(points, 'BOTTOM')
+        addArrow(points, 'TOP')
+        addArrow(points, 'BOTTOM')
     }
 
 }
@@ -501,12 +571,12 @@ Demension.prototype.touched = function (selection_extremes) {
         end: rP2
     };
 
-    var output = Intersection.intersectRectangleRectangle(this.intersectPoints(), rectPoints);
+    //var output = Intersection.intersectRectangleRectangle(this.intersectPoints(), rectPoints);
     //console.log(output.status)
-
+/*
     if (output.status === "Intersection") {
         return true
-    }
+    }*/
     //no intersection found. return false
     return false
 }

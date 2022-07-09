@@ -104,10 +104,10 @@ class IO {
       this.saveOpen = false
   }
   /**
-   * renderItems
+   * renderUserItems
    */
-  renderItems (loadedData){
-
+  renderUserItems (loadedData){
+    
 
     LM.layers = []
     //LM.layers[0].colour = loadedData.layers[0].colour
@@ -140,7 +140,7 @@ class IO {
         else{
           shape = new window[item.type](data)
         }
-      
+        
 
         return shape
     })
@@ -148,9 +148,47 @@ class IO {
 
     LM.setCLayer(LM.getLayerByIndex(0).name)
     LM.checkLayers();
-    reset()
+
     canvas.requestPaint();
     loadLayers()
+    setTimeout(()=>reset(), 100)
+  }
+  /**
+   * renderCommonItems
+   */
+  renderCommonItems (loadedData){
+    const _loadedData = loadedData.items.filter(item => item.type !== 'OFFSET_TARGET')
+    const _items = _loadedData.map(item=>{
+        const points = item.points.map( p => new Point(p.x, p.y) )
+        
+        let shape = null
+        let data = {
+          points,
+          layer: LM.getCLayer()
+        }
+
+        if(item.type==='Rectangle'){
+          item.type = 'RECTANGLE_2_RESTORE'
+        }
+        if(item.type==='Text'){
+          data = Object.assign(data, { 
+                height: item.height, 
+                rotation: item.rotation,
+                string: item.string
+          })
+          shape = new Text(data)
+        }
+        else{
+          shape = new window[item.type](data)
+        }
+        return shape
+    })
+
+    items = [...items, ..._items]
+
+    
+    canvas.requestPaint()
+    setTimeout(()=>reset(), 100)
 
   }
   loadFileByUrl(){
@@ -160,15 +198,20 @@ class IO {
     if(fileName){
       fetch(`${CAD_DIR}/${userName||this.player.name}/${fileName}.json`)
         .then(r=>r.json())
-        .then(this.renderItems)
+        .then(this.renderUserItems)
     }
   }
 
-  getFileBody(owner, fileName){
+  getFileBody(owner, fileName, fileDir){
     fetch(`${CAD_DIR}/${owner}/${fileName}`)
-      .then(r=>r.json())
-      .then(r=>{
-        this.renderItems(r)
+      .then(r => r.json())
+      .then( data => {
+        if(fileDir==='common'){
+          this.renderCommonItems(data)
+        }
+        else{
+          this.renderUserItems(data)
+        }
         this.hideLoadModal()
       })  
   }
@@ -205,7 +248,7 @@ class IO {
               el.innerHTML = file.name
               el.className = "cad-dir--"+file.dir
               el.addEventListener('mousedown', e=>{
-                    this.getFileBody(file.dir, e.target.innerHTML)
+                    this.getFileBody(file.dir, e.target.innerHTML, file.dir)
                     this.hideLoadModal()
               })
               $html('#load-list__modal').appendChild(el)

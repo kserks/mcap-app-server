@@ -2,7 +2,7 @@
  * координаты
  */
 
-class ToolsCoords {
+class OffsetTarget {
   offsetCoordsFlag = false
   renderMarker = true
   offsetCoords = {x: 0, y: 0}
@@ -49,16 +49,7 @@ class ToolsCoords {
       this.objData.x = this.objData.x+1
       this.objData.y = this.objData.y-1
     }
-    // mouse.x = this.objData.x
-
-/**
-    this.objData = {
-            x: Math.floor( __mcap.data.x - this.offsetCoords.x-1 ),
-            y: Math.floor( __mcap.data.y - this.offsetCoords.y+1 ),
-            delta: Math.floor(__mcap.data.len),
-            ang: Math.floor(__mcap.data.angle),
-    }
- */
+ 
   }
   // mousemove
   выводКоординат (){
@@ -81,11 +72,11 @@ class ToolsCoords {
     else{
       $html('.coords-data__item--ang').style.display = 'none'
     }
-    //this.$coorsNode.innerHTML = outputData
+
   }
   
   addOffsetCircleMarker (x, y){
-        //const { x, y } = this.offsetCoords
+
         const x2 = x+20
         const y2 = 0
         const data = {
@@ -94,7 +85,6 @@ class ToolsCoords {
             layer: LM.getCLayer()
         }
         const circle = new OFFSET_TARGET(data)
-        //const circle = new Circle(data)
         items.push(circle)
         canvas.requestPaint();
   }
@@ -116,21 +106,21 @@ class ToolsCoords {
 }
 
 
-const TC = new ToolsCoords()
+const OT = new OffsetTarget()
 
 
 
 
 
 $html('.select-target-point').addEventListener('mousedown', e => {
-  TC.обработкаКликаПоКнопкеНаПанелиИнтсрументов()
+  OT.обработкаКликаПоКнопкеНаПанелиИнтсрументов()
 })
 $html('#designCanvas').addEventListener('mousedown', e => {
   _io.closeAllModal()
-  TC.обработкаКликаПоХолсту()
+  OT.обработкаКликаПоХолсту()
 })
 $html('#designCanvas').addEventListener('mousemove', e => {
-  TC.выводКоординат()
+  OT.выводКоординат()
 })
 
 /**
@@ -138,7 +128,7 @@ $html('#designCanvas').addEventListener('mousemove', e => {
  */
 /*
 $html('#offset-market-input').addEventListener('change', function (e){
-  TC.renderOffsetMarker(this.checked)
+  OT.renderOffsetMarker(this.checked)
 
 })
 */

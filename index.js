@@ -38,7 +38,7 @@ app.use(express.static(join(__dirname, '/app')));
 
 if( JSON.parse( process.env.DEV) ){
   console.log('env = DEV')
-  app.use(express.static(join(__dirname, '/html')));
+  app.use(express.static(process.env.CAD_DEV_HTML));
 }
 /**
  * REGISTER ROUTES
@@ -48,9 +48,7 @@ app.use('/pb', _pb);
 app.use(`/chess_edu`, _tutor);
 app.use('/gallery/_gallery', _gallery);
 app.use('/upload-images', _uploadImages);
-/*
- *
- */
+
 
 /*
  * home

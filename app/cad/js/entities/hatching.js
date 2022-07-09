@@ -47,7 +47,7 @@ function HATCHING(data) //startX, startY, endX, endY)
 function addLines (x, y, x2, y2, width, height){
     let step = height
     const qty = (width/height).toFixed()
-    console.log(qty)
+
     let sp = 0
     for(let i=0; i<qty; i++){
         if(qty>50){
