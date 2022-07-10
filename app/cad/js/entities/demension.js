@@ -68,6 +68,7 @@ const isVReverseSelection = (points) => {
  */
 
 const addBorder = (points, mode) => {
+        
         let x1 = 0
         let y1 = 0
         let x2 = 0
@@ -189,39 +190,23 @@ const indentControl = (points, direction) => {
     INDENT = 0
 
     if(direction==='H'){
-            if(points[0].x<points[2].x){
-                route = 'RIGHT'
-                INDENT = 15
-            }
-            if(points[0].x>points[2].x){
-                route = 'LEFT'
-                INDENT = -15
-            }
             if(points[0].y<points[2].y){
                 route = 'TOP'
                 INDENT = -15
-            }/*
-            if(points[0].y>points[2].y){
+            }
+            else if(points[0].y>points[2].y){
                 route = 'BOTTOM'
-               // INDENT = 15
-            }*/
+                INDENT = 15
+            }
     }
     if(direction==='V'){
             if(points[0].x<points[2].x){
                 route = 'RIGHT'
                 INDENT = 15
             }
-            if(points[0].x>points[2].x){
+            else if(points[0].x>points[2].x){
                 route = 'LEFT'
                 INDENT = -15
-            }
-            if(points[0].y<points[2].y){
-                route = 'TOP'
-                INDENT = -15
-            }
-            if(points[0].y>points[2].y){
-                route = 'BOTTOM'
-                //INDENT = -15
             }
     }
 

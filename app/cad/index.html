@@ -34,8 +34,10 @@
     <div class="toolbar">
 		<input type="file" style="display:none" name="fileupload" value="fileupload" id="fileupload">
         <div class="tooltip"><button class="designicon" , onclick="showSettings()"><img src="icons/design-small.svg"></button></div>
+                <div class="tooltip"><button class="tool discord" id="send-file"><img src="icons/discord.svg"></button></div>
         <div class="tooltip"><button class="tool" id="load-file"><img src="icons/open.svg"></button></div>
         <div class="tooltip"><button class="tool" id="save-file"><img src="icons/save.svg"></button></div>
+
         <div class="tooltip"><span class="separator"></span></div>
         <div class="tooltip"><button class="tool select-target-point"  onclick="sceneControl('Enter', ['OT'] )"><img src="icons/target.svg"></button></div>
         <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['L'] )"><img src="icons/line.svg"></button></div>
@@ -143,6 +145,15 @@
                 </div>
         </div>
        
+    </div>
+    <div class="pop-up-discord">
+        <div class="pop-up-discord__msg">
+            <div class="pop-up-discord__text">Отправить изображение в Discord?</div>
+            <div class="pop-up-discord__btns">
+                <div class="pop-up-discord__btn pop-up-discord__btn--no">Нет</div>
+                <div class="pop-up-discord__btn pop-up-discord__btn--yes">Да</div>
+            </div>
+        </div>
     </div>
 </body>
 
@@ -732,7 +743,7 @@ hobbyists and professionals that require a first class CAD application.</p>
 <!--@etc--->
 <script src="app/OffsetTarget.js"></script>
 <script src="app/IO.js"></script>
-
+<script src="app/Discord.js"></script>
 <script src="app/layers-mod.js"></script>
 <script src="app/TextControl.js"></script>
 <script src="app/mcap.js"></script>

@@ -297,3 +297,68 @@ select#polarAngle{
   border-radius: 4px;
   display: none;
 }
+.discord{
+  position: relative;
+}
+
+.discord img{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/**
+ * DISCORD POPUP
+ */
+.pop-up-discord{
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  font-family: Consolas;
+}
+.pop-up-discord__msg{
+  padding: 20px;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 20px;
+}
+.pop-up-discord__text{
+
+}
+.pop-up-discord__btns{
+  display: flex;
+  justify-content: space-around;
+  padding-top: 40px;
+}
+.pop-up-discord__btn{
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+  cursor: pointer;
+  padding: 5px 10px;
+  color: black;
+  width: 100px;
+  text-align: center;
+}
+
+.pop-up-discord__btn--no{
+  background-color: #3066d1;
+}
+.pop-up-discord__btn--no:hover{
+  background-color: #1151d1;
+}
+.pop-up-discord__btn--yes{
+  background-color: #ff7066;
+
+}
+.pop-up-discord__btn--yes:hover{
+  background-color: #fa2314;
+}
