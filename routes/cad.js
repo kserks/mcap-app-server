@@ -8,6 +8,8 @@ app.get('/dir', (req, res)=>{
 
   const pathToDir = join(process.env.CAD_DIR, req.query.player)
   const libDir = join(process.env.CAD_DIR, 'common')
+  console.log(pathToDir)
+  console.log(libDir)
   fs.readdir(libDir, (err, libFiles)=>{
       if(err){
         res.send(err)

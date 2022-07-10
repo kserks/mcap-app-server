@@ -1,4 +1,4 @@
-
+// https://gist.github.com/Birdie0/78ee79402a4301b1faf412ab5f1cdcf9
 
 class Discord {
 
@@ -46,6 +46,7 @@ class Discord {
               username: this.username,
               embeds: [
                 {
+                  description: $html('.pop-up-discord__textarea').value,
                   image: {
                       url: this.imageURL
                   }
@@ -61,7 +62,7 @@ class Discord {
             },
             body: JSON.stringify(body) 
           })
-          //console.log('discord', ' Изображение отправлено')
+          $html('.pop-up-discord__textarea').value = ""
       }
       catch(err){
           console.error(err)
@@ -108,6 +109,7 @@ fetch('config.json')
           DS.closeWindow()
       });
       $html('.pop-up-discord__btn--yes').addEventListener('mousedown', e => {
+        
           DS.closeWindow()
           DS.saveImageToServer()
       });
