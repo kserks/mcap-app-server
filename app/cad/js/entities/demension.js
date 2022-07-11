@@ -210,7 +210,7 @@ const indentControl = (points, direction) => {
             }
     }
 
-    console.warn(points[0].x, points[2].x, direction, route, INDENT)
+  //  console.warn(points[0].x, points[2].x, direction, route, INDENT)
 }
 
 const getDirection = (points) => {

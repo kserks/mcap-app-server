@@ -35,15 +35,12 @@ class OffsetTarget {
     }*/
   }
   подготовкаОбъектаСДанными (){
-    const _dataArr = this.$originalCoordsString
-                                    .innerHTML
-                                    .replaceAll(',', '')
-                                    .split(" ")
+
     this.objData = {
             x: Math.ceil( Number(mouse.x) - this.offsetCoords.x-1 ),
             y: Math.floor( Number(mouse.y) - this.offsetCoords.y+1 ),
-            delta: _dataArr[5],
-            ang: _dataArr[7],
+            delta: Math.floor( Number( __mcap.data.len )),
+            ang: Math.floor( Number(__mcap.data.angle )),
     }
     if(__mcap.snap){
       this.objData.x = this.objData.x+1

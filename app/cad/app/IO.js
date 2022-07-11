@@ -35,6 +35,7 @@ class IO {
       fetch(`dir?player=${this.player.name}`)
         .then(r=>r.json())
         .then(files=>{
+
             //console.log(111111111)
             files.user.map(fileName=>{
                 const el = document.createElement('li')
@@ -234,7 +235,7 @@ class IO {
 
     const res = await fetch(`dir?player=${this.player.name}`)
     const files = await res.json()
-
+   
     const commonFiles = files.common.map(name=>{
                             return { name, dir: 'common' }
                       })

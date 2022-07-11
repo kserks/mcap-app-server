@@ -4,22 +4,29 @@ const { join } = require('path')
 const fs = require('fs-extra')
 const multer  = require('multer')
 
+
+
+
 app.get('/dir', (req, res)=>{
 
-  const pathToDir = join(process.env.CAD_DIR, req.query.player)
+  const userDir = join(process.env.CAD_DIR, req.query.player)
   const libDir = join(process.env.CAD_DIR, 'common')
-  console.log(pathToDir)
-  console.log(libDir)
-  fs.readdir(libDir, (err, libFiles)=>{
+
+  fs.readdir(libDir, async (err, libFiles)=>{
       if(err){
         res.send(err)
       }
-      fs.readdir(pathToDir, (err, userFiles) => {
+      if( !await fs.exists(userDir) ){
+        fs.ensureDirSync(userDir)
+      }
+      fs.readdir(userDir, (err, userFiles) => {
           if(err){
             res.send(err)
           }
           res.send({ common: libFiles, user: userFiles })
-      });
+      })
+      
+
   })
 
 })
