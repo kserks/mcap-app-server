@@ -204,7 +204,7 @@ select#polarAngle{
 }
 .coords-data__input{
   outline: none;
-
+  width: 315px;
   background-color: rgba(200,200,200,0.1);
   height: 30px;
   border-radius: 4px;
@@ -254,7 +254,7 @@ select#polarAngle{
   right: -10px;
   /*display: flex;*/
   flex-wrap: wrap;
-  width: 360px;
+  width: 465px;
  
   border: 2px solid gray;
   padding: 2.5px;
