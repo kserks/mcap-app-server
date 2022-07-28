@@ -30,7 +30,7 @@ const app = express();
 
 app.use(bodyParser.json({limit:'500mb'})); 
 app.use(bodyParser.urlencoded({extended:true, limit:'500mb', parameterLimit: 100000})); 
-app.use(cors());
+app.use(cors())
 /**
  * STATIC
  */

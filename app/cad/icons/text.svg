@@ -2,19 +2,19 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="90"
    height="89.999916"
    id="svg3140"
    version="1.1"
-   inkscape:version="0.92.1 r15371"
-   sodipodi:docname="text.svg">
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="text.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs3142" />
   <sodipodi:namedview
@@ -24,15 +24,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="7.9580783"
-     inkscape:cx="44.263065"
-     inkscape:cy="46.742341"
+     inkscape:zoom="73.6"
+     inkscape:cx="72.004076"
+     inkscape:cy="9.8233696"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1967"
-     inkscape:window-height="1368"
-     inkscape:window-x="52"
+     inkscape:window-width="1280"
+     inkscape:window-height="986"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
      showguides="false"
@@ -43,7 +43,8 @@
      fit-margin-bottom="0"
      inkscape:snap-midpoints="true"
      inkscape:snap-object-midpoints="true"
-     inkscape:snap-text-baseline="false">
+     inkscape:snap-text-baseline="false"
+     inkscape:pagecheckerboard="0">
     <inkscape:grid
        type="xygrid"
        id="grid3178"
@@ -95,5 +96,11 @@
          x="9.329565"
          y="1124.6694"
          id="tspan4491" /></text>
+    <circle
+       style="fill:#ff0000;fill-rule:evenodd;stroke-width:1.66666"
+       id="path34"
+       cx="71"
+       cy="973.36218"
+       r="5" />
   </g>
 </svg>

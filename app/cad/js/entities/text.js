@@ -304,8 +304,11 @@ Text.prototype.snaps = function (mousePoint, delta) {
     var snaps = [botLeft, botRight, topLeft, topRight, mid];
 
     //var closest = this.closestPoint(mousePoint)
-
-    return snaps;
+    if(settings['textSnap']){
+        return snaps;
+    }
+    return []
+    
 }
 
 Text.prototype.closestPoint = function (P) {

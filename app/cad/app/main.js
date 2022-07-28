@@ -1336,6 +1336,7 @@ var settings = {
   midSnap: true,
   centreSnap: true,
   nearestSnap: false,
+  textSnap: true,
   quadrantSnap: false,
   polarAngle: 5,
   polar: false,
@@ -1354,28 +1355,35 @@ function getCookieConsent() {
 }
 
 function cookiesAccepted(){
-  cookieConsent = true;
-  saveSetting("Design", designVersion, 365);
-  saveAllSettings(settings)
+    cookieConsent = true;
+    saveSetting("Design", designVersion, 365);
+    saveAllSettings(settings)
 }
 /**
  * toggleSnap
  */
 function toggleSnap(snap){
-  settings[snap] = !settings[snap]
-  saveAllSettings(settings)
+    settings[snap] = !settings[snap]
+    saveAllSettings(settings)
     canvas.zoom(1)
 }
 
 function toggleSnapPolar(snap){
-  settings[snap] = !settings[snap]
-  saveAllSettings(settings)
+    settings[snap] = !settings[snap]
+    saveAllSettings(settings)
     canvas.zoom(1)
 }
 function toggleSnapNearest(snap){
-  settings[snap] = !settings[snap]
-  saveAllSettings(settings)
+    settings[snap] = !settings[snap]
+    saveAllSettings(settings)
     canvas.zoom(1)
+}
+function toggleTextSnap(snap){
+
+
+  settings[snap] = !settings[snap] 
+
+  canvas.zoom(1)
 }
 
 

@@ -48,7 +48,7 @@ class TextControl {
   }
   reset (){
     this.enter = false
-    $textContainer.value = ""
+    //$textContainer.value = ""
     this.angle = -15
     this.rotate()
     this.closeAllWindow()
@@ -172,3 +172,17 @@ $charsSet.addEventListener('mousedown', e => {
   _TC.setChar(e.target.innerHTML)
 })
 
+/**
+ * PATCH text_snap
+ */
+/*
+function toggleTextSnap(){
+  const snap = settings['textSnap']
+  alert(snap)
+  if(snap){
+    _TC.snapText()
+  }
+  else{
+    _TC.unSnapText()
+  }
+}*/
