@@ -14,24 +14,24 @@ class StampNumber {
 
 
     
-    ctx.font = "30px serif";
+    ctx.font = "26px serif";
 
     if(this.data==='✔️'){
-
-        ctx.fillStyle = 'green'
-        ctx.fillText(this.data, this.x-10, this.y+11)   
+        ctx.fillText(this.data, this.x-14, this.y+8)   
     }
-    /*
-    else if(this.data==='!'){
-        ctx.fillStyle = 'cyan'
-        ctx.fillText(this.data, this.x-5, this.y+9)   
-        //ctx.fillRect(this.x-this.width/2, this.y-this.height/2, this.width, this.height)
+    else if(this.data==='❌'){
+      ctx.fillText(this.data, this.x-17, this.y+11) 
+  }
+    else if(this.data==='❗'){
+        ctx.fillText(this.data, this.x-7, this.y+11) 
     }
-    else if(this.data==='?'){
-        ctx.fillStyle = 'orange'
-        ctx.fillText(this.data, this.x-5, this.y+9)   
-       // ctx.fillRect(this.x-this.width/2, this.y-this.height/2, this.width, this.height)
-    }*/
+    else if(this.data==='❓'){
+      ctx.fillText(this.data, this.x-12, this.y+11) 
+    }
+    else if(this.data==='●'){
+      ctx.fillStyle = this.color
+      ctx.fillText(this.data, this.x-8, this.y+9) 
+    }
     else{
         ctx.fillStyle = this.color 
         ctx.fillRect(this.x-this.width/2, this.y-this.height/2, this.width, this.height) 
@@ -46,8 +46,8 @@ class StampNumber {
 
 
 export default function (point_1, point_2, data){
-    let width = 50
-    let height = 50
+    let width = 30;
+    let height = 30;
     this.draw(new StampNumber(point_1.x, point_1.y, width, height, this.color, data))
     this.update()
 }
